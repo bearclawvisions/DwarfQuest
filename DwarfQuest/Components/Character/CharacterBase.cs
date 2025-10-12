@@ -30,6 +30,7 @@ public partial class CharacterBase : Node2D
     public void Deselect()
     {
         IsSelected = false;
+        IsTarget = false;
         Modulate = new Color(1, 1, 1); // normal
     }
     
