@@ -1,6 +1,7 @@
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Managers;
 using Godot;
+using System.Threading.Tasks;
 
 namespace DwarfQuest.Scripts;
 
@@ -17,13 +18,7 @@ public partial class Combat : Node
 	{
 		InitializeCombatMenu();
 		InitializeCombatParticipants(); // and BattleManager
-
-		var timer = new Timer();
-		timer.WaitTime = 1;
-		timer.Autostart = true;
-		AddChild(timer);
-		timer.Timeout += () => {  };
-		_battleManager.StartCombat();
+		InitializeBattleAfterDelay();
 	}
 
 	public override void _Process(double delta)
@@ -46,6 +41,14 @@ public partial class Combat : Node
 		_enemies = GetNode<Enemies>("%Enemies");
 		
 		_battleManager = new BattleManager(_combatMenu, _enemies, _players);
+	}
+	
+	private void InitializeBattleAfterDelay()
+	{
+		var timer = new Timer { WaitTime = 1.0, OneShot = true };
+		AddChild(timer);
+		timer.Start();
+		timer.Timeout += _battleManager.StartCombat;
 	}
 	
 	private void OnFight()
