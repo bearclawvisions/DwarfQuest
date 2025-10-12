@@ -1,0 +1,57 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b47nyooee1obn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48yp4"]
+bg_color = Color(0.254732, 0.274009, 0.130242, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp0wp"]
+bg_color = Color(0.254732, 0.274009, 0.130242, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7bfs"]
+bg_color = Color(0.0747056, 0.181706, 0.154596, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngptf"]
+bg_color = Color(0.39791, 0.425697, 0.22058, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6fiq"]
+bg_color = Color(0.0470588, 0.101961, 0.0392157, 0.486275)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijygl"]
+bg_color = Color(0.18961, 0.319711, 0.171027, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[resource]
+Button/constants/h_separation = 0
+Button/font_sizes/font_size = 12
+Button/styles/disabled = SubResource("StyleBoxFlat_48yp4")
+Button/styles/focus = SubResource("StyleBoxFlat_48yp4")
+Button/styles/hover = SubResource("StyleBoxFlat_bp0wp")
+Button/styles/normal = SubResource("StyleBoxFlat_e7bfs")
+Button/styles/pressed = SubResource("StyleBoxFlat_ngptf")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_j6fiq")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_ijygl")

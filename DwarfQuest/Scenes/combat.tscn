@@ -1,0 +1,134 @@
+[gd_scene load_steps=8 format=3 uid="uid://n0tkex02dkej"]
+
+[ext_resource type="Script" uid="uid://b8gtvviailvxu" path="res://Scripts/Combat.cs" id="1_764e3"]
+[ext_resource type="Theme" uid="uid://b47nyooee1obn" path="res://Assets/Theme/combat_theme.tres" id="2_qajva"]
+[ext_resource type="PackedScene" uid="uid://ot6puta8spbl" path="res://Scenes/character.tscn" id="3_4l26h"]
+[ext_resource type="Script" uid="uid://bde7viie8w7la" path="res://Scripts/CombatMenu.cs" id="3_ut0kg"]
+[ext_resource type="Script" uid="uid://gtfjs1qvui7r" path="res://Scripts/Players.cs" id="4_3w34b"]
+[ext_resource type="PackedScene" uid="uid://dekxppsgapnxu" path="res://Scenes/enemy.tscn" id="4_p71o4"]
+[ext_resource type="Script" uid="uid://d15i6csexpfgc" path="res://Scripts/Enemies.cs" id="5_yt1oa"]
+
+[node name="Combat" type="Node"]
+script = ExtResource("1_764e3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CombatMenu" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -100.0
+offset_right = 62.0
+offset_bottom = -20.0
+grow_vertical = 0
+size_flags_vertical = 8
+theme = ExtResource("2_qajva")
+script = ExtResource("3_ut0kg")
+
+[node name="Button" type="Button" parent="CanvasLayer/CombatMenu"]
+layout_mode = 2
+text = "Fight"
+
+[node name="Button2" type="Button" parent="CanvasLayer/CombatMenu"]
+layout_mode = 2
+text = "Tactic
+"
+
+[node name="Button3" type="Button" parent="CanvasLayer/CombatMenu"]
+layout_mode = 2
+text = "Item"
+
+[node name="Button4" type="Button" parent="CanvasLayer/CombatMenu"]
+layout_mode = 2
+text = "Run"
+
+[node name="PlayerMenu" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -157.0
+offset_top = -105.0
+offset_right = -27.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+theme = ExtResource("2_qajva")
+
+[node name="char1" type="HBoxContainer" parent="CanvasLayer/PlayerMenu"]
+layout_mode = 2
+
+[node name="CharName" type="Label" parent="CanvasLayer/PlayerMenu/char1"]
+layout_mode = 2
+text = "Char1"
+
+[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerMenu/char1"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+step = 1.0
+value = 100.0
+
+[node name="char2" type="HBoxContainer" parent="CanvasLayer/PlayerMenu"]
+layout_mode = 2
+
+[node name="CharName" type="Label" parent="CanvasLayer/PlayerMenu/char2"]
+layout_mode = 2
+text = "Char2"
+
+[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerMenu/char2"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+step = 1.0
+value = 100.0
+
+[node name="char3" type="HBoxContainer" parent="CanvasLayer/PlayerMenu"]
+layout_mode = 2
+
+[node name="CharName" type="Label" parent="CanvasLayer/PlayerMenu/char3"]
+layout_mode = 2
+text = "Char3"
+
+[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerMenu/char3"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+step = 1.0
+value = 100.0
+
+[node name="Players" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_3w34b")
+
+[node name="Character" parent="Players" instance=ExtResource("3_4l26h")]
+position = Vector2(449, 116)
+Speed = 9
+
+[node name="Character2" parent="Players" instance=ExtResource("3_4l26h")]
+position = Vector2(526, 171)
+PlayerName = "Player2"
+Speed = 8
+
+[node name="Character3" parent="Players" instance=ExtResource("3_4l26h")]
+position = Vector2(495, 54)
+PlayerName = "Player3"
+
+[node name="Enemies" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_yt1oa")
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("4_p71o4")]
+position = Vector2(52, 47)
+PlayerName = "Enemy1"
+Speed = 2
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("4_p71o4")]
+position = Vector2(116, 107)
+PlayerName = "Enemy2"
+Speed = 5
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("4_p71o4")]
+position = Vector2(40, 162)
+PlayerName = "Enemy3"
+Speed = 4
