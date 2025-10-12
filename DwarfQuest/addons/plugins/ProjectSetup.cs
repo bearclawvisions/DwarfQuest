@@ -2,7 +2,7 @@
 using Godot;
 using System;
 
-namespace DwarfQuest.addons.Plugins;
+namespace DwarfQuest.addons.plugins;
 
 [Tool]
 public partial class ProjectSetup : EditorPlugin
@@ -64,18 +64,18 @@ public partial class ProjectSetup : EditorPlugin
     private void SetupInputMap()
     {
         // Movement
-        AddActionToProjectSettings("MoveUp", [Key.W, Key.Up]);
-        AddActionToProjectSettings("MoveDown", [Key.S, Key.Down]);
-        AddActionToProjectSettings("MoveLeft", [Key.A, Key.Left]);
-        AddActionToProjectSettings("MoveRight", [Key.D, Key.Right]);
+        AddActionToProjectSettings("MoveUp", new[] { Key.W, Key.Up });
+        AddActionToProjectSettings("MoveDown", new[] { Key.S, Key.Down });
+        AddActionToProjectSettings("MoveLeft", new[] { Key.A, Key.Left });
+        AddActionToProjectSettings("MoveRight", new[] { Key.D, Key.Right });
         
         // UI Navigation
-        AddActionToProjectSettings("Accept", [Key.Enter, Key.Space]);
-        AddActionToProjectSettings("Cancel", [Key.Escape, Key.Backspace]);
-        AddActionToProjectSettings("Menu", [Key.Escape, Key.M]);
+        AddActionToProjectSettings("Accept", new[] { Key.Enter, Key.Space });
+        AddActionToProjectSettings("Cancel", new[] { Key.Escape, Key.Backspace });
+        AddActionToProjectSettings("Menu", new[] { Key.Escape, Key.M });
         
         // Game Actions
-        AddActionToProjectSettings("Interact", [Key.Enter, Key.Space]);
+        AddActionToProjectSettings("Interact", new[] { Key.Enter, Key.Space });
     }
 
     private void AddActionToProjectSettings(string actionName, Key[] key)
