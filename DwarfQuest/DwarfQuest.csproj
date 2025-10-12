@@ -6,4 +6,7 @@
   <ItemGroup>
     <Content Include="InitializationSteps.md" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DwarfQuest.Data\DwarfQuest.Data.csproj" />
+  </ItemGroup>
 </Project>
