@@ -24,8 +24,9 @@ public partial class ProjectSetup : EditorPlugin
     
     private void ConfigureProjectSettings()
     {
-        const int width = 640; // 568
-        const int height = 360; // 320
+        // use 360p setup
+        const int width = 640; // 568 - 640*3=1920
+        const int height = 360; // 320 - 360*3=1080
         
         // === DISPLAY SETTINGS ===
         ProjectSettings.SetSetting("display/window/size/viewport_width", width);
