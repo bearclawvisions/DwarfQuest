@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://buiqwp75sivgw"]
+[gd_scene load_steps=2 format=3 uid="uid://buiqwp75sivgw"]
+
+[ext_resource type="Script" uid="uid://dcn2tupl73h45" path="res://Scenes/TestUi.cs" id="1_3dogw"]
 
 [node name="TestScene" type="Node2D"]
 
@@ -7,3 +9,4 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_3dogw")
