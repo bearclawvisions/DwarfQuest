@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://n0tkex02dkej"]
 
-[ext_resource type="Script" uid="uid://b8gtvviailvxu" path="res://Scripts/Combat.cs" id="1_764e3"]
+[ext_resource type="Script" uid="uid://bhd2el5u807o3" path="res://Scripts/Combat.cs" id="1_764e3"]
 [ext_resource type="Theme" uid="uid://b47nyooee1obn" path="res://Assets/Theme/combat_theme.tres" id="2_qajva"]
 [ext_resource type="PackedScene" uid="uid://ot6puta8spbl" path="res://Scenes/character.tscn" id="3_4l26h"]
-[ext_resource type="Script" uid="uid://bde7viie8w7la" path="res://Scripts/CombatMenu.cs" id="3_ut0kg"]
-[ext_resource type="Script" uid="uid://gtfjs1qvui7r" path="res://Scripts/Players.cs" id="4_3w34b"]
+[ext_resource type="Script" uid="uid://bo1ogb8hbxsw3" path="res://Scripts/CombatMenu.cs" id="3_ut0kg"]
+[ext_resource type="Script" uid="uid://bkn7csh7csesk" path="res://Scripts/Players.cs" id="4_3w34b"]
 [ext_resource type="PackedScene" uid="uid://dekxppsgapnxu" path="res://Scenes/enemy.tscn" id="4_p71o4"]
-[ext_resource type="Script" uid="uid://d15i6csexpfgc" path="res://Scripts/Enemies.cs" id="5_yt1oa"]
+[ext_resource type="Script" uid="uid://rri4dup7nm1v" path="res://Scripts/Enemies.cs" id="5_yt1oa"]
 
 [node name="Combat" type="Node"]
 script = ExtResource("1_764e3")
