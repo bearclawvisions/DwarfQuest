@@ -58,6 +58,8 @@ public partial class Combat : Node
 	
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		if (_battleManager.State == CombatState.HandleAnimation) return;
+		
 		if (@event is InputEventKey { Pressed: true, Keycode: Key.Backspace } && !_combatMenu.IsMenuActive)
 			ResetToMenu();
 

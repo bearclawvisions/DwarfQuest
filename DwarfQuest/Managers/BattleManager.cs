@@ -34,12 +34,17 @@ public class BattleManager
 
     public void StartCombat()
     {
+        State = CombatState.NewTurn;
         // todo: check for surprised or backattack states and push characters back a round
         StartTurn();
     }
     
     private void StartTurn()
     {
+        if (State != CombatState.NewTurn) return;
+        
+        State = _characters[_currentIndex].IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
+        
         if (!Current.IsPlayer)
         {
             EnemyAction();
@@ -84,7 +89,7 @@ public class BattleManager
         
         _actionType = null;
         _currentIndex = (_currentIndex + 1) % _characters.Count; // next character
-        State = _characters[_currentIndex].IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
+        State = CombatState.NewTurn;
 
         if (_currentIndex == 0)
         {
@@ -108,6 +113,7 @@ public class BattleManager
     {
         if (_actionType == ActionType.Fight && State == CombatState.TargetSelection)
         {
+            State = CombatState.HandleAnimation;
             var targets = _characters.Where(c => c.IsSelected).ToList();
             foreach (var target in targets)
             {
@@ -124,6 +130,7 @@ public class BattleManager
         var targets = _characters.Where(c => c.IsTarget).ToList();
         foreach (var target in targets)
         {
+            // await Current.AttackAnimation();
             target.TakeDamage(Current.Damage);
             target.Deselect();
             _enemies.Reset();
