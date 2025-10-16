@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace DwarfQuest.Extensions;
 
@@ -13,9 +14,22 @@ public static class NodeExtension
         if (Engine.IsEditorHint() && !includeEditor)
             return;
 
-        foreach (Node child in node.GetChildren())
+        foreach (var child in node.GetChildren())
         {
             child.QueueFree();
         }
+    }
+
+    /// <summary>
+    /// Add a timer to enable a short wait period for something else to finish.
+    /// Like waiting for a tween effect to finish. Default is 1-second wait.
+    /// </summary>
+    public static void AddWaitTimer(this Node node, Action methodCall, int seconds = 1)
+    {
+        var secondsDouble = (double)seconds;
+        var timer = new Timer { WaitTime = secondsDouble, OneShot = true };
+        node.AddChild(timer);
+        timer.Start();
+        timer.Timeout += methodCall;
     }
 }

@@ -1,4 +1,5 @@
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Extensions;
 using DwarfQuest.Managers;
 using Godot;
 using System.Threading.Tasks;
@@ -24,9 +25,7 @@ public partial class Combat : Node
 	public override void _Process(double delta)
 	{
 		if (_battleManager.State == CombatState.ExitCombat)
-		{
 			BattleEnded();
-		}
 	}
 
 	private void InitializeCombatMenu()
@@ -45,10 +44,7 @@ public partial class Combat : Node
 	
 	private void InitializeBattleAfterDelay()
 	{
-		var timer = new Timer { WaitTime = 1.0, OneShot = true };
-		AddChild(timer);
-		timer.Start();
-		timer.Timeout += _battleManager.StartCombat;
+		this.AddWaitTimer(_battleManager.StartCombat);
 	}
 	
 	private void OnFight()
