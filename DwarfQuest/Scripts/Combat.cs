@@ -1,3 +1,4 @@
+using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Extensions;
@@ -81,6 +82,9 @@ public partial class Combat : Node, ICombatEventListener
 	
 	private void OnFight()
 	{
+		var test = new CombatService();
+		var result = test.GetPlayerCombatants();
+		
 		_combatMenu.IsMenuActive = false;
 		_combatMenu.FightButton.Disabled = true;
 		_enemies.CanSelect = true;
@@ -110,7 +114,7 @@ public partial class Combat : Node, ICombatEventListener
 		if (@event is InputEventKey { Pressed: true, Keycode: Key.Enter } && (_enemies.CanSelect || _players.CanSelect))
 		{
 			GD.Print("Target selected pressed!");
-			_battleManager.TargetsSelected();
+			_ = _battleManager.TargetsSelected();
 		}
 	}
 

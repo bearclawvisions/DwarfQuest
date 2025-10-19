@@ -1,10 +1,14 @@
-namespace DwarfQuest.Data.Models;
+using System.Numerics;
 
-public class CharacterModel
+namespace DwarfQuest.Data.Dto;
+
+public class CombatDto
 {
     public required string Name { get; set; }
     public int Speed { get; set; }
     public int Health { get; set; }
     public int Damage { get; set; }
     public bool IsPlayer { get; set; }
+    public int Round { get; set; } = 0;
+    public Vector2 CombatPosition { get; set; }
 }
