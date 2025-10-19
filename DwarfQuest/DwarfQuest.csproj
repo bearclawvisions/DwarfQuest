@@ -2,11 +2,15 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <LangVersion>13</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="InitializationSteps.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DwarfQuest.Data\DwarfQuest.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DwarfQuest.Business\DwarfQuest.Business.csproj" />
   </ItemGroup>
 </Project>

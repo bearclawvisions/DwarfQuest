@@ -1,3 +1,4 @@
+using DwarfQuest.Business.Interfaces;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Extensions;
 using DwarfQuest.Managers;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DwarfQuest.Scripts;
 
-public partial class Combat : Node
+public partial class Combat : Node, ICombatEventListener
 {
 	// Godot
 	private CombatMenu _combatMenu;
@@ -28,6 +29,37 @@ public partial class Combat : Node
 			BattleEnded();
 	}
 
+	public async Task PlayAttackAnimationAsync()
+	{
+		// var animPlayer = attackerId == "Player" ? _playerAnimation : _enemyAnimation;
+		//
+		// var animationName = "Attack";
+		// animPlayer.Play(animationName);
+		//
+		// // Wait for animation to finish using Godot’s Signal-to-Task
+		// var tcs = new TaskCompletionSource();
+		// void OnAnimationFinished(StringName name)
+		// {
+		// 	if (name == animationName)
+		// 	{
+		// 		animPlayer.AnimationFinished -= OnAnimationFinished;
+		// 		tcs.SetResult();
+		// 	}
+		// }
+		// animPlayer.AnimationFinished += OnAnimationFinished;
+		//
+		// await tcs.Task;
+		
+		GD.Print("Simulating attack animation...");
+		await Task.Delay(1000);
+	}
+
+	public async Task ShowMessageAsync(string message)
+	{
+		GD.Print(message);
+		await Task.Delay(500); // simulate ui delay
+	}
+
 	private void InitializeCombatMenu()
 	{
 		_combatMenu = GetNode<CombatMenu>("CanvasLayer/CombatMenu");
@@ -39,7 +71,7 @@ public partial class Combat : Node
 		_players = GetNode<Players>("%Players");
 		_enemies = GetNode<Enemies>("%Enemies");
 		
-		_battleManager = new BattleManager(_combatMenu, _enemies, _players);
+		_battleManager = new BattleManager(_combatMenu, _enemies, _players, this);
 	}
 	
 	private void InitializeBattleAfterDelay()
