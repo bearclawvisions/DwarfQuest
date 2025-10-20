@@ -5,6 +5,5 @@ namespace DwarfQuest.Data.Models;
 
 public class CharacterCollection
 {
-    [JsonPropertyName("Characters")]
-    public List<Character> Characters { get; set; } = new();
+    public List<Character> Characters { get; init; } = new ();
 }

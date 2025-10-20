@@ -1,90 +1,90 @@
 {
   "Characters": [
     {
-      "id": 1,
-      "name": "Ozaeth",
-      "family": "Leadspine",
-      "race": "Dwarf",
-      "class": "Shield Warrior",
-      "stats": {
-        "level": 1,
-        "experience": 0,
-        "health": 100,
-        "mana": 100,
-        "attack": 10,
-        "defense": 10,
-        "speed": 10,
-        "strength": 10,
-        "dexterity": 10,
-        "constitution": 10,
-        "intelligence": 10,
-        "wisdom": 10,
-        "charisma": 10,
-        "physical_stamina": 10,
-        "mental_stamina": 10
+      "Id": 1,
+      "Name": "Ozaeth",
+      "Family": "Leadspine",
+      "Race": "Dwarf",
+      "Class": "Shield Warrior",
+      "Stats": {
+        "Level": 1,
+        "Experience": 0,
+        "Health": 100,
+        "Mana": 100,
+        "Attack": 10,
+        "Defense": 10,
+        "Speed": 10,
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Intelligence": 10,
+        "Wisdom": 10,
+        "Charisma": 10,
+        "PhysicalStamina": 10,
+        "MentalStamina": 10
       },
-      "formation": {
-        "position": {
+      "Formation": {
+        "Position": {
           "X": 449,
           "Y": 116
         }
       }
     },
     {
-      "id": 2,
-      "name": "Thraldrith",
-      "family": "IngotFeet",
-      "race": "Dwarf",
-      "class": "Rock Whisperer",
-      "stats": {
-        "level": 1,
-        "experience": 0,
-        "health": 100,
-        "mana": 100,
-        "attack": 10,
-        "defense": 10,
-        "speed": 10,
-        "strength": 10,
-        "dexterity": 10,
-        "constitution": 10,
-        "intelligence": 10,
-        "wisdom": 10,
-        "charisma": 10,
-        "physical_stamina": 10,
-        "mental_stamina": 10
+      "Id": 2,
+      "Name": "Thraldrith",
+      "Family": "IngotFeet",
+      "Race": "Dwarf",
+      "Class": "Rock Whisperer",
+      "Stats": {
+        "Level": 1,
+        "Experience": 0,
+        "Health": 100,
+        "Mana": 100,
+        "Attack": 10,
+        "Defense": 10,
+        "Speed": 10,
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Intelligence": 10,
+        "Wisdom": 10,
+        "Charisma": 10,
+        "PhysicalStamina": 10,
+        "MentalStamina": 10
       },
-      "formation": {
-        "position": {
+      "Formation": {
+        "Position": {
           "X": 526,
           "Y": 171
         }
       }
     },
     {
-      "id": 3,
-      "name": "Nuradar",
-      "family": "Thundergrip",
-      "race": "Dwarf",
-      "class": "Miner",
-      "stats": {
-        "level": 1,
-        "experience": 0,
-        "health": 100,
-        "mana": 100,
-        "attack": 10,
-        "defense": 10,
-        "speed": 10,
-        "strength": 10,
-        "dexterity": 10,
-        "constitution": 10,
-        "intelligence": 10,
-        "wisdom": 10,
-        "charisma": 10,
-        "physical_stamina": 10,
-        "mental_stamina": 10
+      "Id": 3,
+      "Name": "Nuradar",
+      "Family": "Thundergrip",
+      "Race": "Dwarf",
+      "Class": "Miner",
+      "Stats": {
+        "Level": 1,
+        "Experience": 0,
+        "Health": 100,
+        "Mana": 100,
+        "Attack": 10,
+        "Defense": 10,
+        "Speed": 10,
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Intelligence": 10,
+        "Wisdom": 10,
+        "Charisma": 10,
+        "PhysicalStamina": 10,
+        "MentalStamina": 10
       },
-      "formation": {
-        "position": {
+      "Formation": {
+        "Position": {
           "X": 495,
           "Y": 54
         }
