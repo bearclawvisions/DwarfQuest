@@ -13,4 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DwarfQuest.Business\DwarfQuest.Business.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DwarfQuest.Bridge\DwarfQuest.Bridge.csproj" />
+  </ItemGroup>
 </Project>

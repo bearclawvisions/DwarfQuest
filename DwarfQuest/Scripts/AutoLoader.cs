@@ -1,4 +1,4 @@
-using DwarfQuest.Managers;
+using DwarfQuest.Bridge.Managers;
 using Godot;
 
 namespace DwarfQuest.Scripts;

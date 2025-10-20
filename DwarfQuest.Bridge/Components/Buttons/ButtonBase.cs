@@ -1,8 +1,8 @@
+using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Data.Enums;
-using DwarfQuest.Managers;
 using Godot;
 
-namespace DwarfQuest.Components.Buttons;
+namespace DwarfQuest.Bridge.Components.Buttons;
 
 public partial class ButtonBase : Button
 {

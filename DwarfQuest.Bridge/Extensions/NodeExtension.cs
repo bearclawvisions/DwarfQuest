@@ -1,7 +1,6 @@
 using Godot;
-using System;
 
-namespace DwarfQuest.Extensions;
+namespace DwarfQuest.Bridge.Extensions;
 
 public static class NodeExtension
 {
@@ -27,7 +26,7 @@ public static class NodeExtension
     public static void AddWaitTimer(this Node node, Action methodCall, int seconds = 1)
     {
         var secondsDouble = (double)seconds;
-        var timer = new Timer { WaitTime = secondsDouble, OneShot = true };
+        var timer = new Godot.Timer { WaitTime = secondsDouble, OneShot = true };
         node.AddChild(timer);
         timer.Start();
         timer.Timeout += methodCall;

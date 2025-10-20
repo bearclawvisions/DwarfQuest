@@ -1,7 +1,6 @@
 using Godot;
-using System;
 
-namespace DwarfQuest.Components.Character;
+namespace DwarfQuest.Bridge.Components.Character;
 
 public partial class CharacterBase : Node2D
 {
@@ -17,7 +16,6 @@ public partial class CharacterBase : Node2D
 
     public bool IsSelected { get; set; }
     public bool IsTarget { get; set; }
-    public bool IsDead => Health <= 0;
     
     private Random _random = new Random();
 

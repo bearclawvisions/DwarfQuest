@@ -1,8 +1,8 @@
+using DwarfQuest.Bridge.Extensions;
+using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
 using DwarfQuest.Data.Enums;
-using DwarfQuest.Extensions;
-using DwarfQuest.Managers;
 using Godot;
 using System.Threading.Tasks;
 

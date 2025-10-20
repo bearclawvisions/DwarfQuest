@@ -1,4 +1,4 @@
-namespace DwarfQuest.Managers;
+namespace DwarfQuest.Bridge.Managers;
 
 public static class GameManager
 {

@@ -1,9 +1,8 @@
+using DwarfQuest.Bridge.Components.Character;
 using DwarfQuest.Data.Enums;
 using Godot;
-using System.Collections.Generic;
-using CharacterBase = DwarfQuest.Components.Character.CharacterBase;
 
-namespace DwarfQuest.Components.Container;
+namespace DwarfQuest.Bridge.Components.Container;
 
 public partial class CombatContainerBase : Node2D
 {

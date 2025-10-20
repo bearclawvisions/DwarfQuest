@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DwarfQuest.Data", "DwarfQue
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DwarfQuest.Business", "DwarfQuest.Business\DwarfQuest.Business.csproj", "{94B02A65-5B95-4466-8626-CA4BAD062194}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DwarfQuest.Bridge", "DwarfQuest.Bridge\DwarfQuest.Bridge.csproj", "{FD401B2A-1D3B-4516-BCDE-6C8D227D88D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{94B02A65-5B95-4466-8626-CA4BAD062194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94B02A65-5B95-4466-8626-CA4BAD062194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94B02A65-5B95-4466-8626-CA4BAD062194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD401B2A-1D3B-4516-BCDE-6C8D227D88D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD401B2A-1D3B-4516-BCDE-6C8D227D88D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD401B2A-1D3B-4516-BCDE-6C8D227D88D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD401B2A-1D3B-4516-BCDE-6C8D227D88D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

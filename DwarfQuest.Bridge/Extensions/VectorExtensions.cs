@@ -1,4 +1,4 @@
-namespace DwarfQuest.Extensions;
+namespace DwarfQuest.Bridge.Extensions;
 
 public static class VectorExtensions
 {

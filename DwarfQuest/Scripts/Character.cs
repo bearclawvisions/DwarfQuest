@@ -1,4 +1,4 @@
-using DwarfQuest.Components.Character;
+using DwarfQuest.Bridge.Components.Character;
 
 namespace DwarfQuest.Scripts;
 

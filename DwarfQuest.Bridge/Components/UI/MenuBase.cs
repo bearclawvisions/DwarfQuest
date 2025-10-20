@@ -1,9 +1,8 @@
+using DwarfQuest.Bridge.Components.Buttons;
 using DwarfQuest.Data.Enums;
 using Godot;
-using System.Collections.Generic;
-using ButtonBase = DwarfQuest.Components.Buttons.ButtonBase;
 
-namespace DwarfQuest.Components.UI;
+namespace DwarfQuest.Bridge.Components.UI;
 
 public partial class MenuBase : VBoxContainer
 {

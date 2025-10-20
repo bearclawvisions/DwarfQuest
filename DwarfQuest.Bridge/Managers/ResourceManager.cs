@@ -1,11 +1,8 @@
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Extensions;
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace DwarfQuest.Managers;
+namespace DwarfQuest.Bridge.Managers;
 
 public static class ResourceManager
 {

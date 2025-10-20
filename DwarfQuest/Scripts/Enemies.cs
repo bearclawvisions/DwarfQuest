@@ -1,5 +1,5 @@
-using DwarfQuest.Components.Character;
-using DwarfQuest.Components.Container;
+using DwarfQuest.Bridge.Components.Character;
+using DwarfQuest.Bridge.Components.Container;
 using System.Linq;
 
 namespace DwarfQuest.Scripts;
