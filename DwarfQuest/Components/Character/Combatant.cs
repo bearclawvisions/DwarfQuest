@@ -38,6 +38,7 @@ public partial class Combatant : Node2D
     public void TakeDamage(int damage)
     {
         CombatInfo.Health -= damage;
+        GD.Print($"Health {CombatInfo.Health} left");
     }
     
     public void Heal(int heal)
