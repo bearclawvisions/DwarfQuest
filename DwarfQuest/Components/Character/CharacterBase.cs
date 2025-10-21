@@ -1,9 +1,14 @@
+using DwarfQuest.Data.Dto;
 using Godot;
+using System;
 
-namespace DwarfQuest.Bridge.Components.Character;
+namespace DwarfQuest.Components.Character;
 
 public partial class CharacterBase : Node2D
 {
+    public CombatDto CombatInfo;
+    private Sprite2D _sprite;
+    
     [Export] public string PlayerName = "Player1";
     [Export] public int Speed = 10;
     
@@ -17,7 +22,7 @@ public partial class CharacterBase : Node2D
     public bool IsSelected { get; set; }
     public bool IsTarget { get; set; }
     
-    private Random _random = new Random();
+    private readonly Random _random = new();
 
     public void Select()
     {
@@ -34,12 +39,12 @@ public partial class CharacterBase : Node2D
     
     public void TakeDamage(int damage)
     {
-        Health -= damage;
+        CombatInfo.Health -= damage;
     }
     
     public void Heal(int heal)
     {
-        Health += heal;
+        CombatInfo.Health += heal;
     }
 
     public virtual void OnDeath()
@@ -60,5 +65,12 @@ public partial class CharacterBase : Node2D
             .SetEase(Tween.EaseType.Out);
 
         tween.Finished += () => { Position = CombatPosition; };
+    }
+
+    public void SetTexture(Texture2D texture)
+    {
+        _sprite = new Sprite2D();
+        _sprite.Texture = texture;
+        AddChild(_sprite);
     }
 }

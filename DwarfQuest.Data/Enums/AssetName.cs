@@ -6,7 +6,7 @@ public enum AssetName
 {
     [Category(AssetCategory.Theme), Path("combat_theme.tres")] CombatTheme,
     
-    // [Category(AssetCategory.Player), Path("godot_bottom.png")] GodotDown,
+    [Category(AssetCategory.Player), Path("placeholder.png")] Placeholder,
     // [Category(AssetCategory.Player), Path("godot_bottom_right.png")] GodotDownRight,
     // [Category(AssetCategory.Player), Path("godot_up.png")] GodotUp,
     // [Category(AssetCategory.Player), Path("godot_up_right.png")] GodotUpRight,

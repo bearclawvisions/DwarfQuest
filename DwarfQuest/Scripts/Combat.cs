@@ -3,6 +3,7 @@ using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Managers;
 using Godot;
 using System.Threading.Tasks;
 
@@ -89,7 +90,7 @@ public partial class Combat : Node, ICombatEventListener
 		_combatMenu.FightButton.Disabled = true;
 		_enemies.CanSelect = true;
 		
-		_battleManager.OnActionSelected(ActionType.Fight);
+		_battleManager.OnActionSelected(_combatMenu.FightButton.ActionType);
 	}
 	
 	public override void _UnhandledInput(InputEvent @event)

@@ -1,15 +1,16 @@
-using DwarfQuest.Bridge.Components.Character;
 using DwarfQuest.Data.Enums;
 using Godot;
+using System.Collections.Generic;
+using DwarfQuest.Components.Character;
 
-namespace DwarfQuest.Bridge.Components.Container;
+namespace DwarfQuest.Components.Container;
 
 public partial class CombatContainerBase : Node2D
 {
     private int _index = 0;
     private bool _canSelect;
 	
-    public List<CharacterBase> Participants;
+    public List<CharacterBase> Participants = new();
 	
     public bool CanSelect
     {

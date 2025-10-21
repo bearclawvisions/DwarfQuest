@@ -1,8 +1,13 @@
-using DwarfQuest.Bridge.Components.Character;
 using DwarfQuest.Business.Interfaces;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Scripts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DwarfQuest.Components.Character;
 
-namespace DwarfQuest.Bridge.Managers;
+namespace DwarfQuest.Managers;
 
 public class BattleManager
 {

@@ -1,6 +1,6 @@
-using DwarfQuest.Bridge.Components.Buttons;
-using DwarfQuest.Bridge.Components.UI;
 using DwarfQuest.Bridge.Extensions;
+using DwarfQuest.Components.Buttons;
+using DwarfQuest.Components.UI;
 
 namespace DwarfQuest.Scripts;
 

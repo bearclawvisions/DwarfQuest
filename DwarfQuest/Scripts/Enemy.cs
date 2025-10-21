@@ -1,6 +1,6 @@
-using DwarfQuest.Bridge.Components.Character;
 using DwarfQuest.Data.Enums;
 using Godot;
+using DwarfQuest.Components.Character;
 
 namespace DwarfQuest.Scripts;
 
