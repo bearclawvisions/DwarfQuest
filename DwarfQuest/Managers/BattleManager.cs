@@ -31,7 +31,7 @@ public class BattleManager
         _listener = listener;
         
         var participants = enemies.Participants.Concat(players.Participants).ToList();
-        _characters = participants.OrderByDescending(c => c.Speed).ToList();
+        _characters = participants.OrderByDescending(c => c.CombatInfo.Speed).ToList();
     }
 
     public void StartCombat()
@@ -45,9 +45,9 @@ public class BattleManager
     {
         if (State != CombatState.NewTurn) return;
         await _listener.ShowMessageAsync($"Calculating next combatant...");
-        State = _characters[_currentIndex].IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
+        State = _characters[_currentIndex].CombatInfo.IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
         
-        if (!Current.IsPlayer)
+        if (!Current.CombatInfo.IsPlayer)
         {
             await EnemyAction();
         }
@@ -64,9 +64,9 @@ public class BattleManager
         var randomTarget = _random.Next(0, _players.GetChildCount()); // todo threat measure
             
         // todo; this can be changed on a status condition like confuse
-        var players = _characters.Where(c => c.IsPlayer).ToList();
+        var players = _characters.Where(c => c.CombatInfo.IsPlayer).ToList();
         var target = players[randomTarget];
-        target.TakeDamage(Current.Damage);
+        target.TakeDamage(Current.CombatInfo.Damage);
 
         await CheckHealth(target);
         await EndTurn();
@@ -74,7 +74,7 @@ public class BattleManager
 
     private async Task CheckHealth(Combatant target)
     {
-        if (target.Health > 0) return;
+        if (target.CombatInfo.Health > 0) return;
         
         target.OnDeath();
         _characters.Remove(target);
@@ -137,7 +137,7 @@ public class BattleManager
             await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
             
             // await Current.AttackAnimation();
-            target.TakeDamage(Current.Damage);
+            target.TakeDamage(Current.CombatInfo.Damage);
             target.Deselect();
             _enemies.Reset();
             _players.Reset();
@@ -150,6 +150,6 @@ public class BattleManager
     {
         var participants = _enemies.Participants.Concat(_players.Participants).ToList();
         _characters.Clear();
-        _characters.AddRange(participants.OrderByDescending(c => c.Speed));
+        _characters.AddRange(participants.OrderByDescending(c => c.CombatInfo.Speed));
     }
 }

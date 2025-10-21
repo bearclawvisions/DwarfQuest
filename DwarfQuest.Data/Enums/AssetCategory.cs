@@ -6,6 +6,7 @@ public enum AssetCategory
     Core,
     Combat,
     Player,
+    Enemy,
     Pickups,
     Weapons,
     Music,

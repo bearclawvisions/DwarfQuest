@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://n0tkex02dkej"]
+[gd_scene load_steps=6 format=3 uid="uid://n0tkex02dkej"]
 
 [ext_resource type="Script" uid="uid://bhd2el5u807o3" path="res://Scripts/Combat.cs" id="1_764e3"]
 [ext_resource type="Theme" uid="uid://b47nyooee1obn" path="res://Assets/Theme/combat_theme.tres" id="2_qajva"]
 [ext_resource type="Script" uid="uid://bo1ogb8hbxsw3" path="res://Scripts/CombatMenu.cs" id="3_ut0kg"]
 [ext_resource type="Script" uid="uid://bkn7csh7csesk" path="res://Scripts/Players.cs" id="4_3w34b"]
-[ext_resource type="PackedScene" uid="uid://dekxppsgapnxu" path="res://Scenes/enemy.tscn" id="4_p71o4"]
 [ext_resource type="Script" uid="uid://rri4dup7nm1v" path="res://Scripts/Enemies.cs" id="5_yt1oa"]
 
 [node name="Combat" type="Node"]
@@ -103,18 +102,3 @@ script = ExtResource("4_3w34b")
 [node name="Enemies" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_yt1oa")
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("4_p71o4")]
-position = Vector2(52, 47)
-PlayerName = "Enemy1"
-Speed = 2
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("4_p71o4")]
-position = Vector2(116, 107)
-PlayerName = "Enemy2"
-Speed = 5
-
-[node name="Enemy3" parent="Enemies" instance=ExtResource("4_p71o4")]
-position = Vector2(40, 162)
-PlayerName = "Enemy3"
-Speed = 4

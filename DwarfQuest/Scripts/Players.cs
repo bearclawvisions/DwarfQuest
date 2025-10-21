@@ -1,7 +1,5 @@
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
-using System.Linq;
-using System.Threading.Tasks;
 using DwarfQuest.Components.Character;
 using DwarfQuest.Components.Container;
 using DwarfQuest.Data.Enums;
@@ -26,13 +24,12 @@ public partial class Players : CombatContainerBase
     private void InitializeParty()
     {
         var party = _combatService.GetPlayerCombatants();
-        var texture = ResourceManager.GetAsset<Texture2D>(AssetName.Placeholder); // move to json
+        var texture = ResourceManager.GetAsset<Texture2D>(AssetName.PlayerPlaceholder); // move to json
         
         foreach (var memberInfo in party)
         {
             var character = new Combatant();
             character.CombatInfo = memberInfo;
-            character.IsPlayer = memberInfo.IsPlayer;
             character.Name = memberInfo.Name;
             character.Position = new Vector2(memberInfo.CombatPosition.X, memberInfo.CombatPosition.Y);
             character.SetTexture(texture);

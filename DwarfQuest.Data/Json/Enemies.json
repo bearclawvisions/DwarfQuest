@@ -1,5 +1,5 @@
 {
-  "Characters": [
+  "Monsters": [
     {
       "Id": 1,
       "Name": "Slime",
@@ -15,7 +15,7 @@
         "Strength": 10,
         "Dexterity": 10,
         "Constitution": 10,
-        "Intelligence": 10,
+        "Intelligence": 5,
         "Wisdom": 10,
         "Charisma": 10,
         "PhysicalStamina": 10,
@@ -23,8 +23,8 @@
       },
       "Formation": {
         "Position": {
-          "X": 449,
-          "Y": 116
+          "X": 52,
+          "Y": 47
         }
       }
     },
@@ -39,7 +39,7 @@
         "Mana": 100,
         "Attack": 10,
         "Defense": 10,
-        "Speed": 10,
+        "Speed": 4,
         "Strength": 10,
         "Dexterity": 10,
         "Constitution": 10,
@@ -51,8 +51,8 @@
       },
       "Formation": {
         "Position": {
-          "X": 526,
-          "Y": 171
+          "X": 116,
+          "Y": 107
         }
       }
     },
@@ -67,7 +67,7 @@
         "Mana": 100,
         "Attack": 10,
         "Defense": 10,
-        "Speed": 10,
+        "Speed": 3,
         "Strength": 10,
         "Dexterity": 10,
         "Constitution": 10,
@@ -79,8 +79,8 @@
       },
       "Formation": {
         "Position": {
-          "X": 495,
-          "Y": 54
+          "X": 40,
+          "Y": 162
         }
       }
     }
