@@ -1,3 +1,4 @@
+using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using Godot;
@@ -14,8 +15,6 @@ public partial class Combatant : Node2D
     private Vector2 _deathPosition = new Vector2(0f, 25.0f);
     
     public int Round = 0; // set to 1 on Surprised (Enemy) or Backattack (Player) state
-    public Vector2 CombatPosition;
-    public Vector2 CombatEnteredFrom;
 
     public bool IsSelected { get; set; }
     public bool IsTarget { get; set; }
@@ -38,7 +37,7 @@ public partial class Combatant : Node2D
     public void TakeDamage(int damage)
     {
         CombatInfo.Health -= damage;
-        GD.Print($"Health {CombatInfo.Health} left");
+        GD.Print($"{CombatInfo.Name} has Health {CombatInfo.Health} left");
     }
     
     public void Heal(int heal)
@@ -63,17 +62,17 @@ public partial class Combatant : Node2D
 
     public void EnterCombat()
     {
-        CombatPosition = Position;
+        var combatPosition = CombatInfo.CombatPosition.ToGodotVector();
         var randomY = (float)_random.Next(-100, 100);
-        CombatEnteredFrom = CombatInfo.IsPlayer ? new Vector2(300, randomY) : new Vector2(-300, randomY);
-        Position = CombatPosition + CombatEnteredFrom;
+        var combatEnteredFrom = CombatInfo.IsPlayer ? new Vector2(300, randomY) : new Vector2(-300, randomY);
+        Position = combatPosition + combatEnteredFrom;
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(this, "position", CombatPosition, 1.0f)
+        tween.TweenProperty(this, "position", combatPosition, 1.0f)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
-        tween.Finished += () => { Position = CombatPosition; };
+        tween.Finished += () => { Position = combatPosition; };
     }
 
     public void SetTexture(Texture2D texture)
