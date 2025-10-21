@@ -11,7 +11,7 @@ namespace DwarfQuest.Managers;
 
 public class BattleManager
 {
-    private readonly List<CharacterBase> _characters;
+    private readonly List<Combatant> _characters;
     private readonly Enemies _enemies;
     private readonly Players _players;
     private int _currentIndex = 0;
@@ -19,7 +19,7 @@ public class BattleManager
     private readonly CombatMenu _combatMenu;
     private readonly Random _random = new Random();
     private readonly ICombatEventListener _listener;
-    private CharacterBase Current => _characters[_currentIndex];
+    private Combatant Current => _characters[_currentIndex];
     public CombatState State { get; private set; } = CombatState.EnterCombat;
     private ActionType? _actionType = null;
 
@@ -72,7 +72,7 @@ public class BattleManager
         await EndTurn();
     }
 
-    private async Task CheckHealth(CharacterBase target)
+    private async Task CheckHealth(Combatant target)
     {
         if (target.Health > 0) return;
         

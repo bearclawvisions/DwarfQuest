@@ -8,10 +8,10 @@ public partial class Enemies : CombatContainerBase
 {
     public override void _Ready()
     {
-        Participants = GetNode("%Enemies").GetChildren().OfType<CharacterBase>().ToList();
+        Participants = GetNode("%Enemies").GetChildren().OfType<Combatant>().ToList();
     }
     
-    public void RemoveEnemy(CharacterBase enemy)
+    public void RemoveEnemy(Combatant enemy)
     {
         if (!Participants.Contains(enemy)) 
             return;

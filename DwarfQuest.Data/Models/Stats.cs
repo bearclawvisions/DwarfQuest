@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace DwarfQuest.Data.Models;
 
-public class CharacterStats
+public class Stats
 {
     public int Level { get; set; }
     public int Experience { get; set; }

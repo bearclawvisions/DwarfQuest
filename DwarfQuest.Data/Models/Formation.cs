@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace DwarfQuest.Data.Models;
 
-public class CharacterFormation
+public class Formation
 {
     public PositionVector Position { get; set; } = new();
 }

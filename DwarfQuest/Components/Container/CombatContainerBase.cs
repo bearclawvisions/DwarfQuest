@@ -10,7 +10,7 @@ public partial class CombatContainerBase : Node2D
     private int _index = 0;
     private bool _canSelect;
 	
-    public List<CharacterBase> Participants = new();
+    public List<Combatant> Participants = new();
 	
     public bool CanSelect
     {

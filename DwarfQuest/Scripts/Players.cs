@@ -16,7 +16,6 @@ public partial class Players : CombatContainerBase
     public override void _Ready()
     {
         InitializeParty();
-        // Participants = GetNode("%Players").GetChildren().OfType<CharacterBase>().ToList();
 
         foreach (var participant in Participants)
         {
@@ -27,13 +26,13 @@ public partial class Players : CombatContainerBase
     private void InitializeParty()
     {
         var party = _combatService.GetPlayerCombatants();
-        var texture = ResourceManager.GetAsset<Texture2D>(AssetName.Placeholder);
+        var texture = ResourceManager.GetAsset<Texture2D>(AssetName.Placeholder); // move to json
         
         foreach (var memberInfo in party)
         {
-            var character = new CharacterBase();
+            var character = new Combatant();
             character.CombatInfo = memberInfo;
-            character.IsPlayer = true;
+            character.IsPlayer = memberInfo.IsPlayer;
             character.Name = memberInfo.Name;
             character.Position = new Vector2(memberInfo.CombatPosition.X, memberInfo.CombatPosition.Y);
             character.SetTexture(texture);

@@ -4,7 +4,7 @@ using System;
 
 namespace DwarfQuest.Components.Character;
 
-public partial class CharacterBase : Node2D
+public partial class Combatant : Node2D
 {
     public CombatDto CombatInfo;
     private Sprite2D _sprite;

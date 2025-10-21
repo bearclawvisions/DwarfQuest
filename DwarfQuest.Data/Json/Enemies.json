@@ -1,0 +1,88 @@
+{
+  "Characters": [
+    {
+      "Id": 1,
+      "Name": "Slime",
+      "Family": "Slime",
+      "Stats": {
+        "Level": 1,
+        "Experience": 0,
+        "Health": 100,
+        "Mana": 100,
+        "Attack": 10,
+        "Defense": 10,
+        "Speed": 10,
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Intelligence": 10,
+        "Wisdom": 10,
+        "Charisma": 10,
+        "PhysicalStamina": 10,
+        "MentalStamina": 10
+      },
+      "Formation": {
+        "Position": {
+          "X": 449,
+          "Y": 116
+        }
+      }
+    },
+    {
+      "Id": 2,
+      "Name": "Slime",
+      "Family": "Slime",
+      "Stats": {
+        "Level": 1,
+        "Experience": 0,
+        "Health": 100,
+        "Mana": 100,
+        "Attack": 10,
+        "Defense": 10,
+        "Speed": 10,
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Intelligence": 10,
+        "Wisdom": 10,
+        "Charisma": 10,
+        "PhysicalStamina": 10,
+        "MentalStamina": 10
+      },
+      "Formation": {
+        "Position": {
+          "X": 526,
+          "Y": 171
+        }
+      }
+    },
+    {
+      "Id": 3,
+      "Name": "Slime",
+      "Family": "Slime",
+      "Stats": {
+        "Level": 1,
+        "Experience": 0,
+        "Health": 100,
+        "Mana": 100,
+        "Attack": 10,
+        "Defense": 10,
+        "Speed": 10,
+        "Strength": 10,
+        "Dexterity": 10,
+        "Constitution": 10,
+        "Intelligence": 10,
+        "Wisdom": 10,
+        "Charisma": 10,
+        "PhysicalStamina": 10,
+        "MentalStamina": 10
+      },
+      "Formation": {
+        "Position": {
+          "X": 495,
+          "Y": 54
+        }
+      }
+    }
+  ]
+}

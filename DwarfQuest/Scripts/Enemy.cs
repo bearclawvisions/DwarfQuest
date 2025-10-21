@@ -4,7 +4,7 @@ using DwarfQuest.Components.Character;
 
 namespace DwarfQuest.Scripts;
 
-public partial class Enemy : CharacterBase
+public partial class Enemy : Combatant
 {
 	private Sprite2D _sprite;
 
