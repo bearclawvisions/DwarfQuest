@@ -11,15 +11,15 @@ namespace DwarfQuest.Managers;
 
 public class BattleManager
 {
-    private readonly List<Combatant> _characters;
-    private readonly Enemies _enemies;
-    private readonly Players _players;
+    private readonly List<Combatant> _characters; // list combatInfo
+    private readonly Enemies _enemies; // change to combatInfo to be passed
+    private readonly Players _players; // battlemanager changes combat info and passes data to scene
     private int _currentIndex = 0;
     private int _currentRound = 0;
-    private readonly CombatMenu _combatMenu;
+    private readonly CombatMenu _combatMenu; // enable/disable based on State?
     private readonly Random _random = new Random();
     private readonly ICombatEventListener _listener;
-    private Combatant Current => _characters[_currentIndex];
+    private Combatant Current => _characters[_currentIndex]; // CombatInfo
     public CombatState State { get; private set; } = CombatState.EnterCombat;
     private ActionType? _actionType = null;
 
