@@ -52,7 +52,7 @@ public partial class CharacterBase : Node2D
         Deselect();
     }
 
-    protected void EnterCombat()
+    public void EnterCombat()
     {
         CombatPosition = Position;
         var randomY = (float)_random.Next(-100, 100);

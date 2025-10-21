@@ -17,6 +17,11 @@ public partial class Players : CombatContainerBase
     {
         InitializeParty();
         // Participants = GetNode("%Players").GetChildren().OfType<CharacterBase>().ToList();
+
+        foreach (var participant in Participants)
+        {
+            participant.EnterCombat();
+        }
     }
     
     private void InitializeParty()
@@ -28,6 +33,7 @@ public partial class Players : CombatContainerBase
         {
             var character = new CharacterBase();
             character.CombatInfo = memberInfo;
+            character.IsPlayer = true;
             character.Name = memberInfo.Name;
             character.Position = new Vector2(memberInfo.CombatPosition.X, memberInfo.CombatPosition.Y);
             character.SetTexture(texture);
