@@ -1,13 +1,9 @@
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
-using DwarfQuest.Data.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DwarfQuest.Data.Dto;
+using DwarfQuest.Data.Enums;
 
-namespace DwarfQuest.Managers;
+namespace DwarfQuest.Bridge.Managers;
 
 public class BattleManager
 {
@@ -15,7 +11,7 @@ public class BattleManager
     private readonly Random _random = new();
     private readonly ICombatEventListener _listener;
     
-    public List<CombatDto> Enemies = new();
+    public List<CombatDto> Enemies = new(); // calc exp/money/items based on this IsDead.Count
     public List<CombatDto> Players = new();
     private List<CombatDto> _characters = new();
     private CombatDto Current => _characters[_currentIndex];
