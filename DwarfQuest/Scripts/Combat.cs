@@ -70,10 +70,12 @@ public partial class Combat : Node, ICombatEventListener
 
 	private void InitializeCombatParticipants()
 	{
-		_players = GetNode<Players>("%Players");
-		_enemies = GetNode<Enemies>("%Enemies");
+		_battleManager = new BattleManager(this);
 		
-		_battleManager = new BattleManager(_combatMenu, _enemies, _players, this);
+		_players = GetNode<Players>("%Players");
+		_players.InitializeParty(_battleManager.Players);
+		
+		_enemies = GetNode<Enemies>("%Enemies");
 	}
 	
 	private void InitializeBattleAfterDelay()

@@ -1,37 +1,37 @@
+using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
 using DwarfQuest.Data.Enums;
-using DwarfQuest.Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DwarfQuest.Components.Character;
+using DwarfQuest.Data.Dto;
 
 namespace DwarfQuest.Managers;
 
 public class BattleManager
 {
-    private readonly List<Combatant> _characters; // list combatInfo
-    private readonly Enemies _enemies; // change to combatInfo to be passed
-    private readonly Players _players; // battlemanager changes combat info and passes data to scene
+    private readonly CombatService _combatService = new();
+    private readonly Random _random = new();
+    private readonly ICombatEventListener _listener;
+    
+    public List<CombatDto> Enemies = new();
+    public List<CombatDto> Players = new();
+    private List<CombatDto> _characters = new();
+    private CombatDto Current => _characters[_currentIndex];
+    
     private int _currentIndex = 0;
     private int _currentRound = 0;
-    private readonly CombatMenu _combatMenu; // enable/disable based on State?
-    private readonly Random _random = new Random();
-    private readonly ICombatEventListener _listener;
-    private Combatant Current => _characters[_currentIndex]; // CombatInfo
+    
     public CombatState State { get; private set; } = CombatState.EnterCombat;
     private ActionType? _actionType = null;
 
-    public BattleManager(CombatMenu combatMenu, Enemies enemies, Players players, ICombatEventListener listener)
+    public BattleManager(ICombatEventListener listener)
     {
-        _combatMenu = combatMenu;
-        _enemies = enemies;
-        _players = players;
         _listener = listener;
         
-        var participants = enemies.Participants.Concat(players.Participants).ToList();
-        _characters = participants.OrderByDescending(c => c.CombatInfo.Speed).ToList();
+        if (State == CombatState.EnterCombat)
+            InitializeCombatants();
     }
 
     public void StartCombat()
@@ -40,50 +40,57 @@ public class BattleManager
         // todo: check for surprised or backattack states and push characters back a round
         _ = StartTurn();
     }
-    
+
+    private void InitializeCombatants()
+    {
+        Players = _combatService.GetPlayerCombatants();
+        Enemies = _combatService.GetEnemyCombatants();
+        _characters = Enemies.Concat(Players).OrderByDescending(c => c.Speed).ToList();
+    }
+
     private async Task StartTurn()
     {
         if (State != CombatState.NewTurn) return;
         await _listener.ShowMessageAsync($"Calculating next combatant...");
-        State = _characters[_currentIndex].CombatInfo.IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
+        State = _characters[_currentIndex].IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
         
-        if (!Current.CombatInfo.IsPlayer)
+        if (!Current.IsPlayer)
         {
             await EnemyAction();
         }
         else
         {
-            _combatMenu.IsMenuActive = true;
+            // _combatMenu.IsMenuActive = true;
         }
     }
 
     private async Task EnemyAction()
     {
         await _listener.ShowMessageAsync($"{Current.Name} takes a turn");
-        _combatMenu.IsMenuActive = false;
-        var randomTarget = _random.Next(0, _players.GetChildCount()); // todo threat measure
+        // _combatMenu.IsMenuActive = false;
+        // var randomTarget = _random.Next(0, Players.GetChildCount()); // todo threat measure
             
         // todo; this can be changed on a status condition like confuse
-        var players = _characters.Where(c => c.CombatInfo.IsPlayer).ToList();
-        var target = players[randomTarget];
-        target.TakeDamage(Current.CombatInfo.Damage);
+        var players = _characters.Where(c => c.IsPlayer).ToList();
+        // var target = players[randomTarget];
+        // target.TakeDamage(Current.Damage);
 
-        await CheckHealth(target);
+        // await CheckHealth(target);
         await EndTurn();
     }
 
-    private async Task CheckHealth(Combatant target)
+    private async Task CheckHealth(CombatDto target)
     {
-        if (target.CombatInfo.Health > 0) return;
+        if (target.Health > 0) return;
         
-        target.OnDeath();
+        // target.OnDeath();
         _characters.Remove(target);
-        _enemies.RemoveEnemy(target);
+        // Enemies.RemoveEnemy(target);
     }
 
     private async Task EndTurn()
     {
-        if (_enemies.Participants.Count == 0)
+        if (Enemies.Count == 0)
         {
             State = CombatState.ExitCombat;
             return;
@@ -118,11 +125,11 @@ public class BattleManager
             await _listener.ShowMessageAsync($"{Current.Name} attacks targets");
             
             State = CombatState.HandleAnimation;
-            var targets = _characters.Where(c => c.IsSelected).ToList();
-            foreach (var target in targets)
-            {
-                target.IsTarget = true;
-            }
+            // var targets = _characters.Where(c => c.IsSelected).ToList();
+            // foreach (var target in targets)
+            // {
+            //     target.IsTarget = true;
+            // }
             
             await AttackTargets();
             await EndTurn();
@@ -131,25 +138,25 @@ public class BattleManager
 
     private async Task AttackTargets()
     {
-        var targets = _characters.Where(c => c.IsTarget).ToList();
-        foreach (var target in targets)
-        {
-            await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
-            
-            // await Current.AttackAnimation();
-            target.TakeDamage(Current.CombatInfo.Damage);
-            target.Deselect();
-            _enemies.Reset();
-            _players.Reset();
-            _combatMenu.Reset();
-            await CheckHealth(target);
-        }
+        // var targets = _characters.Where(c => c.IsTarget).ToList();
+        // foreach (var target in targets)
+        // {
+        //     await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
+        //     
+        //     // await Current.AttackAnimation();
+        //     target.TakeDamage(Current.Damage);
+        //     target.Deselect();
+        //     Enemies.Reset();
+        //     Players.Reset();
+        //     _combatMenu.Reset();
+        //     await CheckHealth(target);
+        // }
     }
     
     private void RefreshParticipants() // for example on speed changes
     {
-        var participants = _enemies.Participants.Concat(_players.Participants).ToList();
+        var participants = Enemies.Concat(Players).ToList();
         _characters.Clear();
-        _characters.AddRange(participants.OrderByDescending(c => c.CombatInfo.Speed));
+        _characters.AddRange(participants.OrderByDescending(c => c.Speed));
     }
 }

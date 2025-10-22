@@ -2,8 +2,10 @@ using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Components.Character;
 using DwarfQuest.Components.Container;
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using Godot;
+using System.Collections.Generic;
 
 namespace DwarfQuest.Scripts;
 
@@ -13,20 +15,14 @@ public partial class Players : CombatContainerBase
     
     public override void _Ready()
     {
-        InitializeParty();
-
-        foreach (var participant in Participants)
-        {
-            participant.EnterCombat();
-        }
     }
     
-    private void InitializeParty()
+    public void InitializeParty(List<CombatDto> combatants)
     {
-        var party = _combatService.GetPlayerCombatants();
+        // var party = _combatService.GetPlayerCombatants();
         var texture = ResourceManager.GetAsset<Texture2D>(AssetName.PlayerPlaceholder); // move to json
         
-        foreach (var memberInfo in party)
+        foreach (var memberInfo in combatants)
         {
             var character = new Combatant();
             character.CombatInfo = memberInfo;
@@ -35,6 +31,11 @@ public partial class Players : CombatContainerBase
             character.SetTexture(texture);
             AddChild(character);
             Participants.Add(character);
+        }
+        
+        foreach (var participant in Participants)
+        {
+            participant.EnterCombat();
         }
     }
 }
