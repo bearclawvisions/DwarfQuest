@@ -28,13 +28,11 @@ public partial class CombatMenu : MenuBase
         Initialize();
     }
     
-    public void Reset()
+    public void EnableButtons()
     {
         FightButton.Disabled = false;
         TacticButton.Disabled = false;
         ItemButton.Disabled = false;
         RunButton.Disabled = false;
-			
-        IsMenuActive = true;
     }
 }

@@ -2,6 +2,7 @@ using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using Godot;
 using System.Threading.Tasks;
@@ -27,9 +28,28 @@ public partial class Combat : Node, ICombatEventListener
 	public override void _Process(double delta)
 	{
 		_combatMenu.IsMenuActive = _battleManager.State >= CombatState.AwaitingPlayerInput;
+		// _enemies.CanSelect = _battleManager.State == CombatState.TargetSelection;
+		
+		if (_battleManager.State == CombatState.NewTurn)
+			ResetToMenu();
 		
 		if (_battleManager.State == CombatState.ExitCombat)
 			BattleEnded();
+	}
+	
+	public async Task ShowMessageAsync(string message)
+	{
+		GD.Print(message);
+		await Task.Delay(500); // simulate ui delay
+	}
+
+	public async Task CombatantDeathAsync(CombatDto combatant)
+	{
+		if (!combatant.IsPlayer)
+		{
+			_enemies.RemoveEnemy(combatant);
+		}
+		await Task.CompletedTask;
 	}
 
 	public async Task PlayAttackAnimationAsync()
@@ -57,12 +77,6 @@ public partial class Combat : Node, ICombatEventListener
 		await Task.Delay(1000);
 	}
 
-	public async Task ShowMessageAsync(string message)
-	{
-		GD.Print(message);
-		await Task.Delay(500); // simulate ui delay
-	}
-
 	private void InitializeCombatMenu()
 	{
 		_combatMenu = GetNode<CombatMenu>("CanvasLayer/CombatMenu");
@@ -87,10 +101,6 @@ public partial class Combat : Node, ICombatEventListener
 	
 	private void OnFight()
 	{
-		var test = new CombatService();
-		var result = test.GetPlayerCombatants();
-		
-		_combatMenu.IsMenuActive = false;
 		_combatMenu.FightButton.Disabled = true;
 		_enemies.CanSelect = true;
 		
@@ -125,12 +135,12 @@ public partial class Combat : Node, ICombatEventListener
 
 	private void ResetToMenu()
 	{
-		_combatMenu.Reset();
+		_combatMenu.EnableButtons();
 		_enemies.Reset();
 		_players.Reset();
 		_battleManager.OnActionCancelled();
 	}
-	
+
 	private void BattleEnded()
 	{
 		GD.Print("Combat ended! Closing scene...");

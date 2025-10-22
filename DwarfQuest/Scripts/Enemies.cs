@@ -27,11 +27,9 @@ public partial class Enemies : CombatContainerBase
         }
     }
     
-    public void RemoveEnemy(Combatant enemy)
+    public void RemoveEnemy(CombatDto enemy)
     {
-        if (!Participants.Contains(enemy)) 
-            return;
-        
-        Participants.Remove(enemy);
+        var combatant = Participants.Find(x => x.CombatInfo.CombatPosition == enemy.CombatPosition);
+        Participants.Remove(combatant);
     }
 }

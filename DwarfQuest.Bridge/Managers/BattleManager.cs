@@ -51,13 +51,9 @@ public class BattleManager
         State = _characters[_currentIndex].IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
         
         if (!Current.IsPlayer)
-        {
             await EnemyAction();
-        }
         else
-        {
             State = CombatState.AwaitingPlayerInput;
-        }
     }
 
     private async Task EnemyAction()
@@ -79,9 +75,8 @@ public class BattleManager
     {
         if (target.Health > 0) return;
         
-        // target.OnDeath();
         _characters.Remove(target);
-        // Enemies.RemoveEnemy(target);
+        await _listener.CombatantDeathAsync(target);
     }
 
     private async Task EndTurn()
