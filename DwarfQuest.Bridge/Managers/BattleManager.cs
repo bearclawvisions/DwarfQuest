@@ -59,7 +59,6 @@ public class BattleManager
     private async Task EnemyAction()
     {
         await _listener.ShowMessageAsync($"{Current.Name} takes a turn");
-        // _combatMenu.IsMenuActive = false;
         // var randomTarget = _random.Next(0, Players.GetChildCount()); // todo threat measure
             
         // todo; this can be changed on a status condition like confuse
@@ -138,7 +137,6 @@ public class BattleManager
             // await Current.AttackAnimation();
             target.Health -= Current.Damage;
             await _listener.ShowMessageAsync($"{target.Name} takes {Current.Damage} damage, {target.Health} health left");
-            // target.Deselect();
             await CheckHealth(target);
         }
     }

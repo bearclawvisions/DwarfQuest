@@ -1,6 +1,5 @@
 using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
-using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
 using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
@@ -28,7 +27,6 @@ public partial class Combat : Node, ICombatEventListener
 	public override void _Process(double delta)
 	{
 		_combatMenu.IsMenuActive = _battleManager.State >= CombatState.AwaitingPlayerInput;
-		// _enemies.CanSelect = _battleManager.State == CombatState.TargetSelection;
 		
 		if (_battleManager.State == CombatState.NewTurn)
 			ResetToMenu();
