@@ -76,6 +76,7 @@ public partial class Combat : Node, ICombatEventListener
 		_players.InitializeParty(_battleManager.Players);
 		
 		_enemies = GetNode<Enemies>("%Enemies");
+		_enemies.InitializeParty(_battleManager.Enemies);
 	}
 	
 	private void InitializeBattleAfterDelay()
