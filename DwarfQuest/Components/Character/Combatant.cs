@@ -14,40 +14,30 @@ public partial class Combatant : Node2D
     private float _deathDuration = 0.5f;
     private Vector2 _deathPosition = new Vector2(0f, 25.0f);
     
-    public int Round = 0; // set to 1 on Surprised (Enemy) or Backattack (Player) state
-
-    public bool IsSelected { get; set; }
-    public bool IsTarget { get; set; }
-    
     private readonly Random _random = new();
+
+    public override void _Process(double delta)
+    {
+        if (CombatInfo.Health <= 0 && !CombatInfo.IsDead)
+            OnDeath();
+    }
 
     public void Select()
     {
-        IsSelected = true;
+        CombatInfo.IsSelected = true;
         Modulate = new Color(1, 0.5f, 0.5f); // highlight red
     }
 
     public void Deselect()
     {
-        IsSelected = false;
-        IsTarget = false;
+        CombatInfo.IsSelected = false;
         Modulate = new Color(1, 1, 1); // normal
     }
-    
-    public void TakeDamage(int damage)
-    {
-        CombatInfo.Health -= damage;
-        GD.Print($"{CombatInfo.Name} has Health {CombatInfo.Health} left");
-    }
-    
-    public void Heal(int heal)
-    {
-        CombatInfo.Health += heal;
-    }
 
-    public virtual void OnDeath()
+    private void OnDeath()
     {
         Deselect();
+        CombatInfo.IsDead = true;
         
         if (CombatInfo.IsPlayer) return;
         

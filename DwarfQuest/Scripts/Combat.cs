@@ -132,7 +132,7 @@ public partial class Combat : Node, ICombatEventListener
 		_battleManager.OnActionCancelled();
 	}
 	
-	public void BattleEnded()
+	private void BattleEnded()
 	{
 		GD.Print("Combat ended! Closing scene...");
 		// GetTree().ChangeSceneToFile("res://Scenes/Overworld.tscn");

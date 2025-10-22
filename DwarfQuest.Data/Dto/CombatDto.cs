@@ -9,6 +9,8 @@ public class CombatDto
     public int Health { get; set; }
     public int Damage { get; set; }
     public bool IsPlayer { get; set; }
+    public bool IsSelected { get; set; }
+    public bool IsDead { get; set; }
     public int Round { get; set; } = 0;
     public Vector2 CombatPosition { get; set; }
 }

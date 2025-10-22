@@ -131,11 +131,6 @@ public class BattleManager
             await _listener.ShowMessageAsync($"{Current.Name} attacks targets");
             
             State = CombatState.HandleAnimation;
-            // var targets = _characters.Where(c => c.IsSelected).ToList();
-            // foreach (var target in targets)
-            // {
-            //     target.IsTarget = true;
-            // }
             
             await AttackTargets();
             await EndTurn();
@@ -144,19 +139,17 @@ public class BattleManager
 
     private async Task AttackTargets()
     {
-        // var targets = _characters.Where(c => c.IsTarget).ToList();
-        // foreach (var target in targets)
-        // {
-        //     await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
-        //     
-        //     // await Current.AttackAnimation();
-        //     target.TakeDamage(Current.Damage);
-        //     target.Deselect();
-        //     Enemies.Reset();
-        //     Players.Reset();
-        //     _combatMenu.Reset();
-        //     await CheckHealth(target);
-        // }
+        var targets = _characters.Where(c => c.IsSelected).ToList();
+        foreach (var target in targets)
+        {
+            await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
+            
+            // await Current.AttackAnimation();
+            target.Health -= Current.Damage;
+            await _listener.ShowMessageAsync($"{target.Name} takes {Current.Damage} damage, {target.Health} health left");
+            // target.Deselect();
+            await CheckHealth(target);
+        }
     }
     
     private void RefreshParticipants() // for example on speed changes
