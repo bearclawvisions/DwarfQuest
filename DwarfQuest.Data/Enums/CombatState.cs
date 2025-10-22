@@ -7,7 +7,10 @@ public enum CombatState
     NewTurn,
     PlayerTurn,
     EnemyTurn,
-    TargetSelection,
     Run,
     HandleAnimation,
+    TargetSelection,
+    
+    // menu can be active
+    AwaitingPlayerInput,
 }

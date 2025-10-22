@@ -27,6 +27,8 @@ public partial class Combat : Node, ICombatEventListener
 
 	public override void _Process(double delta)
 	{
+		_combatMenu.IsMenuActive = _battleManager.State >= CombatState.AwaitingPlayerInput;
+		
 		if (_battleManager.State == CombatState.ExitCombat)
 			BattleEnded();
 	}
@@ -127,6 +129,7 @@ public partial class Combat : Node, ICombatEventListener
 		_combatMenu.Reset();
 		_enemies.Reset();
 		_players.Reset();
+		_battleManager.OnActionCancelled();
 	}
 	
 	public void BattleEnded()

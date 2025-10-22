@@ -60,7 +60,7 @@ public class BattleManager
         }
         else
         {
-            // _combatMenu.IsMenuActive = true;
+            State = CombatState.AwaitingPlayerInput;
         }
     }
 
@@ -116,6 +116,12 @@ public class BattleManager
             State = CombatState.TargetSelection;
             _actionType = action;
         }
+    }
+    
+    public void OnActionCancelled()
+    {
+        State = CombatState.AwaitingPlayerInput;
+        _actionType = null;
     }
 
     public async Task TargetsSelected()
