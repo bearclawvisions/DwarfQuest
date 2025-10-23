@@ -20,7 +20,7 @@ public class BattleManager
     private int _currentRound = 0;
     
     public CombatState State { get; private set; } = CombatState.EnterCombat;
-    private ActionType? _actionType = null;
+    private ActionType _actionType = ActionType.None;
 
     public BattleManager(ICombatEventListener listener)
     {
@@ -59,15 +59,27 @@ public class BattleManager
     private async Task EnemyAction()
     {
         await _listener.ShowMessageAsync($"{Current.Name} takes a turn");
-        // var randomTarget = _random.Next(0, Players.GetChildCount()); // todo threat measure
+        var randomTarget = _random.Next(0, Players.Count); // todo threat measure
             
         // todo; this can be changed on a status condition like confuse
         var players = _characters.Where(c => c.IsPlayer).ToList();
-        // var target = players[randomTarget];
-        // target.TakeDamage(Current.Damage);
+        var target = players[randomTarget];
+        
+        // simulate FightButton press for enemy
+        target.IsSelected = true;
+        _actionType = ActionType.Fight;
+        State = CombatState.TargetSelection;
+        
+        await TargetsSelected();
+        // DealDamage(target);
 
         // await CheckHealth(target);
-        await EndTurn();
+        // await EndTurn();
+    }
+
+    private void DealDamage(CombatDto target)
+    {
+        target.Health -= Current.Damage;
     }
 
     private async Task CheckHealth(CombatDto target)
@@ -86,16 +98,17 @@ public class BattleManager
             return;
         }
         
-        _actionType = null;
+        _actionType = ActionType.None;
         _currentIndex = (_currentIndex + 1) % _characters.Count; // next character
-        State = CombatState.NewTurn;
 
         if (_currentIndex == 0)
         {
+            State = CombatState.EndOfRound;
             _currentRound++;
             RefreshParticipants();
         }
         
+        State = CombatState.NewTurn;
         await StartTurn();
     }
 
@@ -111,7 +124,7 @@ public class BattleManager
     public void OnActionCancelled()
     {
         State = CombatState.AwaitingPlayerInput;
-        _actionType = null;
+        _actionType = ActionType.None;
     }
 
     public async Task TargetsSelected()
@@ -134,17 +147,21 @@ public class BattleManager
         {
             await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
             
-            // await Current.AttackAnimation();
-            target.Health -= Current.Damage;
+            await _listener.PlayAttackAnimationAsync();
+            DealDamage(target);
             await _listener.ShowMessageAsync($"{target.Name} takes {Current.Damage} damage, {target.Health} health left");
             await CheckHealth(target);
+            target.IsSelected = false; // because of enemy action, handle in godot like user input
         }
     }
     
     private void RefreshParticipants() // for example on speed changes
     {
-        var participants = Enemies.Concat(Players).ToList();
+        var alivePlayers = Players.Where(x => !x.IsDead).ToList();
+        var aliveEnemies = Enemies.Where(x => !x.IsDead).ToList();
+        var newTurnOrder = aliveEnemies.Concat(alivePlayers).OrderByDescending(c => c.Speed).ToList();
+        
         _characters.Clear();
-        _characters.AddRange(participants.OrderByDescending(c => c.Speed));
+        _characters.AddRange(newTurnOrder);
     }
 }

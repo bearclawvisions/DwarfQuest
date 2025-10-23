@@ -72,7 +72,7 @@ public partial class Combat : Node, ICombatEventListener
 		// await tcs.Task;
 		
 		GD.Print("Simulating attack animation...");
-		await Task.Delay(1000);
+		await Task.Delay(300);
 	}
 
 	private void InitializeCombatMenu()

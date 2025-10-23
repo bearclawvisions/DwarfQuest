@@ -10,12 +10,16 @@ namespace DwarfQuest.Scripts;
 
 public partial class Enemies : CombatContainerBase
 {
+    private readonly List<CombatDto> _combatants = []; // for presentation info only
+    
     public void InitializeParty(List<CombatDto> combatants)
     {
         var texture = ResourceManager.GetAsset<Texture2D>(AssetName.EnemyPlaceholder); // move to json
         
         foreach (var memberInfo in combatants)
         {
+            _combatants.Add(memberInfo);
+            
             var character = new Combatant();
             character.CombatInfo = memberInfo;
             character.Name = memberInfo.Name;

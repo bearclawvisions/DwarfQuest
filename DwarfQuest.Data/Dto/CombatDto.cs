@@ -11,6 +11,10 @@ public class CombatDto
     public bool IsPlayer { get; set; }
     public bool IsSelected { get; set; }
     public bool IsDead { get; set; }
+    public bool HasDebuff { get; set; }
+    public int DebuffDuration { get; set; }
+    public bool HasBuff { get; set; }
+    public int BuffDuration { get; set; }
     public int Round { get; set; } = 0;
     public Vector2 CombatPosition { get; set; }
 }

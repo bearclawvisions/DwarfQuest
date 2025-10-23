@@ -10,6 +10,7 @@ public enum CombatState
     Run,
     HandleAnimation,
     TargetSelection,
+    EndOfRound,
     
     // menu can be active
     AwaitingPlayerInput,

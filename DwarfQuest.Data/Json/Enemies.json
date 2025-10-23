@@ -2,7 +2,7 @@
   "Monsters": [
     {
       "Id": 1,
-      "Name": "Slime",
+      "Name": "Slime1",
       "Family": "Slime",
       "Stats": {
         "Level": 1,
@@ -30,7 +30,7 @@
     },
     {
       "Id": 2,
-      "Name": "Slime",
+      "Name": "Slime2",
       "Family": "Slime",
       "Stats": {
         "Level": 1,
@@ -58,7 +58,7 @@
     },
     {
       "Id": 3,
-      "Name": "Slime",
+      "Name": "Slime3",
       "Family": "Slime",
       "Stats": {
         "Level": 1,
