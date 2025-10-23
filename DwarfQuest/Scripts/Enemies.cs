@@ -30,10 +30,4 @@ public partial class Enemies : CombatContainerBase
             character.EnterCombat();
         }
     }
-    
-    public void RemoveEnemy(CombatDto enemy)
-    {
-        var combatant = Participants.Find(x => x.CombatInfo.CombatPosition == enemy.CombatPosition);
-        Participants.Remove(combatant);
-    }
 }

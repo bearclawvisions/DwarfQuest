@@ -45,7 +45,7 @@ public partial class Combat : Node, ICombatEventListener
 	{
 		if (!combatant.IsPlayer)
 		{
-			_enemies.RemoveEnemy(combatant);
+			_enemies.RemoveParticipant(combatant);
 		}
 		await Task.CompletedTask;
 	}
