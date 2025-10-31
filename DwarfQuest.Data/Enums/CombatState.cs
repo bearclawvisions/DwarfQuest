@@ -9,7 +9,8 @@ public enum CombatState
     EnemyTurn,
     Run,
     HandleAnimation,
-    TargetSelection,
+    TargetSelectionEnemy,
+    TargetSelectionPlayer,
     EndOfRound,
     
     // menu can be active

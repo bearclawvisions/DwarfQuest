@@ -36,6 +36,44 @@ public class BattleManager
         // todo: check for surprised or backattack states and push characters back a round
         _ = StartTurn();
     }
+    
+    public void OnActionSelected(ActionType action)
+    {
+        if (action == ActionType.Fight)
+        {
+            State = CombatState.TargetSelectionEnemy;
+            _actionType = action;
+        }
+    }
+    
+    public void OnActionCancelled()
+    {
+        State = CombatState.AwaitingPlayerInput;
+        _actionType = ActionType.None;
+    }
+
+    public void OnSwitchTargetSelection(Target target)
+    {
+        State = target switch
+        {
+            Target.Enemy => CombatState.TargetSelectionEnemy,
+            Target.Player => CombatState.TargetSelectionPlayer,
+            _ => State
+        };
+    }
+
+    public async Task TargetsSelected()
+    {
+        if (_actionType == ActionType.Fight && State is CombatState.TargetSelectionEnemy or CombatState.TargetSelectionPlayer)
+        {
+            await _listener.ShowMessageAsync($"{Current.Name} attacks targets");
+            
+            State = CombatState.HandleAnimation;
+            
+            await AttackTargets();
+            await EndTurn();
+        }
+    }
 
     private void InitializeCombatants()
     {
@@ -62,19 +100,15 @@ public class BattleManager
         var randomTarget = _random.Next(0, Players.Count); // todo threat measure
             
         // todo; this can be changed on a status condition like confuse
-        var players = _characters.Where(c => c.IsPlayer).ToList();
+        var players = Players.Where(c => c.IsPlayer).ToList();
         var target = players[randomTarget];
         
         // simulate FightButton press for enemy
         target.IsSelected = true;
         _actionType = ActionType.Fight;
-        State = CombatState.TargetSelection;
+        State = CombatState.TargetSelectionPlayer;
         
         await TargetsSelected();
-        // DealDamage(target);
-
-        // await CheckHealth(target);
-        // await EndTurn();
     }
 
     private void DealDamage(CombatDto target)
@@ -112,46 +146,19 @@ public class BattleManager
         await StartTurn();
     }
 
-    public void OnActionSelected(ActionType action)
-    {
-        if (action == ActionType.Fight)
-        {
-            State = CombatState.TargetSelection;
-            _actionType = action;
-        }
-    }
-    
-    public void OnActionCancelled()
-    {
-        State = CombatState.AwaitingPlayerInput;
-        _actionType = ActionType.None;
-    }
-
-    public async Task TargetsSelected()
-    {
-        if (_actionType == ActionType.Fight && State == CombatState.TargetSelection)
-        {
-            await _listener.ShowMessageAsync($"{Current.Name} attacks targets");
-            
-            State = CombatState.HandleAnimation;
-            
-            await AttackTargets();
-            await EndTurn();
-        }
-    }
-
     private async Task AttackTargets()
     {
         var targets = _characters.Where(c => c.IsSelected).ToList();
         foreach (var target in targets)
         {
+            // target.IsSelected = false; // because of enemy action, handle in godot like user input
+            
             await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
             
             await _listener.PlayAttackAnimationAsync();
             DealDamage(target);
             await _listener.ShowMessageAsync($"{target.Name} takes {Current.Damage} damage, {target.Health} health left");
             await CheckHealth(target);
-            target.IsSelected = false; // because of enemy action, handle in godot like user input
         }
     }
     

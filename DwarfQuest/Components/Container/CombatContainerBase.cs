@@ -3,6 +3,7 @@ using Godot;
 using System.Collections.Generic;
 using DwarfQuest.Components.Character;
 using DwarfQuest.Data.Dto;
+using System.Linq;
 
 namespace DwarfQuest.Components.Container;
 
@@ -58,8 +59,12 @@ public partial class CombatContainerBase : Node2D
         }
         else
         {
-            Participants[_index].Deselect();
             _index = 0;
+            var aliveParticipants = Participants.Where(x => x.CombatInfo.Health > 0);
+            foreach (var participant in aliveParticipants)
+            {
+                participant.Deselect();
+            }
         }
     }
 }

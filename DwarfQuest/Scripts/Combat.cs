@@ -27,12 +27,34 @@ public partial class Combat : Node, ICombatEventListener
 	public override void _Process(double delta)
 	{
 		_combatMenu.IsMenuActive = _battleManager.State >= CombatState.AwaitingPlayerInput;
+		_enemies.CanSelect = _battleManager.State == CombatState.TargetSelectionEnemy;
+		_players.CanSelect = _battleManager.State == CombatState.TargetSelectionPlayer;
 		
 		if (_battleManager.State == CombatState.NewTurn)
 			ResetToMenu();
 		
 		if (_battleManager.State == CombatState.ExitCombat)
 			BattleEnded();
+	}
+		
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (_battleManager.State == CombatState.HandleAnimation) return;
+		
+		if (@event is InputEventKey { Pressed: true, Keycode: Key.Backspace } && !_combatMenu.IsMenuActive)
+			ResetToMenu();
+
+		if (@event is InputEventKey { Pressed: true, Keycode: Key.D } && !_combatMenu.IsMenuActive)
+			_battleManager.OnSwitchTargetSelection(Target.Player);
+		
+		if (@event is InputEventKey { Pressed: true, Keycode: Key.A } && !_combatMenu.IsMenuActive)
+			_battleManager.OnSwitchTargetSelection(Target.Enemy);
+		
+		if (@event is InputEventKey { Pressed: true, Keycode: Key.Enter } && (_enemies.CanSelect || _players.CanSelect))
+		{
+			GD.Print("Target selected pressed!");
+			_ = _battleManager.TargetsSelected();
+		}
 	}
 	
 	public async Task ShowMessageAsync(string message)
@@ -103,32 +125,6 @@ public partial class Combat : Node, ICombatEventListener
 		_enemies.CanSelect = true;
 		
 		_battleManager.OnActionSelected(_combatMenu.FightButton.ActionType);
-	}
-	
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (_battleManager.State == CombatState.HandleAnimation) return;
-		
-		if (@event is InputEventKey { Pressed: true, Keycode: Key.Backspace } && !_combatMenu.IsMenuActive)
-			ResetToMenu();
-
-		if (@event is InputEventKey { Pressed: true, Keycode: Key.D } && !_combatMenu.IsMenuActive)
-		{
-			_enemies.CanSelect = false;
-			_players.CanSelect = true;
-		}
-		
-		if (@event is InputEventKey { Pressed: true, Keycode: Key.A } && !_combatMenu.IsMenuActive)
-		{
-			_enemies.CanSelect = true;
-			_players.CanSelect = false;
-		}
-		
-		if (@event is InputEventKey { Pressed: true, Keycode: Key.Enter } && (_enemies.CanSelect || _players.CanSelect))
-		{
-			GD.Print("Target selected pressed!");
-			_ = _battleManager.TargetsSelected();
-		}
 	}
 
 	private void ResetToMenu()
