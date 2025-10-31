@@ -129,7 +129,8 @@ public class BattleManager
 
     private async Task EndTurn()
     {
-        if (Enemies.Count == 0)
+        var deadEnemies = Enemies.Where(c => c.IsDead);
+        if (Enemies.Count == deadEnemies.Count())
         {
             State = CombatState.ExitCombat;
             return;
@@ -162,8 +163,8 @@ public class BattleManager
     
     private void RefreshParticipants() // for example on speed changes
     {
-        var alivePlayers = Players.Where(x => !x.IsDead).ToList();
-        var aliveEnemies = Enemies.Where(x => !x.IsDead).ToList();
+        var alivePlayers = Players.Where(x => !x.IsDead);
+        var aliveEnemies = Enemies.Where(x => !x.IsDead);
         var newTurnOrder = aliveEnemies.Concat(alivePlayers).OrderByDescending(c => c.Speed).ToList();
         
         _characters.Clear();
