@@ -84,14 +84,15 @@ public class BattleManager
 
     private async Task StartTurn()
     {
-        if (State != CombatState.NewTurn) return;
-        await _listener.ShowMessageAsync($"Calculating next combatant...");
-        State = _characters[_currentIndex].IsPlayer ? CombatState.PlayerTurn : CombatState.EnemyTurn;
-        
         if (!Current.IsPlayer)
+        {
+            State = CombatState.EnemyTurn;
             await EnemyAction();
+        }
         else
-            State = CombatState.AwaitingPlayerInput;
+        {
+            State = CombatState.PlayerTurn;
+        }
     }
 
     private async Task EnemyAction()
@@ -137,7 +138,6 @@ public class BattleManager
 
         if (_currentIndex == 0)
         {
-            State = CombatState.EndOfRound;
             _currentRound++;
             RefreshParticipants();
         }

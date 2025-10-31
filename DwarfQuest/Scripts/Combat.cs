@@ -30,7 +30,7 @@ public partial class Combat : Node, ICombatEventListener
 		_enemies.CanSelect = _battleManager.State == CombatState.TargetSelectionEnemy;
 		_players.CanSelect = _battleManager.State == CombatState.TargetSelectionPlayer;
 		
-		if (_battleManager.State == CombatState.NewTurn)
+		if (_battleManager.State == CombatState.PlayerTurn)
 			ResetToMenu();
 		
 		if (_battleManager.State == CombatState.ExitCombat)
@@ -129,6 +129,7 @@ public partial class Combat : Node, ICombatEventListener
 
 	private void ResetToMenu()
 	{
+		GD.Print("Resetting to menu...");
 		_combatMenu.EnableButtons();
 		_enemies.Reset();
 		_players.Reset();
