@@ -101,15 +101,18 @@ public class BattleManager
         var randomTarget = _random.Next(0, Players.Count); // todo threat measure
             
         // todo; this can be changed on a status condition like confuse
-        var players = Players.Where(c => c.IsPlayer).ToList();
-        var target = players[randomTarget];
+        var target = Players[randomTarget];
         
-        // simulate FightButton press for enemy
-        target.IsSelected = true;
-        _actionType = ActionType.Fight;
-        State = CombatState.TargetSelectionPlayer;
+        // Enemy AI is separate because of how states currently work for player only
+        State = CombatState.HandleAnimation;
+        await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
         
-        await TargetsSelected();
+        await _listener.PlayAttackAnimationAsync();
+        DealDamage(target);
+        await _listener.ShowMessageAsync($"{target.Name} takes {Current.Damage} damage, {target.Health} health left");
+        await CheckHealth(target);
+        
+        await EndTurn();
     }
 
     private void DealDamage(CombatDto target)
@@ -151,7 +154,7 @@ public class BattleManager
         var targets = _characters.Where(c => c.IsSelected).ToList();
         foreach (var target in targets)
         {
-            // target.IsSelected = false; // because of enemy action, handle in godot like user input
+            // if (target.IsPlayer) target.IsSelected = false;
             
             await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
             
