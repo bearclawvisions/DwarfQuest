@@ -10,7 +10,6 @@ namespace DwarfQuest.Scripts;
 
 public partial class Combat : Node, ICombatEventListener
 {
-	// Godot
 	private CombatMenu _combatMenu;
 	private Enemies _enemies;
 	private Players _players;
@@ -19,6 +18,7 @@ public partial class Combat : Node, ICombatEventListener
 	
 	public override void _Ready()
 	{
+		_battleManager = new BattleManager(this);
 		InitializeCombatMenu();
 		InitializeCombatParticipants(); // and BattleManager
 		InitializeBattleAfterDelay();
@@ -39,7 +39,8 @@ public partial class Combat : Node, ICombatEventListener
 		
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (_battleManager.State == CombatState.HandleAnimation) return;
+		if (_battleManager.State == CombatState.HandleAnimation)
+			return;
 		
 		if (@event is InputEventKey { Pressed: true, Keycode: Key.Backspace } && !_combatMenu.IsMenuActive)
 			ResetToMenu();
@@ -51,24 +52,20 @@ public partial class Combat : Node, ICombatEventListener
 			_battleManager.OnSwitchTargetSelection(Target.Enemy);
 		
 		if (@event is InputEventKey { Pressed: true, Keycode: Key.Enter } && (_enemies.CanSelect || _players.CanSelect))
-		{
-			GD.Print("Target selected pressed!");
 			_ = _battleManager.TargetsSelected();
-		}
 	}
 	
 	public async Task ShowMessageAsync(string message)
 	{
 		GD.Print(message);
-		await Task.Delay(500); // simulate ui delay
+		await Task.Delay(300); // simulate ui delay
 	}
 
 	public async Task CombatantDeathAsync(CombatDto combatant)
 	{
 		if (!combatant.IsPlayer)
-		{
 			_enemies.RemoveParticipant(combatant);
-		}
+		
 		await Task.CompletedTask;
 	}
 
@@ -105,8 +102,6 @@ public partial class Combat : Node, ICombatEventListener
 
 	private void InitializeCombatParticipants()
 	{
-		_battleManager = new BattleManager(this);
-		
 		_players = GetNode<Players>("%Players");
 		_players.InitializeParty(_battleManager.Players);
 		
@@ -129,7 +124,6 @@ public partial class Combat : Node, ICombatEventListener
 
 	private void ResetToMenu()
 	{
-		GD.Print("Resetting to menu...");
 		_combatMenu.EnableButtons();
 		_enemies.Reset();
 		_players.Reset();
@@ -138,7 +132,6 @@ public partial class Combat : Node, ICombatEventListener
 
 	private void BattleEnded()
 	{
-		GD.Print("Combat ended! Closing scene...");
 		// GetTree().ChangeSceneToFile("res://Scenes/Overworld.tscn");
 		QueueFree();
 		GetTree().Quit();

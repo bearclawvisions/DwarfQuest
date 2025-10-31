@@ -105,7 +105,6 @@ public class BattleManager
         
         // Enemy AI is separate because of how states currently work for player only
         State = CombatState.HandleAnimation;
-        await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
         
         await _listener.PlayAttackAnimationAsync();
         DealDamage(target);
@@ -154,10 +153,6 @@ public class BattleManager
         var targets = _characters.Where(c => c.IsSelected).ToList();
         foreach (var target in targets)
         {
-            // if (target.IsPlayer) target.IsSelected = false;
-            
-            await _listener.ShowMessageAsync($"{Current.Name} actually attacks");
-            
             await _listener.PlayAttackAnimationAsync();
             DealDamage(target);
             await _listener.ShowMessageAsync($"{target.Name} takes {Current.Damage} damage, {target.Health} health left");

@@ -4,6 +4,7 @@ namespace DwarfQuest.Data.Dto;
 
 public class CombatDto
 {
+    // Guid per entity? randomized for enemies?
     public required string Name { get; set; }
     public int Speed { get; set; }
     public int Health { get; set; }
