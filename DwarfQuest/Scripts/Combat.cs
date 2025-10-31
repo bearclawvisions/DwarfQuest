@@ -97,7 +97,7 @@ public partial class Combat : Node, ICombatEventListener
 	private void InitializeCombatMenu()
 	{
 		_combatMenu = GetNode<CombatMenu>("CanvasLayer/CombatMenu");
-		_combatMenu.FightButton.Pressed += OnFight;
+		_combatMenu.FightButton.Pressed += OnFightCombat;
 	}
 
 	private void InitializeCombatParticipants()
@@ -114,7 +114,7 @@ public partial class Combat : Node, ICombatEventListener
 		this.AddWaitTimer(_battleManager.StartCombat);
 	}
 	
-	private void OnFight()
+	private void OnFightCombat()
 	{
 		_combatMenu.FightButton.Disabled = true;
 		_enemies.CanSelect = true;

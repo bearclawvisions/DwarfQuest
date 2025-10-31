@@ -5,12 +5,7 @@ namespace DwarfQuest.Business.Implementation;
 
 public class CombatService
 {
-    private readonly JsonService _jsonService;
-    
-    public CombatService()
-    {
-        _jsonService = new JsonService();
-    }
+    private readonly JsonService _jsonService = new();
 
     public List<CombatDto> GetPlayerCombatants()
     {

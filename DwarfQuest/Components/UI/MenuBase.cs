@@ -7,7 +7,7 @@ namespace DwarfQuest.Components.UI;
 
 public partial class MenuBase : VBoxContainer
 {
-    private readonly List<ButtonBase> _buttons = [];
+    private readonly List<CombatButton> _buttons = [];
     private int _index = 0;
     private bool _isMenuActive;
     
@@ -23,7 +23,7 @@ public partial class MenuBase : VBoxContainer
 
         foreach (var child in children)
         {
-            if (child is not ButtonBase button) continue;
+            if (child is not CombatButton button) continue;
             _buttons.Add(button);
         }
 

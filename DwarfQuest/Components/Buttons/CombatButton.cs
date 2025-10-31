@@ -4,11 +4,12 @@ using Godot;
 
 namespace DwarfQuest.Components.Buttons;
 
-public partial class ButtonBase : Button
+public partial class CombatButton : Button
 {
     // private TextureRect _arrow;
+    public ActionType ActionType = ActionType.None;
     
-    protected ButtonBase()
+    public CombatButton()
     {
         Theme = ResourceManager.GetAsset<Theme>(AssetName.CombatTheme);
         FocusMode = FocusModeEnum.All;
