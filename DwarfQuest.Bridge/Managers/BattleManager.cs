@@ -7,7 +7,7 @@ namespace DwarfQuest.Bridge.Managers;
 
 public class BattleManager
 {
-    private readonly CombatService _combatService = new();
+    private readonly CombatService _combatService = GameManager.CombatService;
     private readonly Random _random = new();
     private readonly ICombatEventListener _listener;
     
