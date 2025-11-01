@@ -41,7 +41,7 @@ public partial class Combat : Node, ICombatEventListener
 		if (_battleManager.State == CombatState.Run)
 		{
 			// run away animation
-			BattleEnded();
+			BattleEnded(true);
 		}
 	}
 		
@@ -156,10 +156,13 @@ public partial class Combat : Node, ICombatEventListener
 		_battleManager.OnActionCancelled();
 	}
 
-	private void BattleEnded()
+	private void BattleEnded(bool runaway = false)
 	{
-		// GetTree().ChangeSceneToFile("res://Scenes/Overworld.tscn");
-		QueueFree();
-		GetTree().Quit();
+		if (runaway)
+		{
+			GetTree().Quit(); // change to overworld directly
+		}
+			
+		GetTree().ChangeSceneToFile("res://Scenes/combat_results.tscn");
 	}
 }
