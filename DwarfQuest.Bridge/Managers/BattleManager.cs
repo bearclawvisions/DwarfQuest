@@ -123,7 +123,10 @@ public class BattleManager
     private void DealDamage(CombatDto target)
     {
         target.Health -= Current.Damage;
-        _listener.UpdatePlayerInfo(target);
+        
+        // todo refactor to also work for enemies in case of scan
+        // possibly fixed with proper Id management with SQL
+        if (target.IsPlayer) _listener.UpdatePlayerInfo(target);
     }
 
     private async Task CheckHealth(CombatDto target)

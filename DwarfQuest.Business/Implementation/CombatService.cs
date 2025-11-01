@@ -18,6 +18,7 @@ public class CombatService
             var formation = combatant.Formation.Position;
             var dto = new CombatDto
             {
+                Id = combatant.Id,
                 Name = combatant.Name,
                 Health = stats.Health,
                 MaxHealth = stats.MaxHealth,
