@@ -11,6 +11,8 @@ public enum CombatState
     HandleAnimation,
     TargetSelectionEnemy,
     TargetSelectionPlayer,
+    TacticSelection,
+    ItemSelection,
     EndOfRound,
     
     // menu can be active

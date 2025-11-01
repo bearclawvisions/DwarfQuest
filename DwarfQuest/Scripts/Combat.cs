@@ -21,7 +21,7 @@ public partial class Combat : Node, ICombatEventListener
 	{
 		_battleManager = new BattleManager(this);
 		InitializeCombatMenu();
-		InitializeCombatParticipants(); // and BattleManager
+		InitializeCombatParticipants();
 		InitializeBattleAfterDelay();
 		InitializePlayerInfo();
 	}
@@ -37,6 +37,12 @@ public partial class Combat : Node, ICombatEventListener
 		
 		if (_battleManager.State == CombatState.ExitCombat)
 			BattleEnded();
+		
+		if (_battleManager.State == CombatState.Run)
+		{
+			// run away animation
+			BattleEnded();
+		}
 	}
 		
 	public override void _UnhandledInput(InputEvent @event)
@@ -85,7 +91,10 @@ public partial class Combat : Node, ICombatEventListener
 	private void InitializeCombatMenu()
 	{
 		_combatMenu = GetNode<CombatMenu>("CanvasLayer/CombatMenu");
-		_combatMenu.FightButton.Pressed += OnFightCombat;
+		_combatMenu.FightButton.Pressed += OnFightPressed;
+		_combatMenu.TacticButton.Pressed += OnTacticPressed;
+		_combatMenu.ItemButton.Pressed += OnItemPressed;
+		_combatMenu.RunButton.Pressed += OnRunPressed;
 	}
 
 	private void InitializeCombatParticipants()
@@ -108,12 +117,35 @@ public partial class Combat : Node, ICombatEventListener
 		this.AddWaitTimer(_battleManager.StartCombat);
 	}
 	
-	private void OnFightCombat()
+	private void OnFightPressed()
 	{
 		_combatMenu.FightButton.Disabled = true;
 		_enemies.CanSelect = true;
 		
 		_battleManager.OnActionSelected(_combatMenu.FightButton.ActionType);
+	}
+	
+	private void OnTacticPressed()
+	{
+		_combatMenu.TacticButton.Disabled = true;
+		// _enemies.CanSelect = true; // maybe
+		
+		_battleManager.OnActionSelected(_combatMenu.TacticButton.ActionType);
+	}
+	
+	private void OnItemPressed()
+	{
+		_combatMenu.ItemButton.Disabled = true;
+		
+		_battleManager.OnActionSelected(_combatMenu.ItemButton.ActionType);
+	}
+	
+	private void OnRunPressed()
+	{
+		_combatMenu.RunButton.Disabled = true;
+		// popup yes/no to flee
+		
+		_battleManager.OnActionSelected(_combatMenu.RunButton.ActionType);
 	}
 
 	private void ResetToMenu()

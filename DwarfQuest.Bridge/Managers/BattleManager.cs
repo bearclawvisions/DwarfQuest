@@ -39,10 +39,16 @@ public class BattleManager
     
     public void OnActionSelected(ActionType action)
     {
-        if (action == ActionType.Fight)
+        _actionType = action;
+        switch (action)
         {
-            State = CombatState.TargetSelectionEnemy;
-            _actionType = action;
+            case ActionType.Fight: State = CombatState.TargetSelectionEnemy; break;
+            case ActionType.Tactic: State = CombatState.TacticSelection; break; // afterwards target selection based on type
+            case ActionType.Item: State = CombatState.ItemSelection; break; // afterwards target selection based on type
+            case ActionType.Run: State = CombatState.Run; _actionType = ActionType.None; break;
+
+            case ActionType.None:
+            default: _actionType = ActionType.None; break;
         }
     }
     
