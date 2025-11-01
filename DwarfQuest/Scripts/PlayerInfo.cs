@@ -17,6 +17,8 @@ public partial class PlayerInfo : VBoxContainer
 	{
         this.ClearPlaceholders();
         Theme = ResourceManager.GetAsset<Theme>(AssetName.CombatTheme);
+        AnchorsPreset = (int)LayoutPreset.BottomRight;
+        Position = new Vector2(Position.X - 10, Position.Y - 10); // padding from screen edges
 	}
 
 	public void InitializePlayerInfo(List<CombatDto> combatants)

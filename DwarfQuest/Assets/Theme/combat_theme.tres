@@ -53,5 +53,6 @@ Button/styles/focus = SubResource("StyleBoxFlat_48yp4")
 Button/styles/hover = SubResource("StyleBoxFlat_bp0wp")
 Button/styles/normal = SubResource("StyleBoxFlat_e7bfs")
 Button/styles/pressed = SubResource("StyleBoxFlat_ngptf")
+Label/font_sizes/font_size = 12
 ProgressBar/styles/background = SubResource("StyleBoxFlat_j6fiq")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_ijygl")

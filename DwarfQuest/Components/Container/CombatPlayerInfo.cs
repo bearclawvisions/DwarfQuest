@@ -10,18 +10,34 @@ public partial class CombatPlayerInfo : HBoxContainer
     public int Id { get; private set; }
 
     private Label _label;
+    private Label _healthLabel;
     private ProgressBar _healthBar;
 
     private CombatPlayerInfo()
     {
-        SizeFlagsHorizontal = SizeFlags.ShrinkEnd;
+        SizeFlagsHorizontal = SizeFlags.ShrinkEnd; // right justified
         
         Id = 0;
         _label = new Label();
-        _healthBar = new ProgressBar();
+        
+        _healthLabel = new Label
+        {
+            LayoutMode = 1, // anchors mode, no exposed enum in api
+            AnchorsPreset = (int)LayoutPreset.Center
+        };
+        
+        _healthBar = new ProgressBar
+        {
+            ShowPercentage = false,
+            CustomMinimumSize = new Vector2(100, 25),
+            FillMode = (int)ProgressBar.FillModeEnum.BeginToEnd,
+            MinValue = 0,
+            Step = 1.0,
+        };
         
         AddChild(_label);
         AddChild(_healthBar);
+        _healthBar.AddChild(_healthLabel);
     }
 
     public static CombatPlayerInfo Create(CombatDto info)
@@ -34,21 +50,14 @@ public partial class CombatPlayerInfo : HBoxContainer
     private void Initialize(CombatDto info)
     {
         Id = info.Id;
-        
         _label.Text = info.Name;
-        
-        _healthBar.ShowPercentage = true;
-        _healthBar.CustomMinimumSize = new Vector2(75, 0);
-        _healthBar.FillMode = (int)ProgressBar.FillModeEnum.BeginToEnd;
-        _healthBar.MinValue = 0;
-        _healthBar.MaxValue = info.MaxHealth;
-        _healthBar.Step = 1.0;
-        _healthBar.Value = info.Health;
+        UpdateHealth(info.Health, info.MaxHealth);
     }
 
     public void UpdateHealth(int currentHealth, int maxHealth)
     {
         _healthBar.MaxValue = maxHealth;
         _healthBar.Value = currentHealth;
+        _healthLabel.Text = $"{currentHealth}/{maxHealth}";
     }
 }

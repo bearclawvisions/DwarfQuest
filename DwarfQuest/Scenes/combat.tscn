@@ -17,30 +17,31 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = -100.0
-offset_right = 62.0
-offset_bottom = -20.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = -10.0
 grow_vertical = 0
-size_flags_vertical = 8
+size_flags_horizontal = 3
+size_flags_vertical = 10
 theme = ExtResource("2_qajva")
+alignment = 2
 script = ExtResource("3_ut0kg")
 
 [node name="Button" type="Button" parent="CanvasLayer/CombatMenu"]
 layout_mode = 2
-text = "Fight"
+text = "Test"
 
 [node name="Button2" type="Button" parent="CanvasLayer/CombatMenu"]
 layout_mode = 2
-text = "Tactic
-"
+text = "Test"
 
 [node name="Button3" type="Button" parent="CanvasLayer/CombatMenu"]
 layout_mode = 2
-text = "Item"
+text = "Test"
 
 [node name="Button4" type="Button" parent="CanvasLayer/CombatMenu"]
 layout_mode = 2
-text = "Run"
+text = "Test"
 
 [node name="PlayerInfo" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 3
@@ -48,55 +49,107 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -157.0
-offset_top = -105.0
-offset_right = -27.0
-offset_bottom = -16.0
+offset_left = -139.0
+offset_top = -93.0
+offset_right = -10.0
+offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("2_qajva")
+alignment = 2
 script = ExtResource("4_yt1oa")
 
-[node name="char1" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="CharName" type="Label" parent="CanvasLayer/PlayerInfo/char1"]
+[node name="Label" type="Label" parent="CanvasLayer/PlayerInfo/HBoxContainer"]
 layout_mode = 2
-text = "Char1"
+text = "Test"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerInfo/char1"]
-custom_minimum_size = Vector2(75, 0)
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/PlayerInfo/HBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 step = 1.0
 value = 100.0
+show_percentage = false
 
-[node name="char2" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
+[node name="Label" type="Label" parent="CanvasLayer/PlayerInfo/HBoxContainer/ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -8.5
+offset_right = 23.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "666/666"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
 layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="CharName" type="Label" parent="CanvasLayer/PlayerInfo/char2"]
+[node name="Label" type="Label" parent="CanvasLayer/PlayerInfo/HBoxContainer2"]
 layout_mode = 2
-text = "Char2"
+text = "Test"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerInfo/char2"]
-custom_minimum_size = Vector2(75, 0)
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/PlayerInfo/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 step = 1.0
 value = 100.0
+show_percentage = false
 
-[node name="char3" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
+[node name="Label" type="Label" parent="CanvasLayer/PlayerInfo/HBoxContainer2/ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -8.5
+offset_right = 23.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "666/666"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
 layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="CharName" type="Label" parent="CanvasLayer/PlayerInfo/char3"]
+[node name="Label" type="Label" parent="CanvasLayer/PlayerInfo/HBoxContainer3"]
 layout_mode = 2
-text = "Char3"
+text = "Test"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerInfo/char3"]
-custom_minimum_size = Vector2(75, 0)
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/PlayerInfo/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 step = 1.0
 value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayerInfo/HBoxContainer3/ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -8.5
+offset_right = 23.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "666/666"
 
 [node name="Players" type="Node2D" parent="."]
 unique_name_in_owner = true
