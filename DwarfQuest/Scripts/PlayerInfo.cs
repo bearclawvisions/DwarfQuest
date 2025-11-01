@@ -1,6 +1,8 @@
 using DwarfQuest.Bridge.Extensions;
+using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Components.Container;
 using DwarfQuest.Data.Dto;
+using DwarfQuest.Data.Enums;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ public partial class PlayerInfo : VBoxContainer
 	public override void _Ready()
 	{
         this.ClearPlaceholders();
+        Theme = ResourceManager.GetAsset<Theme>(AssetName.CombatTheme);
 	}
 
 	public void InitializePlayerInfo(List<CombatDto> combatants)

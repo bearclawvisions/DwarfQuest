@@ -60,6 +60,7 @@ script = ExtResource("4_yt1oa")
 
 [node name="char1" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
 layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="CharName" type="Label" parent="CanvasLayer/PlayerInfo/char1"]
 layout_mode = 2

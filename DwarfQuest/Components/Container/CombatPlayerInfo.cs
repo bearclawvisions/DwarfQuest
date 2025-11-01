@@ -1,4 +1,6 @@
+using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Data.Dto;
+using DwarfQuest.Data.Enums;
 using Godot;
 
 namespace DwarfQuest.Components.Container;
@@ -12,6 +14,8 @@ public partial class CombatPlayerInfo : HBoxContainer
 
     private CombatPlayerInfo()
     {
+        SizeFlagsHorizontal = SizeFlags.ShrinkEnd;
+        
         Id = 0;
         _label = new Label();
         _healthBar = new ProgressBar();
@@ -34,6 +38,7 @@ public partial class CombatPlayerInfo : HBoxContainer
         _label.Text = info.Name;
         
         _healthBar.ShowPercentage = true;
+        _healthBar.CustomMinimumSize = new Vector2(75, 0);
         _healthBar.FillMode = (int)ProgressBar.FillModeEnum.BeginToEnd;
         _healthBar.MinValue = 0;
         _healthBar.MaxValue = info.MaxHealth;
