@@ -142,6 +142,7 @@ public class BattleManager
         var deadEnemies = Enemies.Where(c => c.IsDead);
         if (Enemies.Count == deadEnemies.Count())
         {
+            _combatService.SetBattleResult(Enemies);
             State = CombatState.ExitCombat;
             return;
         }

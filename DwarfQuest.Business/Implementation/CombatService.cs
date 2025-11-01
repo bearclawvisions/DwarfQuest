@@ -1,4 +1,5 @@
 using DwarfQuest.Data.Dto;
+using DwarfQuest.Data.Models;
 using System.Numerics;
 
 namespace DwarfQuest.Business.Implementation;
@@ -6,6 +7,7 @@ namespace DwarfQuest.Business.Implementation;
 public class CombatService
 {
     private readonly JsonService _jsonService = new();
+    private BattleResult _battleResult = new();
 
     public List<CombatDto> GetPlayerCombatants()
     {
@@ -58,5 +60,27 @@ public class CombatService
         }
         
         return combatants;
+    }
+
+    public BattleResult GetBattleResult()
+    {
+        return _battleResult;
+    }
+
+    public void SetBattleResult(List<CombatDto> defeated)
+    {
+        // todo do magic to set stuff
+        
+        _battleResult = new BattleResult
+        {
+            Experience = 100,
+            Money = 99,
+            Message = "Congratulations!"
+        };
+    }
+
+    public void ClearBattleResult()
+    {
+        _battleResult = new BattleResult();
     }
 }
