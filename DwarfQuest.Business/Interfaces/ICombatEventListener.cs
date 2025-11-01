@@ -7,4 +7,5 @@ public interface ICombatEventListener
     Task ShowMessageAsync(string message);
     Task CombatantDeathAsync(CombatDto combatant);
     Task PlayAttackAnimationAsync();
+    void UpdatePlayerInfo(CombatDto combatant);
 }

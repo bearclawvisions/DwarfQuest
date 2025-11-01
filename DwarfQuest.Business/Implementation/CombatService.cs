@@ -20,6 +20,7 @@ public class CombatService
             {
                 Name = combatant.Name,
                 Health = stats.Health,
+                MaxHealth = stats.MaxHealth,
                 Damage = stats.Attack,
                 Speed = stats.Speed,
                 IsPlayer = true,
@@ -45,6 +46,7 @@ public class CombatService
             {
                 Name = combatant.Name,
                 Health = stats.Health,
+                MaxHealth = stats.MaxHealth,
                 Damage = stats.Attack,
                 Speed = stats.Speed,
                 IsPlayer = false,

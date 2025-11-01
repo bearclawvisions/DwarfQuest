@@ -117,6 +117,7 @@ public class BattleManager
     private void DealDamage(CombatDto target)
     {
         target.Health -= Current.Damage;
+        _listener.UpdatePlayerInfo(target);
     }
 
     private async Task CheckHealth(CombatDto target)

@@ -11,6 +11,7 @@ namespace DwarfQuest.Scripts;
 public partial class Combat : Node, ICombatEventListener
 {
 	private CombatMenu _combatMenu;
+	private PlayerInfo _playerInfo;
 	private Enemies _enemies;
 	private Players _players;
 	
@@ -22,6 +23,7 @@ public partial class Combat : Node, ICombatEventListener
 		InitializeCombatMenu();
 		InitializeCombatParticipants(); // and BattleManager
 		InitializeBattleAfterDelay();
+		InitializePlayerInfo();
 	}
 
 	public override void _Process(double delta)
@@ -60,6 +62,11 @@ public partial class Combat : Node, ICombatEventListener
 		GD.Print(message);
 		await Task.Delay(300); // simulate ui delay
 	}
+	
+	public void UpdatePlayerInfo(CombatDto combatant)
+	{
+		_playerInfo.UpdateHealth(combatant);
+	}
 
 	public async Task CombatantDeathAsync(CombatDto combatant)
 	{
@@ -71,25 +78,6 @@ public partial class Combat : Node, ICombatEventListener
 
 	public async Task PlayAttackAnimationAsync()
 	{
-		// var animPlayer = attackerId == "Player" ? _playerAnimation : _enemyAnimation;
-		//
-		// var animationName = "Attack";
-		// animPlayer.Play(animationName);
-		//
-		// // Wait for animation to finish using Godot’s Signal-to-Task
-		// var tcs = new TaskCompletionSource();
-		// void OnAnimationFinished(StringName name)
-		// {
-		// 	if (name == animationName)
-		// 	{
-		// 		animPlayer.AnimationFinished -= OnAnimationFinished;
-		// 		tcs.SetResult();
-		// 	}
-		// }
-		// animPlayer.AnimationFinished += OnAnimationFinished;
-		//
-		// await tcs.Task;
-		
 		GD.Print("Simulating attack animation...");
 		await Task.Delay(300);
 	}
@@ -107,6 +95,12 @@ public partial class Combat : Node, ICombatEventListener
 		
 		_enemies = GetNode<Enemies>("%Enemies");
 		_enemies.InitializeParty(_battleManager.Enemies);
+	}
+	
+	private void InitializePlayerInfo()
+	{
+		_playerInfo = GetNode<PlayerInfo>("CanvasLayer/PlayerInfo");
+		_playerInfo.InitializePlayerInfo(_battleManager.Players);
 	}
 	
 	private void InitializeBattleAfterDelay()

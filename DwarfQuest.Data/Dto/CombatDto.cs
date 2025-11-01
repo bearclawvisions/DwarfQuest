@@ -4,10 +4,11 @@ namespace DwarfQuest.Data.Dto;
 
 public class CombatDto
 {
-    // Guid per entity? randomized for enemies?
+    public int Id { get; set; } // todo expand this to replace position checks
     public required string Name { get; set; }
     public int Speed { get; set; }
     public int Health { get; set; }
+    public int MaxHealth { get; set; }
     public int Damage { get; set; }
     public bool IsPlayer { get; set; }
     public bool IsSelected { get; set; }

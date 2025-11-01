@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://n0tkex02dkej"]
+[gd_scene load_steps=7 format=3 uid="uid://n0tkex02dkej"]
 
 [ext_resource type="Script" uid="uid://bhd2el5u807o3" path="res://Scripts/Combat.cs" id="1_764e3"]
 [ext_resource type="Theme" uid="uid://b47nyooee1obn" path="res://Assets/Theme/combat_theme.tres" id="2_qajva"]
 [ext_resource type="Script" uid="uid://bo1ogb8hbxsw3" path="res://Scripts/CombatMenu.cs" id="3_ut0kg"]
 [ext_resource type="Script" uid="uid://bkn7csh7csesk" path="res://Scripts/Players.cs" id="4_3w34b"]
+[ext_resource type="Script" uid="uid://on67b8gsqi0i" path="res://Scripts/PlayerInfo.cs" id="4_yt1oa"]
 [ext_resource type="Script" uid="uid://rri4dup7nm1v" path="res://Scripts/Enemies.cs" id="5_yt1oa"]
 
 [node name="Combat" type="Node"]
@@ -41,7 +42,7 @@ text = "Item"
 layout_mode = 2
 text = "Run"
 
-[node name="PlayerMenu" type="VBoxContainer" parent="CanvasLayer"]
+[node name="PlayerInfo" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -55,41 +56,42 @@ grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 3
 theme = ExtResource("2_qajva")
+script = ExtResource("4_yt1oa")
 
-[node name="char1" type="HBoxContainer" parent="CanvasLayer/PlayerMenu"]
+[node name="char1" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
 layout_mode = 2
 
-[node name="CharName" type="Label" parent="CanvasLayer/PlayerMenu/char1"]
+[node name="CharName" type="Label" parent="CanvasLayer/PlayerInfo/char1"]
 layout_mode = 2
 text = "Char1"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerMenu/char1"]
+[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerInfo/char1"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 step = 1.0
 value = 100.0
 
-[node name="char2" type="HBoxContainer" parent="CanvasLayer/PlayerMenu"]
+[node name="char2" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
 layout_mode = 2
 
-[node name="CharName" type="Label" parent="CanvasLayer/PlayerMenu/char2"]
+[node name="CharName" type="Label" parent="CanvasLayer/PlayerInfo/char2"]
 layout_mode = 2
 text = "Char2"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerMenu/char2"]
+[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerInfo/char2"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 step = 1.0
 value = 100.0
 
-[node name="char3" type="HBoxContainer" parent="CanvasLayer/PlayerMenu"]
+[node name="char3" type="HBoxContainer" parent="CanvasLayer/PlayerInfo"]
 layout_mode = 2
 
-[node name="CharName" type="Label" parent="CanvasLayer/PlayerMenu/char3"]
+[node name="CharName" type="Label" parent="CanvasLayer/PlayerInfo/char3"]
 layout_mode = 2
 text = "Char3"
 
-[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerMenu/char3"]
+[node name="Health" type="ProgressBar" parent="CanvasLayer/PlayerInfo/char3"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 step = 1.0
