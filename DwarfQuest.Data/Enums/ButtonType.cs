@@ -6,4 +6,7 @@ public enum ButtonType
     Tactic,
     Item,
     Run,
+    
+    Yes,
+    No,
 }
