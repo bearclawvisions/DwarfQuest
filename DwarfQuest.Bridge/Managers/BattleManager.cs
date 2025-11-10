@@ -11,9 +11,9 @@ public class BattleManager
     private readonly Random _random = new();
     private readonly ICombatEventListener _listener;
     
-    public List<CombatDto> Enemies = new(); // calc exp/money/items based on this IsDead.Count
-    public List<CombatDto> Players = new();
-    private List<CombatDto> _characters = new();
+    public List<CombatDto> Enemies = []; // calc exp/money/items based on this IsDead.Count
+    public List<CombatDto> Players = [];
+    private List<CombatDto> _characters = [];
     private CombatDto Current => _characters[_currentIndex];
     
     private int _currentIndex = 0;

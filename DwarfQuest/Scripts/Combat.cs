@@ -162,7 +162,7 @@ public partial class Combat : Node, ICombatEventListener
 		{
 			GetTree().Quit(); // change to overworld directly
 		}
-			
-		GetTree().ChangeSceneToFile("res://Scenes/combat_results.tscn");
+		
+		this.ChangeScene(SceneType.CombatResults);
 	}
 }

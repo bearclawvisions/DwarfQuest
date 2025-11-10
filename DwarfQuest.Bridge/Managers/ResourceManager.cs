@@ -22,6 +22,14 @@ public static class ResourceManager
             _categorizedAssets[category] = new Dictionary<AssetName, Resource>();
         }
     }
+
+    public static void ChangeScene(this Node node, SceneType sceneType)
+    {
+        var scenePath = sceneType.GetPath();
+        var sceneLocation = $"res://Scenes/{scenePath}.tscn";
+        
+        node.GetTree().ChangeSceneToFile(sceneLocation);
+    }
     
     private static void LoadAssets()
     {
