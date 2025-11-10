@@ -11,6 +11,8 @@ namespace DwarfQuest.Scripts;
 public partial class Combat : Node, ICombatEventListener
 {
 	private CombatMenu _combatMenu;
+	private RunMenu _runMenu;
+	
 	private PlayerInfo _playerInfo;
 	private Enemies _enemies;
 	private Players _players;
@@ -20,6 +22,9 @@ public partial class Combat : Node, ICombatEventListener
 	public override void _Ready()
 	{
 		_battleManager = new BattleManager(this);
+		_runMenu = new RunMenu();
+		AddChild(_runMenu);
+		
 		InitializeCombatMenu();
 		InitializeCombatParticipants();
 		InitializeBattleAfterDelay();
@@ -40,8 +45,9 @@ public partial class Combat : Node, ICombatEventListener
 		
 		if (_battleManager.State == CombatState.Run)
 		{
+			_runMenu.ShowRunMenu();
 			// run away animation
-			BattleEnded(true);
+			// BattleEnded(true);
 		}
 	}
 		

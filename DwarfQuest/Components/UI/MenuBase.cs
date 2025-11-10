@@ -51,6 +51,7 @@ public partial class MenuBase : VBoxContainer
     private void SetMenuActive(bool isMenuActive)
     {
         _isMenuActive = isMenuActive;
+        _buttons[_index].GrabFocus();
         
         if (!isMenuActive)
             _index = 0;
