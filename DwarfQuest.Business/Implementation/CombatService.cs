@@ -64,6 +64,14 @@ public class CombatService
 
     public BattleResult GetBattleResult()
     {
+        _battleResult = new BattleResult
+        {
+            Experience = 100,
+            SkillPoints = 5,
+            Money = 99,
+            Message = "Congratulations!"
+        };
+        
         return _battleResult;
     }
 
