@@ -8,8 +8,6 @@ namespace DwarfQuest.Components.Container;
 
 public partial class ItemContainer : VBoxContainer
 {
-    // private List<ItemEntry> _items = [];
-
     public async Task Initialize(List<Item> items)
     {
         SetBase();
@@ -18,7 +16,6 @@ public partial class ItemContainer : VBoxContainer
         {
             var entry = new ItemEntry();
             entry.Initialize(item);
-            // _items.Add(entry);
             
             entry.Modulate = new Color(1, 1, 1, 0);
             AddChild(entry);

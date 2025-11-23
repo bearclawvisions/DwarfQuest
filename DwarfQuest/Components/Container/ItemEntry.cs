@@ -18,8 +18,6 @@ public partial class ItemEntry : HBoxContainer
 
     private void SetBase()
     {
-        Size = new Vector2(250, 23);
-        
         _name = new Label();
         _digits = new Label();
         _digits.SizeFlagsHorizontal = SizeFlags.ShrinkEnd | SizeFlags.Expand;
@@ -27,15 +25,4 @@ public partial class ItemEntry : HBoxContainer
         AddChild(_name);
         AddChild(_digits);
     }
-
-    // private void CountUpAnimation()
-    // {
-    //     var tween = CreateTween();
-    //     tween.SetEase(Tween.EaseType.Out);
-    //     tween.SetTrans(Tween.TransitionType.Cubic);
-    //     tween.TweenMethod(Callable.From((double value) => 
-    //     {
-    //         _digits.Text = Mathf.RoundToInt((float)value).ToString();
-    //     }), 0.0, (double)_amount, 1.5f);
-    // }
 }

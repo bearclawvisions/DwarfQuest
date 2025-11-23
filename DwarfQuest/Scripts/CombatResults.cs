@@ -1,4 +1,3 @@
-using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Components.Container;
@@ -29,14 +28,11 @@ public partial class CombatResults : Control
 		// this.ClearPlaceholders();
 		InitializeStaticText();
 		
-		// _itemContainer = GetNode<VBoxContainer>("%ItemContainer");
-		// _itemContainer.ClearPlaceholders();
-
 		_result = _combatService.GetBattleResult();
 		_playerResults = _combatService.GetPlayerPartyForBattleResults();
 		
 		SetBattleResultData();
-		_ = ShowItemsOneByOne();
+		_ = LoadItems();
 		ShowPartyGaugeIncreases();
 	}
 
@@ -79,33 +75,11 @@ public partial class CombatResults : Control
 		AddChild(_moneyContainer);
 	}
 	
-	private async Task ShowItemsOneByOne()
+	private async Task LoadItems()
 	{
 		_itemContainer = new ItemContainer();
 		AddChild(_itemContainer);
 		await _itemContainer.Initialize(_result.Items);
-		
-		// foreach (var item in _result.Items)
-		// {
-		// 	var itemEntry = new HBoxContainer();
-		// 	var itemName = new Label();
-		// 	var itemAmount = new Label();
-		// 	itemAmount.SizeFlagsHorizontal = SizeFlags.ShrinkEnd | SizeFlags.Expand;
-		// 	
-		// 	itemName.Text = item.Name;
-		// 	itemAmount.Text = item.Amount.ToString();
-		// 	
-		// 	itemEntry.AddChild(itemName);
-		// 	itemEntry.AddChild(itemAmount);
-		// 	
-		// 	itemEntry.Modulate = new Color(1, 1, 1, 0);
-		// 	_itemContainer.AddChild(itemEntry);
-		//
-		// 	var tween = CreateTween();
-		// 	tween.TweenProperty(itemEntry, GodotProperty.ModulateAlpha, 1.0, 0.2);
-		//
-		// 	await ToSignal(GetTree().CreateTimer(0.2), SceneTreeTimer.SignalName.Timeout);
-		// }
 	}
 	
 	private void ShowPartyGaugeIncreases()
