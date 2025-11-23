@@ -1,6 +1,7 @@
 using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
+using DwarfQuest.Components.Container;
 using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Models;
@@ -16,16 +17,15 @@ public partial class CombatResults : Control
 	private BattleResult _result;
 	private List<PlayerBattleResultDto> _playerResults;
 	
-	private Label _expAmount;
-	private Label _skillPointsAmount;
-	private Label _moneyAmount;
+	private DisplayContainer _expContainer;
+	private DisplayContainer _skillPointContainer;
+	private DisplayContainer _moneyContainer;
+
 	private VBoxContainer _itemContainer;
 	
 	public override void _Ready()
 	{
-		_expAmount = GetNode<Label>("%ExpAmount");
-		_skillPointsAmount = GetNode<Label>("%SkillPointsAmount");
-		_moneyAmount = GetNode<Label>("%MoneyAmount");
+		var viewport = AutoLoader.GetWindowSize();
 		
 		_itemContainer = GetNode<VBoxContainer>("%ItemContainer");
 		_itemContainer.ClearPlaceholders();
@@ -34,34 +34,23 @@ public partial class CombatResults : Control
 		_playerResults = _combatService.GetPlayerPartyForBattleResults();
 		
 		SetBattleResultData();
-		CountUpAnimation();
 		_ = ShowItemsOneByOne();
 		ShowPartyGaugeIncreases();
 	}
 
 	private void SetBattleResultData()
 	{
-		_expAmount.Text = _result.Experience.ToString();
-		_skillPointsAmount.Text = _result.SkillPoints.ToString();
-		_moneyAmount.Text = _result.Money.ToString();
-	}
-	
-	private void CountUpAnimation()
-	{
-		CreateCountUpTween(_expAmount, _result.Experience, 1.5f);
-		CreateCountUpTween(_skillPointsAmount, _result.SkillPoints, 1.5f);
-		CreateCountUpTween(_moneyAmount, _result.Money, 1.5f);
-	}
-
-	private void CreateCountUpTween(Label label, int targetValue, float duration)
-	{
-		var tween = CreateTween();
-		tween.SetEase(Tween.EaseType.Out);
-		tween.SetTrans(Tween.TransitionType.Cubic);
-		tween.TweenMethod(Callable.From((double value) => 
-		{
-			label.Text = Mathf.RoundToInt((float)value).ToString();
-		}), 0.0, (double)targetValue, duration);
+		_expContainer = new DisplayContainer();
+		_expContainer.Initialize(DisplayEnum.Experience, _result.Experience);
+		AddChild(_expContainer);
+		
+		_skillPointContainer = new DisplayContainer();
+		_skillPointContainer.Initialize(DisplayEnum.SkillPoints, _result.SkillPoints);
+		AddChild(_skillPointContainer);
+		
+		_moneyContainer = new DisplayContainer();
+		_moneyContainer.Initialize(DisplayEnum.Money, _result.Money);
+		AddChild(_moneyContainer);
 	}
 	
 	private async Task ShowItemsOneByOne()
@@ -79,15 +68,12 @@ public partial class CombatResults : Control
 			itemEntry.AddChild(itemName);
 			itemEntry.AddChild(itemAmount);
 			
-			// Initially hide the item
 			itemEntry.Modulate = new Color(1, 1, 1, 0);
 			_itemContainer.AddChild(itemEntry);
 		
-			// Fade in animation
 			var tween = CreateTween();
 			tween.TweenProperty(itemEntry, GodotProperty.ModulateAlpha, 1.0, 0.2);
 		
-			// Wait 200ms before showing next item
 			await ToSignal(GetTree().CreateTimer(0.2), SceneTreeTimer.SignalName.Timeout);
 		}
 	}
