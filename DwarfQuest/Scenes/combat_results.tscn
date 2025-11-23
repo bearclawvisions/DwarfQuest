@@ -19,3 +19,90 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.27914053, 0.32025233, 0.3585018, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.5
+offset_top = 25.0
+offset_right = 51.5
+offset_bottom = 48.0
+grow_horizontal = 2
+text = "Battle results"
+
+[node name="ExpContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 60.0
+offset_right = 190.0
+offset_bottom = 110.0
+
+[node name="Label" type="Label" parent="ExpContainer"]
+layout_mode = 2
+text = "Exp"
+
+[node name="ExpAmount" type="Label" parent="ExpContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "6666666"
+horizontal_alignment = 2
+
+[node name="SkillPointsContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -120.0
+offset_right = 75.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SkillPointsContainer"]
+layout_mode = 2
+text = "Skillpoints"
+
+[node name="SkillPointsAmount" type="Label" parent="SkillPointsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "666"
+horizontal_alignment = 2
+
+[node name="MoneyContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -190.0
+offset_top = 60.0
+offset_right = -40.0
+offset_bottom = 110.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="MoneyContainer"]
+layout_mode = 2
+text = "Money"
+
+[node name="MoneyAmount" type="Label" parent="MoneyContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "666666"
+horizontal_alignment = 2
+
+[node name="ItemContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_right = 80.0
+offset_bottom = 60.0
+grow_vertical = 2
