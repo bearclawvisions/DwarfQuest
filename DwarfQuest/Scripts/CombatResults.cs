@@ -2,9 +2,11 @@ using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Data.Dto;
+using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Models;
 using Godot;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DwarfQuest.Scripts;
 
@@ -33,7 +35,7 @@ public partial class CombatResults : Control
 		
 		SetBattleResultData();
 		CountUpAnimation();
-		ShowItemsOneByOne();
+		_ = ShowItemsOneByOne();
 		ShowPartyGaugeIncreases();
 	}
 
@@ -62,7 +64,7 @@ public partial class CombatResults : Control
 		}), 0.0, (double)targetValue, duration);
 	}
 	
-	private void ShowItemsOneByOne()
+	private async Task ShowItemsOneByOne()
 	{
 		foreach (var item in _result.Items)
 		{
@@ -77,7 +79,16 @@ public partial class CombatResults : Control
 			itemEntry.AddChild(itemName);
 			itemEntry.AddChild(itemAmount);
 			
+			// Initially hide the item
+			itemEntry.Modulate = new Color(1, 1, 1, 0);
 			_itemContainer.AddChild(itemEntry);
+		
+			// Fade in animation
+			var tween = CreateTween();
+			tween.TweenProperty(itemEntry, GodotProperty.ModulateAlpha, 1.0, 0.2);
+		
+			// Wait 200ms before showing next item
+			await ToSignal(GetTree().CreateTimer(0.2), SceneTreeTimer.SignalName.Timeout);
 		}
 	}
 	
