@@ -31,4 +31,17 @@ public static class EnumExtension
         
         return attribute?.Category ?? AssetCategory.Null;
     }
+    
+    public static string GetShortDescription(this Enum enumValue)
+    {
+        var type = enumValue.GetType();
+        var name = Enum.GetName(type, enumValue);
+        
+        if (name == null) return "No enum name found";
+        
+        var field = type.GetField(name);
+        var attribute = field?.GetCustomAttribute<ShortDescriptionAttribute>();
+        
+        return attribute?.ShortDescription ?? "No ShortDescription attribute found";
+    }
 }

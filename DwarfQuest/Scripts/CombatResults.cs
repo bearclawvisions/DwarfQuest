@@ -25,7 +25,7 @@ public partial class CombatResults : Control
 	
 	public override void _Ready()
 	{
-		var viewport = AutoLoader.GetWindowSize();
+		InitializeStaticText();
 		
 		_itemContainer = GetNode<VBoxContainer>("%ItemContainer");
 		_itemContainer.ClearPlaceholders();
@@ -38,18 +38,42 @@ public partial class CombatResults : Control
 		ShowPartyGaugeIncreases();
 	}
 
+	private void InitializeStaticText()
+	{
+		var windowSizeCenter = AutoLoader.GetWindowSize().X / 2;
+		
+		var title = new Label();
+		title.Text = "Battle Results";
+		AddChild(title);
+		var labelSize = title.Size.X;
+		var centerLocation = windowSizeCenter - labelSize / 2;
+		title.Position = new Vector2(centerLocation, 25f);
+		
+		var itemTitle = new Label();
+		itemTitle.Text = "Items";
+		AddChild(itemTitle);
+		var leftLocation = windowSizeCenter / 2 - itemTitle.Size.X / 2;
+		itemTitle.Position = new Vector2(leftLocation, 120f);
+		
+		var partyTitle = new Label();
+		partyTitle.Text = "Party";
+		AddChild(partyTitle);
+		var rightLocation = windowSizeCenter / 2 * 3 - partyTitle.Size.X / 2;
+		partyTitle.Position = new Vector2(rightLocation, 120f);
+	}
+
 	private void SetBattleResultData()
 	{
 		_expContainer = new DisplayContainer();
-		_expContainer.Initialize(DisplayEnum.Experience, _result.Experience);
+		_expContainer.Initialize(UiLabels.Experience, _result.Experience);
 		AddChild(_expContainer);
 		
 		_skillPointContainer = new DisplayContainer();
-		_skillPointContainer.Initialize(DisplayEnum.SkillPoints, _result.SkillPoints);
+		_skillPointContainer.Initialize(UiLabels.SkillPoints, _result.SkillPoints);
 		AddChild(_skillPointContainer);
 		
 		_moneyContainer = new DisplayContainer();
-		_moneyContainer.Initialize(DisplayEnum.Money, _result.Money);
+		_moneyContainer.Initialize(UiLabels.Money, _result.Money);
 		AddChild(_moneyContainer);
 	}
 	
