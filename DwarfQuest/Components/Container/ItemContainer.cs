@@ -1,5 +1,6 @@
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Models;
+using DwarfQuest.Scripts;
 using Godot;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,7 +30,11 @@ public partial class ItemContainer : VBoxContainer
 
     private void SetBase()
     {
-        Size = new Vector2(250f, 50f);
-        Position = new Vector2(63f, 150f);
+		var windowSizeCenter = AutoLoader.GetWindowSize().X / 2;
+        const float containerWidth = 250f; // ItemEntry inherits this
+        var leftLocation = windowSizeCenter / 2 - containerWidth / 2;
+        
+        Size = new Vector2(containerWidth, 50f);
+        Position = new Vector2(leftLocation, 150f);
     }
 }
