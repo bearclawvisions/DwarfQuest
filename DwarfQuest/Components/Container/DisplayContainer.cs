@@ -2,7 +2,6 @@ using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Extensions;
 using DwarfQuest.Scripts;
 using Godot;
-using System;
 
 namespace DwarfQuest.Components.Container;
 
@@ -26,7 +25,7 @@ public partial class DisplayContainer : HBoxContainer
 
     private void DefineDisplayTypeAndPosition(UiLabels name)
     {
-        _name.Text = name.GetShortDescription();
+        _name.Text = name.GetDescription();
         const float displayHeight = 60f;
         var x = CalculateHorizontalPosition(name);
         Position = new Vector2(x, displayHeight);

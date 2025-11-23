@@ -1,15 +1,24 @@
-using DwarfQuest.Data.Attributes;
+using System.ComponentModel;
 
 namespace DwarfQuest.Data.Enums;
 
 public enum UiLabels
 {
-    [ShortDescription("Exp")]
+    [Description("Exp")]
     Experience,
     
-    [ShortDescription("SP")]
+    [Description("SP")]
     SkillPoints,
     
-    [ShortDescription("Money")]
+    [Description("Money")]
     Money,
+    
+    [Description("Items")]
+    Items,
+    
+    [Description("Party")]
+    Party,
+    
+    [Description("Battle Results")]
+    BattleResults,
 }

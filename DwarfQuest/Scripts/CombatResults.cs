@@ -4,6 +4,7 @@ using DwarfQuest.Business.Implementation;
 using DwarfQuest.Components.Container;
 using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Extensions;
 using DwarfQuest.Data.Models;
 using Godot;
 using System.Collections.Generic;
@@ -21,14 +22,15 @@ public partial class CombatResults : Control
 	private DisplayContainer _skillPointContainer;
 	private DisplayContainer _moneyContainer;
 
-	private VBoxContainer _itemContainer;
+	private ItemContainer _itemContainer;
 	
 	public override void _Ready()
 	{
+		// this.ClearPlaceholders();
 		InitializeStaticText();
 		
-		_itemContainer = GetNode<VBoxContainer>("%ItemContainer");
-		_itemContainer.ClearPlaceholders();
+		// _itemContainer = GetNode<VBoxContainer>("%ItemContainer");
+		// _itemContainer.ClearPlaceholders();
 
 		_result = _combatService.GetBattleResult();
 		_playerResults = _combatService.GetPlayerPartyForBattleResults();
@@ -43,20 +45,20 @@ public partial class CombatResults : Control
 		var windowSizeCenter = AutoLoader.GetWindowSize().X / 2;
 		
 		var title = new Label();
-		title.Text = "Battle Results";
+		title.Text = UiLabels.BattleResults.GetDescription();
 		AddChild(title);
 		var labelSize = title.Size.X;
 		var centerLocation = windowSizeCenter - labelSize / 2;
 		title.Position = new Vector2(centerLocation, 25f);
 		
 		var itemTitle = new Label();
-		itemTitle.Text = "Items";
+		itemTitle.Text = UiLabels.Items.GetDescription();
 		AddChild(itemTitle);
 		var leftLocation = windowSizeCenter / 2 - itemTitle.Size.X / 2;
 		itemTitle.Position = new Vector2(leftLocation, 120f);
 		
 		var partyTitle = new Label();
-		partyTitle.Text = "Party";
+		partyTitle.Text = UiLabels.Party.GetDescription();
 		AddChild(partyTitle);
 		var rightLocation = windowSizeCenter / 2 * 3 - partyTitle.Size.X / 2;
 		partyTitle.Position = new Vector2(rightLocation, 120f);
@@ -79,27 +81,31 @@ public partial class CombatResults : Control
 	
 	private async Task ShowItemsOneByOne()
 	{
-		foreach (var item in _result.Items)
-		{
-			var itemEntry = new HBoxContainer();
-			var itemName = new Label();
-			var itemAmount = new Label();
-			itemAmount.SizeFlagsHorizontal = SizeFlags.ShrinkEnd | SizeFlags.Expand;
-			
-			itemName.Text = item.Name;
-			itemAmount.Text = item.Amount.ToString();
-			
-			itemEntry.AddChild(itemName);
-			itemEntry.AddChild(itemAmount);
-			
-			itemEntry.Modulate = new Color(1, 1, 1, 0);
-			_itemContainer.AddChild(itemEntry);
+		_itemContainer = new ItemContainer();
+		AddChild(_itemContainer);
+		await _itemContainer.Initialize(_result.Items);
 		
-			var tween = CreateTween();
-			tween.TweenProperty(itemEntry, GodotProperty.ModulateAlpha, 1.0, 0.2);
-		
-			await ToSignal(GetTree().CreateTimer(0.2), SceneTreeTimer.SignalName.Timeout);
-		}
+		// foreach (var item in _result.Items)
+		// {
+		// 	var itemEntry = new HBoxContainer();
+		// 	var itemName = new Label();
+		// 	var itemAmount = new Label();
+		// 	itemAmount.SizeFlagsHorizontal = SizeFlags.ShrinkEnd | SizeFlags.Expand;
+		// 	
+		// 	itemName.Text = item.Name;
+		// 	itemAmount.Text = item.Amount.ToString();
+		// 	
+		// 	itemEntry.AddChild(itemName);
+		// 	itemEntry.AddChild(itemAmount);
+		// 	
+		// 	itemEntry.Modulate = new Color(1, 1, 1, 0);
+		// 	_itemContainer.AddChild(itemEntry);
+		//
+		// 	var tween = CreateTween();
+		// 	tween.TweenProperty(itemEntry, GodotProperty.ModulateAlpha, 1.0, 0.2);
+		//
+		// 	await ToSignal(GetTree().CreateTimer(0.2), SceneTreeTimer.SignalName.Timeout);
+		// }
 	}
 	
 	private void ShowPartyGaugeIncreases()

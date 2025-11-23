@@ -1,6 +1,8 @@
 using DwarfQuest.Data.Attributes;
 using DwarfQuest.Data.Enums;
+using System.ComponentModel;
 using System.Reflection;
+using CategoryAttribute = DwarfQuest.Data.Attributes.CategoryAttribute;
 
 namespace DwarfQuest.Data.Extensions;
 
@@ -32,7 +34,7 @@ public static class EnumExtension
         return attribute?.Category ?? AssetCategory.Null;
     }
     
-    public static string GetShortDescription(this Enum enumValue)
+    public static string GetDescription(this Enum enumValue)
     {
         var type = enumValue.GetType();
         var name = Enum.GetName(type, enumValue);
@@ -40,8 +42,8 @@ public static class EnumExtension
         if (name == null) return "No enum name found";
         
         var field = type.GetField(name);
-        var attribute = field?.GetCustomAttribute<ShortDescriptionAttribute>();
+        var attribute = field?.GetCustomAttribute<DescriptionAttribute>();
         
-        return attribute?.ShortDescription ?? "No ShortDescription attribute found";
+        return attribute?.Description ?? "No ShortDescription attribute found";
     }
 }
