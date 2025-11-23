@@ -9,6 +9,7 @@
       "Stats": {
         "Level": 1,
         "Experience": 0,
+        "SkillPoints": 0,
         "Health": 100,
         "MaxHealth": 100,
         "Mana": 100,
@@ -40,6 +41,7 @@
       "Stats": {
         "Level": 1,
         "Experience": 0,
+        "SkillPoints": 0,
         "Health": 100,
         "MaxHealth": 100,
         "Mana": 100,
@@ -71,6 +73,7 @@
       "Stats": {
         "Level": 1,
         "Experience": 0,
+        "SkillPoints": 0,
         "Health": 100,
         "MaxHealth": 100,
         "Mana": 100,

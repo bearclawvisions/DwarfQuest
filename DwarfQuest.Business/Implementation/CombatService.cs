@@ -69,6 +69,11 @@ public class CombatService
             Experience = 100,
             SkillPoints = 5,
             Money = 99,
+            Items =
+            [
+                new Item { Name = "Potion of Healing", Amount = 3, },
+                new Item { Name = "Herbs", Amount = 5, }
+            ],
             Message = "Congratulations!"
         };
         
@@ -85,6 +90,26 @@ public class CombatService
             Money = 99,
             Message = "Congratulations!"
         };
+    }
+
+    public List<PlayerBattleResultDto> GetPlayerPartyForBattleResults()
+    {
+        var players = new List<PlayerBattleResultDto>();
+        
+        var data = _jsonService.Characters;
+        foreach (var player in data.Characters)
+        {
+            var info = new PlayerBattleResultDto()
+            {
+                Name = player.Name,
+                Experience = player.Stats.Experience,
+                SkillPoints = player.Stats.SkillPoints,
+            };
+            
+            players.Add(info);
+        }
+        
+        return players;
     }
 
     public void ClearBattleResult()

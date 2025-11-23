@@ -99,12 +99,37 @@ size_flags_horizontal = 3
 text = "666666"
 horizontal_alignment = 2
 
+[node name="ItemLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 120.0
+offset_right = 217.0
+offset_bottom = 143.0
+size_flags_horizontal = 4
+text = "Items"
+
 [node name="ItemContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 20.0
-offset_right = 80.0
-offset_bottom = 60.0
+offset_left = -250.0
+offset_top = -30.0
+offset_bottom = 20.0
+grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ItemEntry" type="HBoxContainer" parent="ItemContainer"]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="ItemContainer/ItemEntry"]
+layout_mode = 2
+text = "Potion"
+
+[node name="ItemAmount" type="Label" parent="ItemContainer/ItemEntry"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "3"
