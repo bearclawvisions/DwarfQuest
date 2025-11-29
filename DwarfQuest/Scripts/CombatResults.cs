@@ -40,8 +40,7 @@ public partial class CombatResults : Control
 
 	private void GoToOverworld()
 	{
-		GetTree().Quit();
-		// this.ChangeScene(SceneType.Overworld);
+		this.ChangeScene(SceneType.Overworld);
 	}
 
 	private void InitializeStaticText()
