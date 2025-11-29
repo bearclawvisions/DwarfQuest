@@ -1,4 +1,3 @@
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Models;
 using System.Numerics;
 
@@ -9,16 +8,16 @@ public class CombatService
     private readonly JsonService _jsonService = new();
     private BattleResult _battleResult = new();
 
-    public List<CombatDto> GetPlayerCombatants()
+    public List<CombatantInfo> GetPlayerCombatants()
     {
-        var combatants = new List<CombatDto>();
+        var combatants = new List<CombatantInfo>();
         
         var data = _jsonService.Characters;
         foreach (var combatant in data.Characters)
         {
             var stats = combatant.Stats;
             var formation = combatant.Formation.Position;
-            var dto = new CombatDto
+            var dto = new CombatantInfo
             {
                 Id = combatant.Id,
                 Name = combatant.Name,
@@ -36,16 +35,16 @@ public class CombatService
         return combatants;
     }
     
-    public List<CombatDto> GetEnemyCombatants()
+    public List<CombatantInfo> GetEnemyCombatants()
     {
-        var combatants = new List<CombatDto>();
+        var combatants = new List<CombatantInfo>();
         
         var data = _jsonService.Monsters;
         foreach (var combatant in data.Monsters)
         {
             var stats = combatant.Stats;
             var formation = combatant.Formation.Position;
-            var dto = new CombatDto
+            var dto = new CombatantInfo
             {
                 Name = combatant.Name,
                 Health = stats.Health,
@@ -80,7 +79,7 @@ public class CombatService
         return _battleResult;
     }
 
-    public void SetBattleResult(List<CombatDto> defeated)
+    public void SetBattleResult(List<CombatantInfo> defeated)
     {
         // todo do magic to set stuff
         
@@ -92,14 +91,14 @@ public class CombatService
         };
     }
 
-    public List<PlayerBattleResultDto> GetPlayerPartyForBattleResults()
+    public List<PlayerBattleResultInfo> GetPlayerPartyForBattleResults()
     {
-        var players = new List<PlayerBattleResultDto>();
+        var players = new List<PlayerBattleResultInfo>();
         
         var data = _jsonService.Characters;
         foreach (var player in data.Characters)
         {
-            var info = new PlayerBattleResultDto()
+            var info = new PlayerBattleResultInfo()
             {
                 Name = player.Name,
                 Experience = player.Stats.Experience,

@@ -1,6 +1,6 @@
 using DwarfQuest.Bridge.Managers;
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Models;
 using Godot;
 
 namespace DwarfQuest.Components.Container;
@@ -40,14 +40,14 @@ public partial class CombatPlayerInfo : HBoxContainer
         _healthBar.AddChild(_healthLabel);
     }
 
-    public static CombatPlayerInfo Create(CombatDto info)
+    public static CombatPlayerInfo Create(CombatantInfo info)
     {
         var component = new CombatPlayerInfo();
         component.Initialize(info);
         return component;
     }
 
-    private void Initialize(CombatDto info)
+    private void Initialize(CombatantInfo info)
     {
         Id = info.Id;
         _label.Text = info.Name;

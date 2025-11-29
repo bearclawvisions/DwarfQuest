@@ -1,7 +1,6 @@
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Components.Container;
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Extensions;
 using DwarfQuest.Data.Models;
@@ -15,7 +14,7 @@ public partial class CombatResults : Control
 {
 	private readonly CombatService _combatService = GameManager.CombatService;
 	private BattleResult _result;
-	private List<PlayerBattleResultDto> _playerResults;
+	private List<PlayerBattleResultInfo> _playerResults;
 	
 	private DisplayContainer _expContainer;
 	private DisplayContainer _skillPointContainer;

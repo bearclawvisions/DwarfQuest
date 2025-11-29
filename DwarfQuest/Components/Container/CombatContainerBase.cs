@@ -2,7 +2,7 @@ using DwarfQuest.Data.Enums;
 using Godot;
 using System.Collections.Generic;
 using DwarfQuest.Components.Character;
-using DwarfQuest.Data.Dto;
+using DwarfQuest.Data.Models;
 using System.Linq;
 
 namespace DwarfQuest.Components.Container;
@@ -34,7 +34,7 @@ public partial class CombatContainerBase : Node2D
         SetMenuActive(false);
     }
         
-    public void RemoveParticipant(CombatDto enemy)
+    public void RemoveParticipant(CombatantInfo enemy)
     {
         // position is unique, maybe later to this based on an id
         var combatant = Participants.Find(x => x.CombatInfo.CombatPosition == enemy.CombatPosition);

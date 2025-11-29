@@ -1,8 +1,8 @@
 using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Components.Container;
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Models;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ public partial class PlayerInfo : VBoxContainer
         Position = new Vector2(Position.X - 10, Position.Y - 10); // padding from screen edges
 	}
 
-	public void InitializePlayerInfo(List<CombatDto> combatants)
+	public void InitializePlayerInfo(List<CombatantInfo> combatants)
 	{
 		foreach (var combatant in combatants)
 		{
@@ -31,7 +31,7 @@ public partial class PlayerInfo : VBoxContainer
 		}
 	}
 
-	public void UpdateHealth(CombatDto combatant)
+	public void UpdateHealth(CombatantInfo combatant)
 	{
 		var target = _playerInfo.FirstOrDefault(x => x.Id == combatant.Id);
 		target?.UpdateHealth(combatant.Health, combatant.MaxHealth);

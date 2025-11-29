@@ -1,11 +1,11 @@
-using DwarfQuest.Data.Dto;
+using DwarfQuest.Data.Models;
 
 namespace DwarfQuest.Business.Interfaces;
 
 public interface ICombatEventListener
 {
     Task ShowMessageAsync(string message);
-    Task CombatantDeathAsync(CombatDto combatant);
+    Task CombatantDeathAsync(CombatantInfo combatant);
     Task PlayAttackAnimationAsync();
-    void UpdatePlayerInfo(CombatDto combatant);
+    void UpdatePlayerInfo(CombatantInfo combatant);
 }

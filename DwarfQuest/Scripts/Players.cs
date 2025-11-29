@@ -1,8 +1,8 @@
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Components.Character;
 using DwarfQuest.Components.Container;
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Models;
 using Godot;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace DwarfQuest.Scripts;
 
 public partial class Players : CombatContainerBase
 {
-    public void InitializeParty(List<CombatDto> combatants)
+    public void InitializeParty(List<CombatantInfo> combatants)
     {
         var texture = ResourceManager.GetAsset<Texture2D>(AssetName.PlayerPlaceholder); // move to json
         

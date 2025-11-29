@@ -1,7 +1,7 @@
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Models;
 
 namespace DwarfQuest.Bridge.Managers;
 
@@ -11,10 +11,10 @@ public class BattleManager
     private readonly Random _random = new();
     private readonly ICombatEventListener _listener;
     
-    public List<CombatDto> Enemies = []; // calc exp/money/items based on this IsDead.Count
-    public List<CombatDto> Players = [];
-    private List<CombatDto> _characters = [];
-    private CombatDto Current => _characters[_currentIndex];
+    public List<CombatantInfo> Enemies = []; // calc exp/money/items based on this IsDead.Count
+    public List<CombatantInfo> Players = [];
+    private List<CombatantInfo> _characters = [];
+    private CombatantInfo Current => _characters[_currentIndex];
     
     private int _currentIndex = 0;
     private int _currentRound = 0;
@@ -120,7 +120,7 @@ public class BattleManager
         await EndTurn();
     }
 
-    private void DealDamage(CombatDto target)
+    private void DealDamage(CombatantInfo target)
     {
         target.Health -= Current.Damage;
         
@@ -129,7 +129,7 @@ public class BattleManager
         if (target.IsPlayer) _listener.UpdatePlayerInfo(target);
     }
 
-    private async Task CheckHealth(CombatDto target)
+    private async Task CheckHealth(CombatantInfo target)
     {
         if (target.Health > 0) return;
         

@@ -1,8 +1,8 @@
 using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Interfaces;
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Models;
 using Godot;
 using System.Threading.Tasks;
 
@@ -75,12 +75,12 @@ public partial class Combat : Node, ICombatEventListener
 		await Task.Delay(300); // simulate ui delay
 	}
 	
-	public void UpdatePlayerInfo(CombatDto combatant)
+	public void UpdatePlayerInfo(CombatantInfo combatant)
 	{
 		_playerInfo.UpdateHealth(combatant);
 	}
 
-	public async Task CombatantDeathAsync(CombatDto combatant)
+	public async Task CombatantDeathAsync(CombatantInfo combatant)
 	{
 		if (!combatant.IsPlayer)
 			_enemies.RemoveParticipant(combatant);

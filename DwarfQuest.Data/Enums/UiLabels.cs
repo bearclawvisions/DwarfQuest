@@ -1,10 +1,11 @@
+using DwarfQuest.Data.Attributes;
 using System.ComponentModel;
 
 namespace DwarfQuest.Data.Enums;
 
 public enum UiLabels
 {
-    [Description("Exp")]
+    [Description("XP")]
     Experience,
     
     [Description("SP")]
@@ -21,4 +22,7 @@ public enum UiLabels
     
     [Description("Battle Results")]
     BattleResults,
+    
+    [Description(" - ")]
+    SpacedDash,
 }

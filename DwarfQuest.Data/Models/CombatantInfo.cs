@@ -1,8 +1,8 @@
 using System.Numerics;
 
-namespace DwarfQuest.Data.Dto;
+namespace DwarfQuest.Data.Models;
 
-public class CombatDto
+public class CombatantInfo
 {
     public int Id { get; set; } // todo expand this to replace position checks
     public required string Name { get; set; }

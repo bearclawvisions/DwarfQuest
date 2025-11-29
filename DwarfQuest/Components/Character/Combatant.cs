@@ -1,6 +1,6 @@
 using DwarfQuest.Bridge.Extensions;
-using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Models;
 using Godot;
 using System;
 
@@ -8,7 +8,7 @@ namespace DwarfQuest.Components.Character;
 
 public partial class Combatant : Node2D
 {
-    public CombatDto CombatInfo;
+    public CombatantInfo CombatInfo;
     
     private Sprite2D _sprite;
     private float _deathDuration = 0.5f;

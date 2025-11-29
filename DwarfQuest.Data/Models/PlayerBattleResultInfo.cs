@@ -1,6 +1,6 @@
-namespace DwarfQuest.Data.Dto;
+namespace DwarfQuest.Data.Models;
 
-public class PlayerBattleResultDto
+public class PlayerBattleResultInfo
 {
     public string Name { get; set; } = string.Empty;
     public int Experience { get; set; }
