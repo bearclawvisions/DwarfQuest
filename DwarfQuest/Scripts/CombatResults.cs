@@ -1,3 +1,4 @@
+using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Components.Container;
@@ -16,23 +17,19 @@ public partial class CombatResults : Control
 	private BattleResult _result;
 	private List<PlayerBattleResultInfo> _playerResults;
 	
-	private DisplayContainer _expContainer;
-	private DisplayContainer _skillPointContainer;
-	private DisplayContainer _moneyContainer;
-
 	private ItemContainer _itemContainer;
+	private PartyContainer _partyContainer;
 	
 	public override void _Ready()
 	{
-		// this.ClearPlaceholders();
-		InitializeStaticText();
-		
+		this.ClearPlaceholders();
 		_result = _combatService.GetBattleResult();
 		_playerResults = _combatService.GetPlayerPartyForBattleResults();
 		
+		InitializeStaticText();
 		SetBattleResultData();
 		_ = LoadItems();
-		ShowPartyGaugeIncreases();
+		LoadParty();
 	}
 
 	private void InitializeStaticText()
@@ -57,17 +54,16 @@ public partial class CombatResults : Control
 
 	private void SetBattleResultData()
 	{
-		_expContainer = new DisplayContainer();
-		_expContainer.Initialize(UiLabels.Experience, _result.Experience);
-		AddChild(_expContainer);
-		
-		_skillPointContainer = new DisplayContainer();
-		_skillPointContainer.Initialize(UiLabels.SkillPoints, _result.SkillPoints);
-		AddChild(_skillPointContainer);
-		
-		_moneyContainer = new DisplayContainer();
-		_moneyContainer.Initialize(UiLabels.Money, _result.Money);
-		AddChild(_moneyContainer);
+		CreateDisplayContainer(UiLabels.Experience, _result.Experience);
+		CreateDisplayContainer(UiLabels.SkillPoints, _result.SkillPoints);
+		CreateDisplayContainer(UiLabels.Money, _result.Money);
+	}
+
+	private void CreateDisplayContainer(UiLabels label, int value)
+	{
+		var container = new DisplayContainer();
+		container.Initialize(label, value);
+		AddChild(container);
 	}
 	
 	private async Task LoadItems()
@@ -77,9 +73,11 @@ public partial class CombatResults : Control
 		await _itemContainer.Initialize(_result.Items);
 	}
 	
-	private void ShowPartyGaugeIncreases()
+	private void LoadParty()
 	{
-		
+		_partyContainer = new PartyContainer();
+		AddChild(_partyContainer);
+		_partyContainer.Initialize(_playerResults, _result);
 	}
 
 	// use input to close and go to overworld

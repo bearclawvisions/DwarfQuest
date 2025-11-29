@@ -72,8 +72,8 @@
       "Class": "Miner",
       "Stats": {
         "Level": 1,
-        "Experience": 0,
-        "SkillPoints": 0,
+        "Experience": 34,
+        "SkillPoints": 5,
         "Health": 100,
         "MaxHealth": 100,
         "Mana": 100,
