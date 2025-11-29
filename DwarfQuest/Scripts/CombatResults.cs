@@ -23,6 +23,7 @@ public partial class CombatResults : Control
 	public override void _Ready()
 	{
 		this.ClearPlaceholders();
+		Theme = ResourceManager.GetAsset<Theme>(AssetName.BattleResultTheme);
 		_result = _combatService.GetBattleResult();
 		_playerResults = _combatService.GetPlayerPartyForBattleResults();
 		

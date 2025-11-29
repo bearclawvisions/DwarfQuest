@@ -5,6 +5,7 @@ namespace DwarfQuest.Data.Enums;
 public enum AssetName
 {
     [Category(AssetCategory.Theme), Path("combat_theme.tres")] CombatTheme,
+    [Category(AssetCategory.Theme), Path("battle_result_theme.tres")] BattleResultTheme,
     
     [Category(AssetCategory.Player), Path("placeholder.png")] PlayerPlaceholder,
     
