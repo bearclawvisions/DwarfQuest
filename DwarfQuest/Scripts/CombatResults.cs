@@ -32,6 +32,18 @@ public partial class CombatResults : Control
 		LoadParty();
 	}
 
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is InputEventKey { Pressed: true, Keycode: Key.Enter })
+			GoToOverworld();
+	}
+
+	private void GoToOverworld()
+	{
+		GetTree().Quit();
+		// this.ChangeScene(SceneType.Overworld);
+	}
+
 	private void InitializeStaticText()
 	{
 		var windowSize = AutoLoader.GetWindowSize();

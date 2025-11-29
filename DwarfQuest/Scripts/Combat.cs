@@ -167,6 +167,7 @@ public partial class Combat : Node, ICombatEventListener
 		if (runaway)
 		{
 			GetTree().Quit(); // change to overworld directly
+			// this.ChangeScene(SceneType.Overworld);
 		}
 		
 		this.ChangeScene(SceneType.CombatResults);

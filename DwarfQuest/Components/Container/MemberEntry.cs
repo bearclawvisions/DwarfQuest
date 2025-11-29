@@ -16,13 +16,9 @@ public partial class MemberEntry : HBoxContainer
     private Label _spLabel;
     private Label _spAmount;
     
-    private PlayerBattleResultInfo _info;
-
     public void Initialize(PlayerBattleResultInfo info)
     {
         SetBase();
-        
-        _info = info;
         
         _name.Text = info.Name;
         _expBar.Value = info.Experience;
@@ -50,7 +46,7 @@ public partial class MemberEntry : HBoxContainer
         var totalExp = _expBar.Value + experience;
         
         var tween = CreateTween();
-        tween.TweenProperty(_expBar, "value", totalExp, 0.5);
+        tween.TweenProperty(_expBar, GodotProperty.Value, totalExp, 0.5);
     }
 
     private void SetBase()

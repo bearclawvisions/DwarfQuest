@@ -7,7 +7,7 @@ namespace DwarfQuest.Components.Container;
 
 public partial class PartyContainer : VBoxContainer
 {
-    private const float ContainerWidth = 250f; // ItemEntry inherits this
+    private const float ContainerWidth = 300f; // ItemEntry inherits this
     private const float ContainerHeight = 50f; // ItemEntry inherits this
     
     public void Initialize(List<PlayerBattleResultInfo> playerResults, BattleResult battleResult)
@@ -26,7 +26,7 @@ public partial class PartyContainer : VBoxContainer
     private void SetBase()
     {
         var windowSize = AutoLoader.GetWindowSize();
-		var horizontalWidth = windowSize.X * 0.75f; // 25% of the screen width
+		var horizontalWidth = windowSize.X * 0.75f;
         var verticalHeight = windowSize.Y * 0.42f; // 42% of the screen height
         
         var rightLocation = horizontalWidth - ContainerWidth / 2;
