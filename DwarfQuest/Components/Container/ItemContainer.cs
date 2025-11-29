@@ -9,6 +9,9 @@ namespace DwarfQuest.Components.Container;
 
 public partial class ItemContainer : VBoxContainer
 {
+    private const float ContainerWidth = 250f; // ItemEntry inherits this
+    private const float ContainerHeight = 50f; // ItemEntry inherits this
+    
     public async Task Initialize(List<Item> items)
     {
         SetBase();
@@ -24,17 +27,20 @@ public partial class ItemContainer : VBoxContainer
             var tween = CreateTween();
             tween.TweenProperty(entry, GodotProperty.ModulateAlpha, 1.0, 0.2);
 		
+            // item appearance animation
             await ToSignal(GetTree().CreateTimer(0.2), SceneTreeTimer.SignalName.Timeout);
         }
     }
 
     private void SetBase()
     {
-		var windowSizeCenter = AutoLoader.GetWindowSize().X / 2;
-        const float containerWidth = 250f; // ItemEntry inherits this
-        var leftLocation = windowSizeCenter / 2 - containerWidth / 2;
+        var windowSize = AutoLoader.GetWindowSize();
+		var horizontalWidth = windowSize.X * 0.25f; // 25% of the screen width
+        var verticalHeight = windowSize.Y * 0.42f; // 42% of the screen height
         
-        Size = new Vector2(containerWidth, 50f);
-        Position = new Vector2(leftLocation, 150f);
+        var leftLocation = horizontalWidth - ContainerWidth / 2;
+        
+        Size = new Vector2(ContainerWidth, ContainerHeight);
+        Position = new Vector2(leftLocation, verticalHeight);
     }
 }

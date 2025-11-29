@@ -38,26 +38,28 @@ public partial class CombatResults : Control
 
 	private void InitializeStaticText()
 	{
-		var windowSizeCenter = AutoLoader.GetWindowSize().X / 2;
+		var windowSize = AutoLoader.GetWindowSize();
+		var quarterWindowSizeX = windowSize.X * 0.25f;
+		var titleHeightPosition = windowSize.Y * 0.07f; // 7% of the screen height
+		var labelHeightPosition = windowSize.Y * 0.33f;
 		
 		var title = new Label();
 		title.Text = UiLabels.BattleResults.GetDescription();
 		AddChild(title);
-		var labelSize = title.Size.X;
-		var centerLocation = windowSizeCenter - labelSize / 2;
-		title.Position = new Vector2(centerLocation, 25f);
+		var centerLocation = quarterWindowSizeX * 2 - title.Size.X / 2;
+		title.Position = new Vector2(centerLocation, titleHeightPosition);
 		
 		var itemTitle = new Label();
 		itemTitle.Text = UiLabels.Items.GetDescription();
 		AddChild(itemTitle);
-		var leftLocation = windowSizeCenter / 2 - itemTitle.Size.X / 2;
-		itemTitle.Position = new Vector2(leftLocation, 120f);
+		var leftLocation = quarterWindowSizeX - itemTitle.Size.X / 2;
+		itemTitle.Position = new Vector2(leftLocation, labelHeightPosition);
 		
 		var partyTitle = new Label();
 		partyTitle.Text = UiLabels.Party.GetDescription();
 		AddChild(partyTitle);
-		var rightLocation = windowSizeCenter / 2 * 3 - partyTitle.Size.X / 2;
-		partyTitle.Position = new Vector2(rightLocation, 120f);
+		var rightLocation = quarterWindowSizeX * 3 - partyTitle.Size.X / 2;
+		partyTitle.Position = new Vector2(rightLocation, labelHeightPosition);
 	}
 
 	private void SetBattleResultData()

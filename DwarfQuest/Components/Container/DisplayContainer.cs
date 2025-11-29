@@ -7,6 +7,10 @@ namespace DwarfQuest.Components.Container;
 
 public partial class DisplayContainer : HBoxContainer
 {
+    private const float ContainerWidth = 150f;
+    private const float ContainerHeight = 50f;
+    private const float CountDuration = 1.5f;
+    
     private Label _name;
     private Label _digits;
 
@@ -26,33 +30,32 @@ public partial class DisplayContainer : HBoxContainer
     private void DefineDisplayTypeAndPosition(UiLabels name)
     {
         _name.Text = name.GetDescription();
-        const float displayHeight = 60f;
         var x = CalculateHorizontalPosition(name);
-        Position = new Vector2(x, displayHeight);
+        Position = new Vector2(x, ContainerHeight);
     }
 
     private float CalculateHorizontalPosition(UiLabels name)
     {
-        var screenSize = AutoLoader.GetWindowSize();
+        var screenWidth = AutoLoader.GetWindowSize().X;
 
         switch (name)
         {
             case UiLabels.Experience:
             {
-                var center = screenSize.X / 3;
+                var horizontalLocation = screenWidth * 0.33f; // 1/3 of the screen width
                 var sizeOffset = Size.X;
-                return center - sizeOffset;
+                return horizontalLocation - sizeOffset;
             }
             case UiLabels.SkillPoints:
             {
-                var center = screenSize.X / 2;
-                var sizeOffset = Size.X / 2;
+                var center = screenWidth * 0.5f;
+                var sizeOffset = Size.X / 2; // to center the label
                 return center - sizeOffset;
             }
             case UiLabels.Money:
             {
-                var center = screenSize.X / 3;
-                return center * 2;
+                var horizontalLocation = screenWidth * 0.33f;
+                return horizontalLocation * 2;
             }
             default:
                 return 0;
@@ -61,7 +64,7 @@ public partial class DisplayContainer : HBoxContainer
 
     private void SetBase()
     {
-        Size = new Vector2(150, 50);
+        Size = new Vector2(ContainerWidth, ContainerHeight);
         
         _name = new Label();
         _digits = new Label();
@@ -79,6 +82,6 @@ public partial class DisplayContainer : HBoxContainer
         tween.TweenMethod(Callable.From((double value) => 
         {
             _digits.Text = Mathf.RoundToInt((float)value).ToString();
-        }), 0.0, (double)_amount, 1.5f);
+        }), 0.0, (double)_amount, CountDuration);
     }
 }
