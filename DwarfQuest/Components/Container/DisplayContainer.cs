@@ -1,3 +1,4 @@
+using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Extensions;
 using DwarfQuest.Scripts;
@@ -9,7 +10,6 @@ public partial class DisplayContainer : HBoxContainer
 {
     private const float ContainerWidth = 150f;
     private const float ContainerHeight = 50f;
-    private const float CountDuration = 1.5f;
     
     private Label _name;
     private Label _digits;
@@ -24,7 +24,7 @@ public partial class DisplayContainer : HBoxContainer
         _digits.Text = amount.ToString();
         
         DefineDisplayTypeAndPosition(name);
-        CountUpAnimation();
+        _digits.CountUpAnimation(amount);
     }
 
     private void DefineDisplayTypeAndPosition(UiLabels name)
@@ -72,16 +72,5 @@ public partial class DisplayContainer : HBoxContainer
             
         AddChild(_name);
         AddChild(_digits);
-    }
-
-    private void CountUpAnimation()
-    {
-        var tween = CreateTween();
-        tween.SetEase(Tween.EaseType.Out);
-        tween.SetTrans(Tween.TransitionType.Cubic);
-        tween.TweenMethod(Callable.From((double value) => 
-        {
-            _digits.Text = Mathf.RoundToInt((float)value).ToString();
-        }), 0.0, (double)_amount, CountDuration);
     }
 }

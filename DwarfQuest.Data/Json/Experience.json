@@ -1,0 +1,14 @@
+{
+  "ExperienceToLevel": [
+    {"Level": 1, "Experience": 100},
+    {"Level": 2, "Experience": 250},
+    {"Level": 3, "Experience": 300},
+    {"Level": 4, "Experience": 600},
+    {"Level": 5, "Experience": 1000},
+    {"Level": 6, "Experience": 1500},
+    {"Level": 7, "Experience": 2100},
+    {"Level": 8, "Experience": 2800},
+    {"Level": 9, "Experience": 3600},
+    {"Level": 10, "Experience": 4500}
+  ]
+}

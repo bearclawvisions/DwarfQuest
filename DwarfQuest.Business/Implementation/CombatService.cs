@@ -63,9 +63,11 @@ public class CombatService
 
     public BattleResult GetBattleResult()
     {
+        // todo in this service already update player data and inventory
+        
         _battleResult = new BattleResult
         {
-            Experience = 100,
+            Experience = 66,
             SkillPoints = 5,
             Money = 99,
             Items =
@@ -85,7 +87,7 @@ public class CombatService
         
         _battleResult = new BattleResult
         {
-            Experience = 100,
+            Experience = 66,
             Money = 99,
             Message = "Congratulations!"
         };
@@ -96,12 +98,20 @@ public class CombatService
         var players = new List<PlayerBattleResultInfo>();
         
         var data = _jsonService.Characters;
+        var expToLevel = _jsonService.ExperienceToLevel;
         foreach (var player in data.Characters)
         {
+            var playerLevel = player.Stats.Level;
+            var expNeededToLevel = expToLevel.ExperienceToLevel.Find(x => x.Level == playerLevel);
+            
+            if (expNeededToLevel == null) 
+                throw new Exception("Could not find experience needed to level for player");
+            
             var info = new PlayerBattleResultInfo()
             {
                 Name = player.Name,
                 Experience = player.Stats.Experience,
+                ExperienceToNextLevel = expNeededToLevel.Experience,
                 SkillPoints = player.Stats.SkillPoints,
             };
             

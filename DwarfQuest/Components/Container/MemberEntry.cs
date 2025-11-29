@@ -1,3 +1,4 @@
+using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Extensions;
 using DwarfQuest.Data.Models;
@@ -12,27 +13,50 @@ public partial class MemberEntry : HBoxContainer
     private Label _dash;
     private Label _expLabel;
     private ProgressBar _expBar;
-    private Label _skillPointAmount;
+    private Label _spLabel;
+    private Label _spAmount;
+    
+    private PlayerBattleResultInfo _info;
 
     public void Initialize(PlayerBattleResultInfo info)
     {
         SetBase();
         
+        _info = info;
+        
         _name.Text = info.Name;
         _expBar.Value = info.Experience;
-        _skillPointAmount.Text += " " + info.SkillPoints;
+        _expBar.MaxValue = info.ExperienceToNextLevel;
+        _spAmount.Text = info.SkillPoints.ToString();
     }
     
     public void UpdateValues(int experience, int skillPoints)
     {
-        _expBar.Value = experience;
-        _skillPointAmount.Text = $"{UiLabels.SkillPoints.GetDescription()} {skillPoints}";
+        UpdateExperience(experience);
+        UpdateSkillPoints(skillPoints);
+    }
+
+    private void UpdateSkillPoints(int skillPoints)
+    {
+        var currentSp = _spAmount.Text.ToInt();
+        var totalSp = currentSp + skillPoints;
+        _spAmount.CountUpAnimation(totalSp, currentSp);
+    }
+
+    private void UpdateExperience(int experience)
+    {
+        // todo: on MaxValue, levelup animation and fillbar again for next level
+        // popup window to show stat changes?
+        var totalExp = _expBar.Value + experience;
+        
+        var tween = CreateTween();
+        tween.TweenProperty(_expBar, "value", totalExp, 0.5);
     }
 
     private void SetBase()
     {
         _portrait = new ColorRect();
-        _portrait.Color = new Color(0.71f, 0.25f, 0.38f); // reddish
+        _portrait.Color = new Color(0.71f, 0.25f, 0.38f); // reddish color
         _portrait.CustomMinimumSize = new Vector2(25, 25);
         
         _name = new Label { CustomMinimumSize = new Vector2(80, 25)};
@@ -43,14 +67,17 @@ public partial class MemberEntry : HBoxContainer
         
         _expBar = new ProgressBar { ShowPercentage = false, CustomMinimumSize = new Vector2(75, 10), SizeFlagsVertical = SizeFlags.ShrinkCenter };
         
-        _skillPointAmount = new Label { Text = UiLabels.SkillPoints.GetDescription() };
-        _skillPointAmount.SizeFlagsHorizontal = SizeFlags.ShrinkEnd | SizeFlags.Expand;
+        _spLabel = new Label { Text = UiLabels.SkillPoints.GetDescription() };
+        
+        _spAmount = new Label();
+        _spAmount.SizeFlagsHorizontal = SizeFlags.ShrinkEnd | SizeFlags.Expand;
 
         AddChild(_portrait);
         AddChild(_name);
         AddChild(_dash);
         AddChild(_expLabel);
         AddChild(_expBar);
-        AddChild(_skillPointAmount);
+        AddChild(_spLabel);
+        AddChild(_spAmount);
     }
 }
