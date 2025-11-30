@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://btq8gqrxp7ia6"]
+
+[ext_resource type="Texture2D" uid="uid://bh3a0p8qw1w8x" path="res://Assets/Tileset/DwarvenDelve/Characters/Dwarf/YellowMiner.png" id="1_2mlh7"]
+[ext_resource type="Script" uid="uid://rgj4ebcykfno" path="res://Scripts/OverworldPlayer.cs" id="1_a5ni0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5ni0"]
+size = Vector2(10, 16)
+
+[node name="OverworldPlayer" type="CharacterBody2D"]
+position = Vector2(338, 194)
+scale = Vector2(10, 10)
+script = ExtResource("1_a5ni0")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_2mlh7")
+hframes = 4
+vframes = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a5ni0")
