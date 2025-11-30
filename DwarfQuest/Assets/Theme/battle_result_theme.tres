@@ -15,5 +15,6 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [resource]
+Label/font_sizes/font_size = 14
 ProgressBar/styles/background = SubResource("StyleBoxFlat_v78en")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_hdrk3")

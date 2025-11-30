@@ -91,6 +91,4 @@ public partial class CombatResults : Control
 		AddChild(_partyContainer);
 		_partyContainer.Initialize(_playerResults, _result);
 	}
-
-	// use input to close and go to overworld
 }
