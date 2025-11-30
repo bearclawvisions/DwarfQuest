@@ -48,13 +48,13 @@ public partial class DisplayContainer : HBoxContainer
             }
             case UiLabels.SkillPoints:
             {
-                var center = screenWidth * 0.5f;
+                var center = screenWidth * 0.5f; // 50% of the screen width
                 var sizeOffset = Size.X / 2; // to center the label
                 return center - sizeOffset;
             }
             case UiLabels.Money:
             {
-                var horizontalLocation = screenWidth * 0.33f;
+                var horizontalLocation = screenWidth * 0.33f; // 1/3 of the screen width
                 return horizontalLocation * 2;
             }
             default:

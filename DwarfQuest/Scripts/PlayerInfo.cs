@@ -16,9 +16,10 @@ public partial class PlayerInfo : VBoxContainer
 	public override void _Ready()
 	{
         this.ClearPlaceholders();
+        const int padding = 10;
         Theme = ResourceManager.GetAsset<Theme>(AssetName.CombatTheme);
         AnchorsPreset = (int)LayoutPreset.BottomRight;
-        Position = new Vector2(Position.X - 10, Position.Y - 10); // padding from screen edges
+        Position = new Vector2(Position.X - padding, Position.Y - padding);
 	}
 
 	public void InitializePlayerInfo(List<CombatantInfo> combatants)

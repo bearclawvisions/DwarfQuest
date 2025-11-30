@@ -47,9 +47,9 @@ public partial class CombatResults : Control
 	private void InitializeStaticText()
 	{
 		var windowSize = AutoLoader.GetWindowSize();
-		var quarterWindowSizeX = windowSize.X * 0.25f;
+		var quarterWindowSizeX = windowSize.X * 0.25f; // 25% of the screen width
 		var titleHeightPosition = windowSize.Y * 0.07f; // 7% of the screen height
-		var labelHeightPosition = windowSize.Y * 0.33f;
+		var labelHeightPosition = windowSize.Y * 0.33f; // 33% of the screen height
 		
 		CreateStaticLabel(UiLabels.BattleResults.GetDescription(), quarterWindowSizeX * 2, titleHeightPosition);
 		CreateStaticLabel(UiLabels.Items.GetDescription(), quarterWindowSizeX, labelHeightPosition);

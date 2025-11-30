@@ -16,9 +16,10 @@ public partial class CombatMenu : MenuBase
     public override void _Ready()
     {
         this.ClearPlaceholders();
-        
+
+        const int padding = 10;
         AnchorsPreset = (int)LayoutPreset.BottomLeft;
-        Position = new Vector2(Position.X + 10, Position.Y - 10); // padding from screen edges
+        Position = new Vector2(Position.X + padding, Position.Y - padding);
         Size = new Vector2(50, 0);
 		
         FightButton = new CombatButton { Text = nameof(ButtonType.Fight), ActionType = ActionType.Fight };

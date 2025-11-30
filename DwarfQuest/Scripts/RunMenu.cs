@@ -14,7 +14,9 @@ public partial class RunMenu : MenuBase
     {
         Visible = false;
         AnchorsPreset = (int)LayoutPreset.BottomLeft;
-        Position = new Vector2(Position.X + 70, Position.Y - 10); // padding from screen edges
+        const int paddingX = 70;
+        const int paddingY = 10;
+        Position = new Vector2(Position.X + paddingX, Position.Y - paddingY);
         Size = new Vector2(50, 0);
 		
         Yes = new CombatButton { Text = nameof(ButtonType.Yes)};

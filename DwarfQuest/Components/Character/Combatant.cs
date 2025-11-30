@@ -11,6 +11,7 @@ public partial class Combatant : Node2D
     public CombatantInfo CombatInfo;
     
     private Sprite2D _sprite;
+    private float _enterCombatDuration = 1.0f;
     private float _deathDuration = 0.5f;
     private Vector2 _deathPosition = new Vector2(0f, 25.0f);
     
@@ -52,13 +53,14 @@ public partial class Combatant : Node2D
 
     public void EnterCombat()
     {
+        var enterSideX = CombatInfo.IsPlayer ? 300 : -300; // either enter from the left or right side
         var combatPosition = CombatInfo.CombatPosition.ToGodotVector();
         var randomY = (float)_random.Next(-100, 100);
-        var combatEnteredFrom = CombatInfo.IsPlayer ? new Vector2(300, randomY) : new Vector2(-300, randomY);
+        var combatEnteredFrom = new Vector2(enterSideX, randomY);
         Position = combatPosition + combatEnteredFrom;
 
         var tween = GetTree().CreateTween();
-        tween.TweenProperty(this, "position", combatPosition, 1.0f)
+        tween.TweenProperty(this, GodotProperty.Position, combatPosition, _enterCombatDuration)
             .SetTrans(Tween.TransitionType.Sine)
             .SetEase(Tween.EaseType.Out);
 
