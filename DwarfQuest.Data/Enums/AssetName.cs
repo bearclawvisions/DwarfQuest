@@ -8,6 +8,7 @@ public enum AssetName
     [Category(AssetCategory.Theme), Path("battle_result_theme.tres")] BattleResultTheme,
     
     [Category(AssetCategory.Player), Path("placeholder.png")] PlayerPlaceholder,
+    [Category(AssetCategory.Player), Path("overworld_player.tres")] OverworldPlayerAnimations,
     
     [Category(AssetCategory.Enemy), Path("placeholder.png")] EnemyPlaceholder,
 }

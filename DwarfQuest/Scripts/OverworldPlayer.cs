@@ -1,6 +1,6 @@
 using DwarfQuest.Bridge.Extensions;
+using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Data.Enums;
-using DwarfQuest.Data.Extensions;
 using Godot;
 using System;
 
@@ -23,6 +23,7 @@ public partial class OverworldPlayer : CharacterBody2D
 		CollisionMask = (uint)CollideLayer.Walls;
 		
 		_sprite = new AnimatedSprite2D();
+		_sprite.SpriteFrames = ResourceManager.GetAsset<SpriteFrames>(AssetName.OverworldPlayerAnimations);
 		AddChild(_sprite);
 		SetAnimation();
 		_sprite.Play();
