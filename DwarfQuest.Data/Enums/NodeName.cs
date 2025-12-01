@@ -4,10 +4,10 @@ namespace DwarfQuest.Data.Enums;
 
 public enum NodeName
 {
+    // Overworld
+    [Path("%Ground")] Ground,
+    [Path("%Walls")] Walls,
+    
     [Path("Sprite")] Sprite,
-    // [Path("WeaponPivot")] WeaponPivot,
-    // [Path("DetectionArea")] DetectionArea,
-    // [Path("Hitbox")] Hitbox,
-    // [Path("CollisionShape2D")] CollisionShape2D,
     // [Path("Control/HealthBar")] HealthBar,
 }
