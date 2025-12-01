@@ -1,8 +1,10 @@
+using DwarfQuest.Data.Attributes;
+
 namespace DwarfQuest.Data.Enums;
 
 public enum NodeName
 {
-    // [Path("Skin")] Skin,
+    [Path("Sprite")] Sprite,
     // [Path("WeaponPivot")] WeaponPivot,
     // [Path("DetectionArea")] DetectionArea,
     // [Path("Hitbox")] Hitbox,

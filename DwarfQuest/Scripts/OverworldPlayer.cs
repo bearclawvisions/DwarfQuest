@@ -1,4 +1,6 @@
+using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Data.Enums;
+using DwarfQuest.Data.Extensions;
 using Godot;
 using System;
 
@@ -14,9 +16,19 @@ public partial class OverworldPlayer : CharacterBody2D
 	
 	public override void _Ready()
 	{
+		this.ClearPlaceholders();
+		
 		MotionMode = MotionModeEnum.Floating;
-		_sprite = GetNode<AnimatedSprite2D>("Sprite");
+		CollisionLayer = (uint)CollideLayer.Player;
+		CollisionMask = (uint)CollideLayer.Walls;
+		
+		_sprite = new AnimatedSprite2D();
+		AddChild(_sprite);
+		SetAnimation();
 		_sprite.Play();
+
+		var camera = new Camera2D();
+		AddChild(camera);
 	}
 
 	public override void _Process(double delta)
@@ -60,6 +72,8 @@ public partial class OverworldPlayer : CharacterBody2D
 		if (direction == Vector2.Up) _facing = Facing.Back;
 		if (direction == Vector2.Left) _facing = Facing.Left;
 		if (direction == Vector2.Right) _facing = Facing.Right;
+		
+		// diagonal facing ??
 	}
 
 	private void SetAnimation()

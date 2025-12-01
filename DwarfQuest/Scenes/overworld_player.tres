@@ -1,69 +1,68 @@
-[gd_scene load_steps=20 format=3 uid="uid://btq8gqrxp7ia6"]
+[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://c8l2cew60at1o"]
 
-[ext_resource type="Texture2D" uid="uid://bh3a0p8qw1w8x" path="res://Assets/Tileset/DwarvenDelve/Characters/Dwarf/YellowMiner.png" id="1_2mlh7"]
-[ext_resource type="Script" uid="uid://rgj4ebcykfno" path="res://Scripts/OverworldPlayer.cs" id="1_a5ni0"]
+[ext_resource type="Texture2D" uid="uid://bh3a0p8qw1w8x" path="res://Assets/Tileset/DwarvenDelve/Characters/Dwarf/YellowMiner.png" id="1_rs0qb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ny5g"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(0, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7gkiw"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(96, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a5ni0"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c8xp0"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(96, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j108u"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(0, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sg26m"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(96, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dsjxe"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(0, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vs4vr"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(48, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cg4wu"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(144, 48, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmsu8"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(0, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_txr4t"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4rusb"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s5d6j"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(0, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_upr8o"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(48, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l0v70"]
-atlas = ExtResource("1_2mlh7")
+atlas = ExtResource("1_rs0qb")
 region = Rect2(144, 96, 48, 48)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_7ny5g"]
+[resource]
 animations = [{
 "frames": [{
 "duration": 5.0,
@@ -149,19 +148,3 @@ animations = [{
 "name": &"WalkSide",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a5ni0"]
-size = Vector2(10, 16)
-
-[node name="OverworldPlayer" type="CharacterBody2D"]
-collision_layer = 2
-script = ExtResource("1_a5ni0")
-metadata/_edit_group_ = true
-
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.99999994, 0.99999994)
-sprite_frames = SubResource("SpriteFrames_7ny5g")
-animation = &"IdleFront"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_a5ni0")

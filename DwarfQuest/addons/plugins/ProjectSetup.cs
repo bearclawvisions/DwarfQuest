@@ -116,14 +116,14 @@ public partial class ProjectSetup : EditorPlugin
     private void SetupCollisionLayers()
     {
         // 2D Physics layers for top-down game
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_1", "Player");
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_2", "Enemies");
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_3", "NPCs");
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_4", "Environment");
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_5", "Interactables");
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_6", "Triggers");
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_7", "Projectiles");
-        ProjectSettings.SetSetting("layer_names/2d_physics/layer_8", "UI");
+        ProjectSettings.SetSetting("layer_names/2d_physics/layer_1", "Walls");
+        ProjectSettings.SetSetting("layer_names/2d_physics/layer_2", "Player");
+        // ProjectSettings.SetSetting("layer_names/2d_physics/layer_3", "NPCs");
+        // ProjectSettings.SetSetting("layer_names/2d_physics/layer_4", "Environment");
+        // ProjectSettings.SetSetting("layer_names/2d_physics/layer_5", "Interactables");
+        // ProjectSettings.SetSetting("layer_names/2d_physics/layer_6", "Triggers");
+        // ProjectSettings.SetSetting("layer_names/2d_physics/layer_7", "Projectiles");
+        // ProjectSettings.SetSetting("layer_names/2d_physics/layer_8", "UI");
     }
 }
 #endif
