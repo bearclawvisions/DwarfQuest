@@ -6,7 +6,7 @@ namespace DwarfQuest.Scripts;
 
 public partial class OverworldPlayer : CharacterBody2D
 {
-	private const float Speed = 300.0f;
+	private const float Speed = 100.0f;
 	private const float Deceleration = Speed * 5.0f;
 	private OverworldPlayerState _state = OverworldPlayerState.Idle;
 	private Facing _facing = Facing.Front;
