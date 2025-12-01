@@ -7,7 +7,6 @@
 size = Vector2(10, 16)
 
 [node name="OverworldPlayer" type="CharacterBody2D"]
-collision_layer = 2
 script = ExtResource("1_a5ni0")
 metadata/_edit_group_ = true
 

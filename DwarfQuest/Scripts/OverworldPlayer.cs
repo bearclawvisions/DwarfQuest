@@ -10,10 +10,14 @@ public partial class OverworldPlayer : CharacterBody2D
 {
 	private const float Speed = 100.0f;
 	private const float Deceleration = Speed * 5.0f;
+	private static readonly Vector2 SpriteSize = new (48, 48);
+	
 	private OverworldPlayerState _state = OverworldPlayerState.Idle;
 	private Facing _facing = Facing.Front;
 	private AnimatedSprite2D _sprite;
-	
+	private CollisionShape2D _collisionShape;
+
+
 	public override void _Ready()
 	{
 		this.ClearPlaceholders();
@@ -21,15 +25,20 @@ public partial class OverworldPlayer : CharacterBody2D
 		MotionMode = MotionModeEnum.Floating;
 		CollisionLayer = (uint)CollideLayer.Player;
 		CollisionMask = (uint)CollideLayer.Walls;
-		
-		_sprite = new AnimatedSprite2D();
-		_sprite.SpriteFrames = ResourceManager.GetAsset<SpriteFrames>(AssetName.OverworldPlayerAnimations);
-		AddChild(_sprite);
-		SetAnimation();
-		_sprite.Play();
 
-		var camera = new Camera2D();
-		AddChild(camera);
+		AddSprite();
+		AddCollisionShape();
+		AddCamera();
+	}
+
+	private void AddCollisionShape()
+	{
+		_collisionShape = new CollisionShape2D();
+		AddChild(_collisionShape);
+		
+		var sizeX = (float)Math.Round(SpriteSize.X * 0.20f, MidpointRounding.AwayFromZero);
+		var sizeY = (float)Math.Round(SpriteSize.Y * 0.33f, MidpointRounding.AwayFromZero);
+		_collisionShape.Shape = new RectangleShape2D { Size = new Vector2(sizeX, sizeY) };
 	}
 
 	public override void _Process(double delta)
@@ -65,6 +74,21 @@ public partial class OverworldPlayer : CharacterBody2D
 			nameof(Movement.MoveUp),
 			nameof(Movement.MoveDown)
 		);
+	}
+	
+	private void AddSprite()
+	{
+		_sprite = new AnimatedSprite2D();
+		_sprite.SpriteFrames = ResourceManager.GetAsset<SpriteFrames>(AssetName.OverworldPlayerAnimations);
+		AddChild(_sprite);
+		SetAnimation();
+		_sprite.Play();
+	}
+	
+	private void AddCamera()
+	{
+		var camera = new Camera2D();
+		AddChild(camera);
 	}
 
 	private void SetFacing(Vector2 direction)
