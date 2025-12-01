@@ -1,7 +1,6 @@
 using DwarfQuest.Data.Enums;
 using Godot;
 using System;
-using Animation = DwarfQuest.Data.Enums.Animation;
 
 namespace DwarfQuest.Scripts;
 
@@ -17,6 +16,7 @@ public partial class OverworldPlayer : CharacterBody2D
 	{
 		MotionMode = MotionModeEnum.Floating;
 		_sprite = GetNode<AnimatedSprite2D>("Sprite");
+		_sprite.Play();
 	}
 
 	public override void _Process(double delta)
@@ -30,11 +30,13 @@ public partial class OverworldPlayer : CharacterBody2D
 		var direction = GetInputVector2();
 		if (direction != Vector2.Zero)
 		{
+			_state = OverworldPlayerState.Walking;
 			velocity = direction * Speed;
 			SetFacing(direction);
 		}
 		else
 		{
+			_state = OverworldPlayerState.Idle;
 			velocity = Velocity.MoveToward(Vector2.Zero, (float)delta * Deceleration);
 		}
 		
@@ -65,33 +67,35 @@ public partial class OverworldPlayer : CharacterBody2D
 		switch (_state)
 		{
 			case OverworldPlayerState.Idle: SetIdleAnimation(); break;
-			// case OverworldPlayerState.Walking: SetWalkingAnimation(); break;
+			case OverworldPlayerState.Walking: SetWalkingAnimation(); break;
+			default:
+				throw new ArgumentOutOfRangeException($"Enum out of range {nameof(OverworldPlayerState)}.");
+		}
+	}
+
+	private void SetWalkingAnimation()
+	{
+		switch (_facing)
+		{
+			case Facing.Front: _sprite.Animation = nameof(AnimationName.WalkFront); break;
+			case Facing.Back: _sprite.Animation = nameof(AnimationName.WalkBack); break;
+			case Facing.Right: _sprite.Animation = nameof(AnimationName.WalkSide); _sprite.FlipH = false; break;
+			case Facing.Left: _sprite.Animation = nameof(AnimationName.WalkSide); _sprite.FlipH = true; break;
+			default:
+				throw new ArgumentOutOfRangeException($"Enum out of range {nameof(Facing)}, while walking.");
 		}
 	}
 
 	private void SetIdleAnimation()
 	{
-		_sprite.FlipH = false;
-		
 		switch (_facing)
 		{
-			case Facing.Front:
-				_sprite.Animation = nameof(Animation.IdleFront);
-				break;
-			case Facing.Back:
-				_sprite.Animation = nameof(Animation.IdleBack);
-				break;
-			case Facing.Right:
-				_sprite.Animation = nameof(Animation.IdleSide);
-				break;
-			case Facing.Left:
-				_sprite.Animation = nameof(Animation.IdleSide);
-				_sprite.FlipH = true;
-				break;
+			case Facing.Front: _sprite.Animation = nameof(AnimationName.IdleFront); break;
+			case Facing.Back: _sprite.Animation = nameof(AnimationName.IdleBack); break;
+			case Facing.Right: _sprite.Animation = nameof(AnimationName.IdleSide); _sprite.FlipH = false; break;
+			case Facing.Left: _sprite.Animation = nameof(AnimationName.IdleSide); _sprite.FlipH = true; break;
 			default:
-				throw new ArgumentOutOfRangeException($"Enum out of range {nameof(Facing)}");
+				throw new ArgumentOutOfRangeException($"Enum out of range {nameof(Facing)}, while idle.");
 		}
-		
-		_sprite.Play();
 	}
 }

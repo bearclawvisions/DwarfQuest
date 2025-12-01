@@ -1,8 +1,12 @@
 namespace DwarfQuest.Data.Enums;
 
-public enum Animation
+public enum AnimationName
 {
     IdleFront,
     IdleBack,
     IdleSide,
+    
+    WalkFront,
+    WalkBack,
+    WalkSide,
 }
