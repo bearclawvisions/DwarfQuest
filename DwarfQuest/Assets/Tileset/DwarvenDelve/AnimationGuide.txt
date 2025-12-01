@@ -43,13 +43,13 @@ Die: 0/1/2/3
 
 Miner (Yellow and Blue):
 Note: for the slashing animations, the weapon is not in the sprite itself and needs to be added.
-Front (idle): 0/2
+--Front (idle): 0/2
 Front (walk): 0/1/0/3/0
 Front (slash): 0/16/17/18/19/0
-Back (idle): 4/6
+--Back (idle): 4/6
 Back (walk): 4/5/4/7/4
 Back (slash): 4/20/21/22/23/0
-Side (idle): 8/10
+--Side (idle): 8/10
 Side (walk): 8/9/8/11/8
 Side (slash): 8/24/25/26/27/8
 Die: 12/13/14/15
