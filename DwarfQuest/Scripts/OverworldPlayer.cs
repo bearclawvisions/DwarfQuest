@@ -9,7 +9,7 @@ namespace DwarfQuest.Scripts;
 public partial class OverworldPlayer : CharacterBody2D
 {
 	private const float Speed = 100.0f;
-	private const float Deceleration = Speed * 5.0f;
+	private const float Deceleration = Speed * 5;
 	private static readonly Vector2 SpriteSize = new (48, 48);
 	
 	private OverworldPlayerState _state = OverworldPlayerState.Idle;
