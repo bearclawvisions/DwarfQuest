@@ -16,6 +16,8 @@ public partial class OverworldPlayer : CharacterBody2D
 	private Facing _facing = Facing.Front;
 	private AnimatedSprite2D _sprite;
 	private CollisionShape2D _collisionShape;
+	
+	public OverworldPlayerState State => _state;
 
 
 	public override void _Ready()

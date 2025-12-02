@@ -1,6 +1,7 @@
 using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
+using DwarfQuest.Data.Enums;
 using Godot;
 
 namespace DwarfQuest.Scripts;
@@ -16,5 +17,18 @@ public partial class Overworld : Node2D
 		AddChild(_player);
 		
 		_player.Position = _overworldService.GetPlayerPosition().ToGodotVector();
+	}
+
+	public override void _Process(double delta)
+	{
+		if (_player.State == OverworldPlayerState.Walking)
+			CalculateEncounterRate();
+	}
+
+	private void CalculateEncounterRate()
+	{
+		var isEncounter = _overworldService.ShouldEncounter();
+		if (isEncounter)
+			_overworldService.GoToCombat();
 	}
 }
