@@ -10,15 +10,17 @@ public partial class OverworldPlayer : CharacterBody2D
 {
 	private const float Speed = 100.0f;
 	private const float Deceleration = Speed * 5;
+	private const float DistancePerStep = 16f; // pixels per step
 	private static readonly Vector2 SpriteSize = new (48, 48);
 	
 	private OverworldPlayerState _state = OverworldPlayerState.Idle;
 	private Facing _facing = Facing.Front;
 	private AnimatedSprite2D _sprite;
 	private CollisionShape2D _collisionShape;
+	private float _distanceTraveled;
 	
 	public OverworldPlayerState State => _state;
-
+	public int StepsTaken { get; set; }
 
 	public override void _Ready()
 	{
@@ -57,6 +59,7 @@ public partial class OverworldPlayer : CharacterBody2D
 			_state = OverworldPlayerState.Walking;
 			velocity = direction * Speed;
 			SetFacing(direction);
+			CalculateSteps();
 		}
 		else
 		{
@@ -66,6 +69,17 @@ public partial class OverworldPlayer : CharacterBody2D
 		
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void CalculateSteps()
+	{
+		_distanceTraveled += Velocity.Length() * (float)GetPhysicsProcessDeltaTime();
+    
+		while (_distanceTraveled >= DistancePerStep)
+		{
+			StepsTaken++;
+			_distanceTraveled -= DistancePerStep;
+		}
 	}
 
 	private Vector2 GetInputVector2()
@@ -80,6 +94,8 @@ public partial class OverworldPlayer : CharacterBody2D
 	
 	private void AddSprite()
 	{
+		StepsTaken = 0; // reset steps taken, maybe integrate with service to save TotalStepsTaken
+		
 		_sprite = new AnimatedSprite2D();
 		_sprite.SpriteFrames = ResourceManager.GetAsset<SpriteFrames>(AssetName.OverworldPlayerAnimations);
 		AddChild(_sprite);

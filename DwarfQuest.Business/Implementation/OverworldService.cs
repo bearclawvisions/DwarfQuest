@@ -1,19 +1,35 @@
+using System.Diagnostics;
 using System.Numerics;
 
 namespace DwarfQuest.Business.Implementation;
 
 public class OverworldService
 {
-    private bool _isInOverworld = true;
-    private bool _isInSafeZone = false;
-    private bool _isInCombat = false;
-    private bool _isInMenu = false;
+    // These are set by initialize
+    private bool _isInOverworld;
+    private bool _isInSafeZone;
+    private bool _isInCombat;
+    private bool _isInMenu;
     
-    private int _stepsTaken = 0;
-    private int _encounterRate = 0;
-    private int _gracePeriod = 0;
+    private int _stepsTaken;
+    private int _totalSteps;
+    private byte _encounterRate;
+    private byte _gracePeriod;
+
+    private const byte EncounterRateMax = 100;
+    private const byte StepCounterMax = 255;
+    private const byte GracePeriodMax = 10;
     
     private Vector2 _playerPosition = new Vector2(0, 0);
+    private Stopwatch _timer;
+
+    public void Initialize()
+    {
+        GoToOverworld();
+        _timer = Stopwatch.StartNew();
+        var test = _timer.ElapsedMilliseconds;
+        _timer.Restart();
+    }
 
     public Vector2 GetPlayerPosition()
     {
@@ -27,65 +43,72 @@ public class OverworldService
         return _playerPosition;
     }
     
-    public bool GoToCombat()
+    public void GoToCombat()
     {
         _isInOverworld = false;
         _isInCombat = true;
-        
-        return _isInCombat;
+        ResetSteps();
     }
-    
-    public bool GoToMenu()
+
+    public void GoToMenu()
     {
         _isInOverworld = true;
         _isInMenu = true;
-        
-        return _isInMenu;
+        _isInCombat = false;
     }
     
-    public bool GoToSafeZone()
+    public void GoToSafeZone()
     {
         _isInOverworld = true;
         _isInSafeZone = true;
-        
-        return _isInSafeZone;
+        ResetSteps(); // maybe not?
     }
     
-    public bool GoToOverworld()
+    private void GoToOverworld()
     {
+        if (!_isInMenu)
+            _gracePeriod = GracePeriodMax;
+        
         _isInOverworld = true;
         _isInCombat = false;
         _isInSafeZone = false;
-
-        _gracePeriod = 1;
+        _isInMenu = false;
         
-        return _isInOverworld;
+        _stepsTaken = 0;
+        _encounterRate = 0;
     }
 
-    public bool ShouldEncounter()
+    public bool ShouldEncounter(int stepsTaken)
     {
+        _stepsTaken += stepsTaken;
+        
         if (_isInSafeZone || _isInMenu)
             return false;
         
         EncounterRate();
         
-        return _encounterRate == 1;
+        return _encounterRate == EncounterRateMax;
     }
 
     private void EncounterRate()
     {
-        if (_isInSafeZone || _isInMenu) return;
+        if (_isInSafeZone || _isInMenu)
+            return;
         
         // calc encounter on steps taken?
         // more steps = higher chance of encounter
         // send steps from godot to backend?
+        if (_stepsTaken > StepCounterMax)
+        {
+            _encounterRate++;
+            ResetSteps();
+        }
         
         // time based encounter?
         // scene change in godot, more edge cases to cover?
         
         // hybrid approach? time and steps
         
-        // take into account the safe zone
         // maybe a different encounter rate for each zone? (saved in the database)
         
         // based on a list, with chances for specific encounters, like rare encounter
@@ -94,5 +117,11 @@ public class OverworldService
         
         // integrate grace periods to prevent too much encounters
         // lessen grace period when item is used or options set differently
+    }
+    
+    private void ResetSteps()
+    {
+        _totalSteps += _stepsTaken;
+        _stepsTaken = 0;
     }
 }

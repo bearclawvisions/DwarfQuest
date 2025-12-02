@@ -13,6 +13,8 @@ public partial class Overworld : Node2D
 	
 	public override void _Ready()
 	{
+		_overworldService.Initialize();
+		
 		_player = new OverworldPlayer();
 		AddChild(_player);
 		
@@ -27,8 +29,11 @@ public partial class Overworld : Node2D
 
 	private void CalculateEncounterRate()
 	{
-		var isEncounter = _overworldService.ShouldEncounter();
+		var isEncounter = _overworldService.ShouldEncounter(_player.StepsTaken);
 		if (isEncounter)
+		{
 			_overworldService.GoToCombat();
+			this.ChangeScene(SceneType.Combat);
+		}
 	}
 }
