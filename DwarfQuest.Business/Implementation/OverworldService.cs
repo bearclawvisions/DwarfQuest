@@ -1,14 +1,22 @@
+using System.Numerics;
+
 namespace DwarfQuest.Business.Implementation;
 
 public class OverworldService
 {
-    public bool IsInOverworld => true;
-    public bool IsInSafeZone => false;
-    public bool IsInCombat => false;
-    public bool IsInMenu => false;
+    private bool _isInOverworld = true;
+    private bool _isInSafeZone = false;
+    private bool _isInCombat = false;
+    private bool _isInMenu = false;
     
-    public void Initialize()
+    private Vector2 _playerPosition = new Vector2(0, 0);
+
+    public Vector2 GetPlayerPosition()
     {
-        // something like getting the needed location for loading scenes
+        // todo calculate needed position
+        // todo save position on combat
+        _playerPosition = new Vector2(392, 248);
+        
+        return _playerPosition;
     }
 }

@@ -1,3 +1,4 @@
+using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using Godot;
@@ -14,7 +15,6 @@ public partial class Overworld : Node2D
 		_player = new OverworldPlayer();
 		AddChild(_player);
 		
-		// todo load position from servvice based on entry, exit or saved position on combat
-		_player.Position = new Vector2(392, 248);
+		_player.Position = _overworldService.GetPlayerPosition().ToGodotVector();
 	}
 }
