@@ -13,7 +13,7 @@ public class OverworldService
     private bool _isInCombat; // use this to remember position, maybe boolean for scene change?
     private bool _isInMenu;
 
-    private int _stepsTaken;
+    private byte _stepsTaken;
     private int _totalSteps;
     private byte _encounterRate;
     private byte _zoneModifier; // could be use to tweak encounter rate, also reduce chance of encounters for low level areas/players
@@ -85,7 +85,7 @@ public class OverworldService
         
         // Godot frontend only passes through total steps, backend calculates actual steps since last call
         var actualSteps = stepsTaken - _totalSteps;
-        _stepsTaken = actualSteps;
+        _stepsTaken = (byte)actualSteps;
         
         CalculateEncounterRate();
         
