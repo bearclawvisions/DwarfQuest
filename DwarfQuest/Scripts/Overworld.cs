@@ -40,9 +40,8 @@ public partial class Overworld : Node2D, IOverworldEventListener
 		if (isEncounter)
 		{
 			_player.ResetStepCounter();
-			GD.Print("Encounter!");
-			// _overworldService.GoToCombat();
-			// this.ChangeScene(SceneType.Combat);
+			_overworldService.GoToCombat();
+			this.ChangeScene(SceneType.Combat);
 		}
 	}
 }

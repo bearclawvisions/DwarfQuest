@@ -17,11 +17,9 @@ public class OverworldService
     private int _totalSteps;
     private byte _encounterRate;
     private byte _zoneModifier; // could be use to tweak encounter rate, also reduce chance of encounters for low level areas/players
-    private byte _gracePeriod;
 
     private const byte EncounterRateMax = 100; // 100% chance of encounter
     private const byte StepCounterMax = 10; // increase encounter rate every 10 steps
-    private const byte GracePeriodStepsMax = StepCounterMax / 10;
     private const byte MultiplierMin = 5;
     private const byte MultiplierMax = 10;
     
@@ -70,9 +68,6 @@ public class OverworldService
     
     private void GoToOverworld()
     {
-        if (!_isInMenu)
-            _gracePeriod = GracePeriodStepsMax;
-        
         _isInOverworld = true;
         _isInCombat = false;
         _isInSafeZone = false;
@@ -116,14 +111,11 @@ public class OverworldService
 
         _listener.ShowMessageAsync($"Encounter rate: {_encounterRate}%");
 
-        // maybe a different encounter rate for each zone? (saved in the database)
+        // different zone modifiers per area and take into account player level? (saved in the database)
         
         // based on a list, with chances for specific encounters, like rare encounter
         
         // let BattleManager choose enemies
-        
-        // integrate grace periods to prevent too much encounters
-        // lessen grace period when item is used or options set differently
     }
     
     private void ResetInternalSteps()

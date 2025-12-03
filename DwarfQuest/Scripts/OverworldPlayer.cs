@@ -75,9 +75,7 @@ public partial class OverworldPlayer : CharacterBody2D
 		
 		// after moving calculate steps
 		if (direction != Vector2.Zero)
-		{
 			CalculateSteps();
-		}
 	}
 	
 	public void ResetStepCounter()
