@@ -1,34 +1,38 @@
-using System.Diagnostics;
+using DwarfQuest.Business.Interfaces;
 using System.Numerics;
 
 namespace DwarfQuest.Business.Implementation;
 
 public class OverworldService
 {
+    private IOverworldEventListener _listener;
+    
     // These are set by initialize
     private bool _isInOverworld;
     private bool _isInSafeZone;
-    private bool _isInCombat;
+    private bool _isInCombat; // use this to remember position, maybe boolean for scene change?
     private bool _isInMenu;
-    
+
     private int _stepsTaken;
     private int _totalSteps;
     private byte _encounterRate;
+    private byte _zoneModifier; // could be use to tweak encounter rate, also reduce chance of encounters for low level areas/players
     private byte _gracePeriod;
 
-    private const byte EncounterRateMax = 100;
-    private const byte StepCounterMax = 255;
-    private const byte GracePeriodMax = 10;
+    private const byte EncounterRateMax = 100; // 100% chance of encounter
+    private const byte StepCounterMax = 10; // increase encounter rate every 10 steps
+    private const byte GracePeriodStepsMax = StepCounterMax / 10;
+    private const byte MultiplierMin = 5;
+    private const byte MultiplierMax = 10;
     
     private Vector2 _playerPosition = new Vector2(0, 0);
-    private Stopwatch _timer;
+    private Random _random = new();
 
-    public void Initialize()
+    public void Initialize(IOverworldEventListener listener)
     {
+        _listener = listener;
         GoToOverworld();
-        _timer = Stopwatch.StartNew();
-        var test = _timer.ElapsedMilliseconds;
-        _timer.Restart();
+        _zoneModifier = 2;
     }
 
     public Vector2 GetPlayerPosition()
@@ -38,7 +42,8 @@ public class OverworldService
         
         // todo calculate needed position
         // todo save position on combat
-        _playerPosition = new Vector2(392, 248);
+        // _playerPosition = new Vector2(392, 248);
+        _playerPosition = new Vector2(49, 339);
         
         return _playerPosition;
     }
@@ -47,27 +52,26 @@ public class OverworldService
     {
         _isInOverworld = false;
         _isInCombat = true;
-        ResetSteps();
+        ResetInternalSteps();
     }
 
-    public void GoToMenu()
+    private void GoToMenu()
     {
-        _isInOverworld = true;
+        _isInOverworld = false;
         _isInMenu = true;
-        _isInCombat = false;
     }
     
     public void GoToSafeZone()
     {
         _isInOverworld = true;
         _isInSafeZone = true;
-        ResetSteps(); // maybe not?
+        ResetInternalSteps(); // maybe not?
     }
     
     private void GoToOverworld()
     {
         if (!_isInMenu)
-            _gracePeriod = GracePeriodMax;
+            _gracePeriod = GracePeriodStepsMax;
         
         _isInOverworld = true;
         _isInCombat = false;
@@ -75,40 +79,43 @@ public class OverworldService
         _isInMenu = false;
         
         _stepsTaken = 0;
-        _encounterRate = 0;
+        _encounterRate = 1;
     }
 
+    // This is called every frame when waling
     public bool ShouldEncounter(int stepsTaken)
     {
-        _stepsTaken += stepsTaken;
-        
         if (_isInSafeZone || _isInMenu)
             return false;
         
-        EncounterRate();
+        // Godot frontend only passes through total steps, backend calculates actual steps since last call
+        var actualSteps = stepsTaken - _totalSteps;
+        _stepsTaken = actualSteps;
+        
+        CalculateEncounterRate();
         
         return _encounterRate == EncounterRateMax;
     }
 
-    private void EncounterRate()
+    private void CalculateEncounterRate()
     {
-        if (_isInSafeZone || _isInMenu)
+        if (_isInSafeZone || _isInMenu) // probably redundant
             return;
         
         // calc encounter on steps taken?
         // more steps = higher chance of encounter
         // send steps from godot to backend?
-        if (_stepsTaken > StepCounterMax)
-        {
-            _encounterRate++;
-            ResetSteps();
-        }
+        if (_stepsTaken <= StepCounterMax) 
+            return;
         
-        // time based encounter?
-        // scene change in godot, more edge cases to cover?
-        
-        // hybrid approach? time and steps
-        
+        var multiplier = _random.Next(MultiplierMin, MultiplierMax);
+        var calculatedRate = (byte)(_zoneModifier * multiplier);
+        var newRate = (byte)(calculatedRate + _encounterRate);
+        _encounterRate = newRate > EncounterRateMax ? EncounterRateMax : newRate;
+        ResetInternalSteps();
+
+        _listener.ShowMessageAsync($"Encounter rate: {_encounterRate}%");
+
         // maybe a different encounter rate for each zone? (saved in the database)
         
         // based on a list, with chances for specific encounters, like rare encounter
@@ -119,7 +126,7 @@ public class OverworldService
         // lessen grace period when item is used or options set differently
     }
     
-    private void ResetSteps()
+    private void ResetInternalSteps()
     {
         _totalSteps += _stepsTaken;
         _stepsTaken = 0;

@@ -11,16 +11,17 @@ public partial class OverworldPlayer : CharacterBody2D
 	private const float Speed = 100.0f;
 	private const float Deceleration = Speed * 5;
 	private const float DistancePerStep = 16f; // pixels per step
-	private static readonly Vector2 SpriteSize = new (48, 48);
+	private static readonly Vector2 SpriteSize = new (48, 48); // lot of empty space
 	
 	private OverworldPlayerState _state = OverworldPlayerState.Idle;
 	private Facing _facing = Facing.Front;
 	private AnimatedSprite2D _sprite;
 	private CollisionShape2D _collisionShape;
 	private float _distanceTraveled;
+	private Vector2 _previousPosition;
 	
 	public OverworldPlayerState State => _state;
-	public int StepsTaken { get; set; }
+	public int StepsTaken { get; private set; }
 
 	public override void _Ready()
 	{
@@ -29,7 +30,7 @@ public partial class OverworldPlayer : CharacterBody2D
 		MotionMode = MotionModeEnum.Floating;
 		CollisionLayer = (uint)CollideLayer.Player;
 		CollisionMask = (uint)CollideLayer.Walls;
-
+		
 		AddSprite();
 		AddCollisionShape();
 		AddCamera();
@@ -52,6 +53,9 @@ public partial class OverworldPlayer : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_previousPosition == Vector2.Zero)
+			_previousPosition = Position;
+		
 		Vector2 velocity;
 		var direction = GetInputVector2();
 		if (direction != Vector2.Zero)
@@ -59,7 +63,6 @@ public partial class OverworldPlayer : CharacterBody2D
 			_state = OverworldPlayerState.Walking;
 			velocity = direction * Speed;
 			SetFacing(direction);
-			CalculateSteps();
 		}
 		else
 		{
@@ -69,11 +72,24 @@ public partial class OverworldPlayer : CharacterBody2D
 		
 		Velocity = velocity;
 		MoveAndSlide();
+		
+		// after moving calculate steps
+		if (direction != Vector2.Zero)
+		{
+			CalculateSteps();
+		}
+	}
+	
+	public void ResetStepCounter()
+	{
+		StepsTaken = 0;
 	}
 
 	private void CalculateSteps()
 	{
-		_distanceTraveled += Velocity.Length() * (float)GetPhysicsProcessDeltaTime();
+		var actualDistanceMoved = Position.DistanceTo(_previousPosition);
+		_distanceTraveled += actualDistanceMoved;
+		_previousPosition = Position;
     
 		while (_distanceTraveled >= DistancePerStep)
 		{
