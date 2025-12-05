@@ -97,9 +97,6 @@ public class OverworldService
         if (_isInSafeZone || _isInMenu) // probably redundant
             return;
         
-        // calc encounter on steps taken?
-        // more steps = higher chance of encounter
-        // send steps from godot to backend?
         if (_stepsTaken <= StepCounterMax) 
             return;
         
