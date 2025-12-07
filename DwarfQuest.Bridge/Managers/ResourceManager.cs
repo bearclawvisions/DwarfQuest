@@ -6,6 +6,15 @@ namespace DwarfQuest.Bridge.Managers;
 
 public static class ResourceManager
 {
+    private const string ResourceBase = "res://";
+    private const string AssetPath = $"{ResourceBase}Assets";
+    private const string ScenePath = $"{ResourceBase}Scenes";
+    private const string DataPath = $"{ResourceBase}Data";
+    private const string DatabaseName = "Game.db";
+    
+    private const string SceneExtension = ".tscn";
+    private const string ResourceExtension = ".tres";
+    
     private static Dictionary<AssetCategory, Dictionary<AssetName, Resource>> _categorizedAssets = new();
     private static HashSet<AssetCategory> _loadedCategories = new();
     
@@ -26,8 +35,7 @@ public static class ResourceManager
     public static void ChangeScene(this Node node, SceneType sceneType)
     {
         var scenePath = sceneType.GetPath();
-        var sceneLocation = $"res://Scenes/{scenePath}.tscn";
-        
+        var sceneLocation = Path.Combine(ScenePath, scenePath + SceneExtension);
         node.GetTree().ChangeSceneToFile(sceneLocation);
     }
     
@@ -55,7 +63,7 @@ public static class ResourceManager
         {
             var assetCategory = asset.GetCategory().ToString();
             var resourceName = asset.GetPath();
-            var path = $"res://Assets/{assetCategory}/{resourceName}";
+            var path = Path.Combine(AssetPath, assetCategory, resourceName);
             
             LoadAssetToCategory(asset, path, category);
         }
@@ -155,4 +163,15 @@ public static class ResourceManager
     {
         return Enum.GetValues<AssetName>().Where(asset => asset.GetCategory() == category);
     }
+    
+    // todo - template in other library and on publish create template and initiate database in user://
+    // /// <summary>
+    // /// Get the path to the template database for reading purposes
+    // /// </summary>
+    // public static string GetTemplateDatabasePath()
+    // {
+    //     // return $"{OS.GetUserDataDir()}/DwarfQuest/";
+    //     var path = Path.Combine(DataPath, DatabaseName);
+    //     return path;
+    // }
 }

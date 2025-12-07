@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS Characters
+(
+    Id     INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name   TEXT NOT NULL,
+    Family TEXT NOT NULL,
+    Race   TEXT NOT NULL,
+    Class  TEXT NOT NULL
+)
