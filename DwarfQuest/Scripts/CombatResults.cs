@@ -2,6 +2,7 @@ using DwarfQuest.Bridge.Extensions;
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Components.Container;
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Extensions;
 using DwarfQuest.Data.Models;

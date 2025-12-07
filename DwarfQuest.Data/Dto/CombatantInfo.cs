@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace DwarfQuest.Data.Models;
+namespace DwarfQuest.Data.Dto;
 
 public class CombatantInfo
 {

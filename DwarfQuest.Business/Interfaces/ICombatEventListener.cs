@@ -1,3 +1,4 @@
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Models;
 
 namespace DwarfQuest.Business.Interfaces;

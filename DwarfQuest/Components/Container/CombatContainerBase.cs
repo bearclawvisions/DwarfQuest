@@ -2,6 +2,7 @@ using DwarfQuest.Data.Enums;
 using Godot;
 using System.Collections.Generic;
 using DwarfQuest.Components.Character;
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Models;
 using System.Linq;
 

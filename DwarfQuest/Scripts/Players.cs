@@ -1,6 +1,7 @@
 using DwarfQuest.Bridge.Managers;
 using DwarfQuest.Components.Character;
 using DwarfQuest.Components.Container;
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Models;
 using Godot;

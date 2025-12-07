@@ -1,3 +1,4 @@
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Models;
 using DwarfQuest.Scripts;
 using Godot;

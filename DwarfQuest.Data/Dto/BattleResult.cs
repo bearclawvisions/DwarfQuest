@@ -1,4 +1,6 @@
-namespace DwarfQuest.Data.Models;
+using DwarfQuest.Data.Models;
+
+namespace DwarfQuest.Data.Dto;
 
 public class BattleResult
 {

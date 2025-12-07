@@ -1,5 +1,6 @@
 using DwarfQuest.Business.Implementation;
 using DwarfQuest.Business.Interfaces;
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Models;
 

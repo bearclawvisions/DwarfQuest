@@ -1,4 +1,5 @@
 using DwarfQuest.Bridge.Managers;
+using DwarfQuest.Data.Dto;
 using DwarfQuest.Data.Enums;
 using DwarfQuest.Data.Models;
 using Godot;
