@@ -5,9 +5,6 @@
     <LangVersion>13</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="InitializationSteps.md" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DwarfQuest.Data\DwarfQuest.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
