@@ -15,8 +15,4 @@
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repository\" />
-  </ItemGroup>
-
 </Project>

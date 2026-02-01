@@ -1,3 +1,4 @@
+using DwarfQuest.Data.Models;
 using Microsoft.Data.Sqlite;
 
 namespace DwarfQuest.UnitTests.Tools;
@@ -16,16 +17,16 @@ public class DatabaseTools : UnitTestBase
     [Test]
     public void TestDatabaseConnection()
     {
-        try
-        {
-            _connection.Open();
-            
-            _connection.Close();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
+        const string sql = "INSERT INTO Characters (Name, Race, Class, Family) VALUES ('Test', 'Test', 'Test', 'Test')";
+        ExecuteSql(sql);
+    }
+
+    [Test]
+    public void ReadFromDatabase()
+    {
+        const string sql = "SELECT * FROM Characters";
+        var result = ReadSql<Character>(sql);
+        Console.WriteLine(result);
     }
 
     [Test]
@@ -85,6 +86,50 @@ public class DatabaseTools : UnitTestBase
         }
     }
     
+    private List<T> ReadSql<T>(string sql) where T : new()
+    {
+        var result = new List<T>();
+        
+        try
+        {
+            using var command = new SqliteCommand(sql, _connection);
+            _connection.Open();
+            using var reader = command.ExecuteReader();
+            
+            if (!reader.HasRows)
+                return result;
+            
+            while (reader.Read())
+            {
+                var item = new T();
+                var properties = typeof(T).GetProperties();
+            
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    var columnName = reader.GetName(i);
+                    var property = properties.FirstOrDefault(p => p.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase));
+
+                    if (property == null || !property.CanWrite) continue;
+                    
+                    var value = reader.GetValue(i);
+                    if (value != DBNull.Value)
+                    {
+                        property.SetValue(item, Convert.ChangeType(value, property.PropertyType));
+                    }
+                }
+            
+                result.Add(item);
+            }
+            // closes automatically, because of using statement
+        }
+        catch (Exception e)
+        {
+            throw new Exception($"Error reading SQL: {sql}", e);
+        }
+        
+        return result;
+    }
+    
     private static string InitializeConnectionString()
     {
         var solutionRoot = FindSolutionRoot();
@@ -95,7 +140,7 @@ public class DatabaseTools : UnitTestBase
     private static string FindSolutionRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory != null && !directory.GetFiles("*.sln").Any())
+        while (directory != null && directory.GetFiles("*.sln").Length == 0)
         {
             directory = directory.Parent;
         }
